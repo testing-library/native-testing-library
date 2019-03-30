@@ -4,6 +4,7 @@ import TR from 'react-test-renderer';
 import { wait } from './wait';
 import act from './act-compat';
 import { prettyPrint } from './pretty-print';
+import { waitForElement } from './wait-for-element';
 import { fireEvent as rntlFireEvent, NativeEvent } from './events';
 import { getQueriesForElement } from './get-queries-for-element';
 
@@ -49,4 +50,4 @@ Object.keys(rntlFireEvent).forEach(key => {
   };
 });
 
-export { act, fireEvent, render, wait, NativeEvent };
+export { act, fireEvent, render, wait, waitForElement, NativeEvent };
