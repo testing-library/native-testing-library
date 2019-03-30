@@ -14,7 +14,12 @@ function getElementError(message, container) {
 }
 
 function filterNodeByType(node, type) {
-  return node.type === type || node.type.displayName === type;
+  return node
+    ? node.type === type ||
+        (node.type && node.type.name === type) ||
+        (node.type && node.type.displayName === type) ||
+        false
+    : false;
 }
 
 function firstResultOrNull(queryFunction, ...args) {

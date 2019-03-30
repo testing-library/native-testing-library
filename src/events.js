@@ -1,69 +1,253 @@
-import { NativeEvent } from './native-event';
+const eventMap = {
+  focus: {
+    type: 'FocusEvent',
+    validTargets: [
+      'TextInput',
+      'Touchable',
+      'TouchableBounce',
+      'TouchableHighlight',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+      'TouchableNativeFeedback',
+    ],
+  },
+  blur: {
+    type: 'BlurEvent',
+    validTargets: [
+      'TextInput',
+      'Touchable',
+      'TouchableBounce',
+      'TouchableHighlight',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+    ],
+  },
+  change: {
+    type: 'ChangeEvent',
+    validTargets: [
+      'SegmentedControlIOS',
+      'PickerIOS',
+      'Switch',
+      'DatePickerIOS',
+      'Checkbox',
+      'TextInput',
+    ],
+  },
+  contentSizeChange: {
+    type: 'ContentSizeChangeEvent',
+    validTargets: ['VirtualizedList', 'FlatList', 'SectionList', 'TextInput', 'ScrollView'],
+  },
+  endEditing: {
+    type: 'EditingEvent',
+    validTargets: ['TextInput'],
+  },
+  keyPress: {
+    type: 'KeyPressEvent',
+    validTargets: ['TextInput'],
+  },
+  submitEditing: {
+    type: 'EditingEvent',
+    validTargets: ['TextInput'],
+  },
+  layout: {
+    type: 'LayoutEvent',
+    validTargets: [
+      'ActivityIndicator',
+      'FlatList',
+      'Image',
+      'KeyboardAvoidingView',
+      'ScrollView',
+      'ScrollViewStickyHeader',
+      'SectionList',
+      'Text',
+      'TextInput',
+      'Touchable',
+      'TouchableHighlight',
+      'TouchableNativeFeedback',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+      'View',
+      'VirtualizedList',
+      'WindowedListView',
+    ],
+  },
+  selectionChange: {
+    type: 'SelectionChangeEvent',
+    validTargets: ['TextInput'],
+  },
+  longPress: {
+    type: 'PressEvent',
+    validTargets: [
+      'Touchable',
+      'TouchableBounce',
+      'TouchableHighlight',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+      'TouchableNativeFeedback',
+    ],
+  },
+  press: {
+    type: 'PressEvent',
+    validTargets: [
+      'Button',
+      'Touchable',
+      'TouchableBounce',
+      'TouchableHighlight',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+      'TouchableNativeFeedback',
+    ],
+  },
+  pressIn: {
+    type: 'PressEvent',
+    validTargets: [
+      'Touchable',
+      'TouchableBounce',
+      'TouchableHighlight',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+      'TouchableNativeFeedback',
+      'YellowBoxPressable',
+    ],
+  },
+  pressOut: {
+    type: 'PressEvent',
+    validTargets: [
+      'Touchable',
+      'TouchableBounce',
+      'TouchableHighlight',
+      'TouchableOpacity',
+      'TouchableWithoutFeedback',
+      'TouchableNativeFeedback',
+      'YellowBoxPressable',
+    ],
+  },
+  momentumScrollBegin: {
+    type: 'ScrollEvent',
+    validTargets: [
+      'ScrollResponder',
+      'FlatList',
+      'ScrollView',
+      'SectionList',
+      'VirtualizedList',
+      'WindowedListView',
+    ],
+  },
+  momentumScrollEnd: {
+    type: 'ScrollEvent',
+    validTargets: [
+      'ScrollResponder',
+      'FlatList',
+      'ScrollView',
+      'SectionList',
+      'VirtualizedList',
+      'WindowedListView',
+    ],
+  },
+  scroll: {
+    type: 'ScrollEvent',
+    validTargets: [
+      'ScrollResponder',
+      'FlatList',
+      'ScrollView',
+      'SectionList',
+      'TextInput',
+      'VirtualizedList',
+      'WindowedListView',
+    ],
+  },
+  scrollBeginDrag: {
+    type: 'ScrollEvent',
+    validTargets: [
+      'ScrollResponder',
+      'FlatList',
+      'ScrollView',
+      'SectionList',
+      'VirtualizedList',
+      'WindowedListView',
+    ],
+  },
+  scrollEndDrag: {
+    type: 'ScrollEvent',
+    validTargets: [
+      'ScrollResponder',
+      'FlatList',
+      'ScrollView',
+      'SectionList',
+      'VirtualizedList',
+      'WindowedListView',
+    ],
+  },
+  load: {
+    type: 'ImageLoadEvent',
+    validTargets: ['Image'],
+  },
+  error: {
+    type: 'SyntheticEvent',
+    validTargets: ['Image'],
+  },
+  progress: {
+    type: 'SyntheticEvent',
+    validTargets: ['Image'],
+  },
+};
 
-const events = [
-  // Focus Events
-  'focus',
-  'blur',
-  // Form Events
-  'change',
-  'changeText',
-  'contentSizeChange',
-  'endEditing',
-  'keyPress',
-  'scroll',
-  'submitEditing',
-  // Layout Events
-  'layout',
-  // Selection Events
-  'selectionChange',
-  // Touch Events
-  'longPress',
-  'press',
-  'pressIn',
-  'pressOut',
-  // Scroll Events
-  'momentumScrollBegin',
-  'momentumScrollEnd',
-  'scroll',
-  'scrollBeginDrag',
-  'scrollEndDrag',
-  // Image Events
-  'load',
-  'loadEnd',
-  'loadStart',
-  'error',
-  'partialLoad',
-  'progress',
-];
+class NativeEvent {
+  constructor(typeArg, eventInit = {}) {
+    const config = eventMap[typeArg];
+
+    this.typeArg = typeArg;
+    this.nativeEvent = eventInit;
+    this.type = config.type;
+    this.validTargets = config.validTargets;
+  }
+
+  set target(target) {
+    this._target = target;
+  }
+
+  get target() {
+    return this._target;
+  }
+}
 
 function getEventHandlerName(key) {
   return `on${key.charAt(0).toUpperCase()}${key.slice(1)}`;
 }
 
-function findEventHandler(element, eventName) {
-  const eventHandler = getEventHandlerName(eventName);
+function isValidTarget(element, event) {
+  return (
+    event.validTargets.includes(element.type) ||
+    event.validTargets.includes(element.type.name) ||
+    event.validTargets.includes(element.type.displayName)
+  );
+}
 
-  if (typeof element.props[eventHandler] === 'function') {
+function findEventHandler(element, event) {
+  const { typeArg } = event;
+  const eventHandler = getEventHandlerName(typeArg);
+  const isValid = isValidTarget(element, event);
+
+  if (typeof element.props[eventHandler] === 'function' && isValid) {
     return element.props[eventHandler];
   }
 
   if (element.parent === null || element.parent.parent === null) {
-    throw new Error(`No handler found for event: ${eventName}`);
+    throw new Error(`No handler found for event: ${typeArg}`);
   }
 
-  return findEventHandler(element.parent, eventName);
+  return findEventHandler(element.parent, event);
 }
 
 function fireEvent(element, event) {
-  event.target = findEventHandler(element, event.typeArg);
+  event.target = findEventHandler(element, event);
 
-  return event.target(event.event);
+  return event.target(event);
 }
 
-events.forEach(key => {
+Object.keys(eventMap).forEach(key => {
   fireEvent[key] = (node, init) => {
-    const event = new NativeEvent(key, init);
-    return fireEvent(node, event);
+    return fireEvent(node, new NativeEvent(key, init));
   };
 });
 
