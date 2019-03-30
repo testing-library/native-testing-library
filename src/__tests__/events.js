@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextInput, View } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 import { render, fireEvent } from '../';
 import { getEventHandlerName } from '../events';
 import { NativeEvent } from '../native-event';
@@ -68,4 +68,9 @@ test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
   const { baseElement } = render(<Button onPress={handleEvent} title="test" />);
   fireEvent(baseElement, new NativeEvent('press'));
+});
+
+test('calling an event that has no handler throws', () => {
+  const { getByText } = render(<Text>test</Text>);
+  expect(() => fireEvent.press(getByText('test'))).toThrow();
 });

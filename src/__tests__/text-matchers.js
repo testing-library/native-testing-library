@@ -103,12 +103,59 @@ cases(
       dom: (
         <Text>
           {`
-      Content 
-      with 
-      linebreaks 
-      is 
-      ok
-      `}
+            Content 
+            with 
+            linebreaks 
+            is 
+            ok
+          `}
+        </Text>
+      ),
+      query: `Content with linebreaks is ok`,
+      queryFn: `queryAllByText`,
+    },
+  },
+);
+
+cases(
+  '{ exact } option toggles case-insensitive partial matches',
+  ({ dom, query, queryFn }) => {
+    const queries = render(dom);
+
+    const queryString = query;
+    const queryRegex = new RegExp(query);
+    const queryFunc = text => text === query;
+
+    expect(queries[queryFn](query)).toHaveLength(1);
+
+    expect(queries[queryFn](queryString, { exact: false })).toHaveLength(1);
+    expect(queries[queryFn](queryRegex, { exact: false })).toHaveLength(1);
+    expect(queries[queryFn](queryFunc, { exact: false })).toHaveLength(1);
+
+    expect(queries[queryFn](query.split(' ')[0], { exact: false })).toHaveLength(1);
+    expect(queries[queryFn](query.toLowerCase(), { exact: false })).toHaveLength(1);
+  },
+  {
+    queryAllByPlaceholder: {
+      dom: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
+      query: `Dwayne 'The Rock' Johnson`,
+      queryFn: `queryAllByPlaceholder`,
+    },
+    queryAllByAccessibilityLabel: {
+      dom: <Image accessibilityLabel="Finding Nemo poster " src="/finding-nemo.png" />,
+      query: `Finding Nemo poster`,
+      queryFn: `queryAllByA11yLabel`,
+    },
+    queryAllByText: {
+      dom: (
+        <Text>
+          {`
+            Content 
+            with 
+            linebreaks 
+            is 
+            ok
+          `}
         </Text>
       ),
       query: `Content with linebreaks is ok`,
