@@ -1,3 +1,5 @@
+import { getSetImmediate } from './helpers';
+
 function waitForElement(callback, { container, interval = 50, timeout = 4500 } = {}) {
   return new Promise((resolve, reject) => {
     if (typeof callback !== 'function') {
@@ -5,11 +7,12 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
       return;
     }
     const timer = setTimeout(onTimeout, timeout);
-    let lastError;
+    let observer, lastError;
 
     function onDone(error, result) {
+      const setImmediate = getSetImmediate();
       clearTimeout(timer);
-
+      setImmediate(() => clearTimeout(observer));
       if (error) {
         reject(error);
       } else {
@@ -28,7 +31,7 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
         // Save the callback error to reject the promise with it.
         lastError = error;
         // If `callback` throws an error, wait for the next mutation or timeout.
-        setTimeout(onMutation, interval);
+        observer = setTimeout(onMutation, interval);
       }
     }
 
@@ -36,7 +39,7 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
       onDone(lastError || new Error('Timed out in waitForElement.'), null);
     }
 
-    setTimeout(onMutation, 0);
+    observer = setTimeout(onMutation);
   });
 }
 

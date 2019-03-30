@@ -241,7 +241,9 @@ test('getDefaultNormalizer returns a normalizer that supports trim and collapseW
   expect(getDefaultNormalizer({ collapseWhitespace: false })('  abc  def  ')).toEqual('abc  def');
 
   // Whilst it's rather pointless, we should be able to turn both off
-  expect(getDefaultNormalizer({ trim: false, collapseWhitespace: false })('  abc  def  ')).toEqual('  abc  def  ');
+  expect(getDefaultNormalizer({ trim: false, collapseWhitespace: false })('  abc  def  ')).toEqual(
+    '  abc  def  ',
+  );
 });
 
 test('we support an older API with trim and collapseWhitespace instead of a normalizer', () => {

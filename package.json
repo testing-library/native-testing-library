@@ -25,7 +25,7 @@
     "react-test-renderer-tree-to-json": "^1.0.1"
   },
   "prettier": {
-    "printWidth": 120,
+    "printWidth": 100,
     "singleQuote": true,
     "trailingComma": "all",
     "tabWidth": 2

@@ -58,7 +58,9 @@ function queryAllByProp(
   return (
     allNodes
       // For the default filter, get it down only to mocked types
-      .filter(node => MOCKED_TYPES.includes(node.type) || MOCKED_TYPES.includes(node.type.displayName))
+      .filter(
+        node => MOCKED_TYPES.includes(node.type) || MOCKED_TYPES.includes(node.type.displayName),
+      )
       // Then make sure to only match the odd numbered ones
       .filter((node, index) => (filter ? filter(node, index) : index % 2 !== 0))
       .filter(node => matcher(node.props[attribute], container, text, matchNormalizer))

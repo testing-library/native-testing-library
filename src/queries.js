@@ -57,7 +57,10 @@ function getByTestId(...args) {
 function getAllByA11yRole({ container, testInstance }, value, ...rest) {
   const els = queryAllByA11yRole({ container, testInstance }, value, ...rest);
   if (!els.length) {
-    throw getElementError(`Unable to find an element by accessibilityRole="${value}".`, testInstance);
+    throw getElementError(
+      `Unable to find an element by accessibilityRole="${value}".`,
+      testInstance,
+    );
   }
   return els;
 }
@@ -81,7 +84,10 @@ function getByValue(...args) {
 function getAllByA11yLabel({ container, testInstance }, text, ...rest) {
   const els = queryAllByA11yLabel({ container, testInstance }, text, ...rest);
   if (!els.length) {
-    throw getElementError(`Unable to find an element by accessibilityLabel="${text}"`, testInstance);
+    throw getElementError(
+      `Unable to find an element by accessibilityLabel="${text}"`,
+      testInstance,
+    );
   }
   return els;
 }
@@ -93,7 +99,10 @@ function getByA11yLabel(...args) {
 function getAllByPlaceholder({ container, testInstance }, text, ...rest) {
   const els = queryAllByPlaceholder({ container, testInstance }, text, ...rest);
   if (!els.length) {
-    throw getElementError(`Unable to find an element with the placeholder text of: ${text}`, testInstance);
+    throw getElementError(
+      `Unable to find an element with the placeholder text of: ${text}`,
+      testInstance,
+    );
   }
   return els;
 }
@@ -119,7 +128,10 @@ function getByText(...args) {
 
 function makeFinder(getter) {
   return (defaultInstance, text, options, waitForElementOptions) =>
-    waitForElement((instance = defaultInstance) => getter(instance, text, options), waitForElementOptions);
+    waitForElement(
+      (instance = defaultInstance) => getter(instance, text, options),
+      waitForElementOptions,
+    );
 }
 
 export const findByA11yLabel = makeFinder(getByA11yLabel);
