@@ -2,9 +2,9 @@
   "name": "rntl",
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "files": [
-    "src/**"
+    "dist/**"
   ],
   "engines": {
     "node": ">=8"
@@ -15,6 +15,7 @@
     "commit:all": "npm run commit:add && npm run commit",
     "test": "jest",
     "pretty-quick": "pretty-quick --staged --pattern '**/*.(js|jsx|ts|tsx)'",
+    "prepublish": "rm -rf build; babel src --out-dir build --ignore 'src/__tests__/*'",
     "semantic-release": "semantic-release",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch --coverage"
@@ -32,14 +33,15 @@
   "author": "Brandon Carroll <brandonvcarroll@gmail.com> (https://github.com/bcarroll22)",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "7.4.0",
-    "@babel/runtime": "7.4.0",
     "@sheerun/mutationobserver-shim": "^0.3.2",
     "pretty-format": "^24.5.0",
     "react-test-renderer": "^16.8.5",
     "wait-for-expect": "^1.1.1"
   },
   "devDependencies": {
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.4.0",
+    "@babel/runtime": "7.4.0",
     "commitizen": "^3.0.7",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^1.3.1",

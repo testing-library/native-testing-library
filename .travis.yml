@@ -1,6 +1,7 @@
 sudo: false
 language: node_js
 node_js:
+  - '8'
   - '9'
   - '10'
   - '11'
@@ -13,6 +14,7 @@ jobs:
   include:
     - stage: release
       branches:
-        only: master
+        only:
+          - master
       node_js: '10'
       script: npm run semantic-release
