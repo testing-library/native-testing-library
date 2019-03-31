@@ -1,5 +1,5 @@
 {
-  "name": "rn-testing-library",
+  "name": "rntl",
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
   "main": "src/index.js",
@@ -94,10 +94,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bcarroll22/rn-testing-library.git"
+    "url": "https://github.com/bcarroll22/rntl.git"
   },
   "bugs": {
-    "url": "https://github.com/bcarroll22/rn-testing-library/issues"
+    "url": "https://github.com/bcarroll22/rntl/issues"
   },
-  "homepage": "https://github.com/bcarroll22/rn-testing-library#readme"
+  "homepage": "https://github.com/bcarroll22/rntl#readme"
 }

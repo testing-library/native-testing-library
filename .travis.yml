@@ -1,0 +1,18 @@
+sudo: false
+language: node_js
+branches:
+  only: master
+node_js:
+  - '9'
+  - '10'
+  - '11'
+cache: npm
+notifications:
+  email: false
+install: npm install
+script: npm test
+jobs:
+  include:
+    - stage: release
+      node_js: '10'
+      script: npm run semantic-release
