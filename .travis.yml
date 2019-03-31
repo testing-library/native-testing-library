@@ -1,7 +1,5 @@
 sudo: false
 language: node_js
-branches:
-  only: master
 node_js:
   - '9'
   - '10'
@@ -10,9 +8,11 @@ cache: npm
 notifications:
   email: false
 install: npm install
-script: npm test
+script: npm run test:coverage
 jobs:
   include:
     - stage: release
+      branches:
+        only: master
       node_js: '10'
       script: npm run semantic-release
