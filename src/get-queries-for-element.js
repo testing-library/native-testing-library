@@ -12,7 +12,7 @@ import * as defaultQueries from './queries';
 function getQueriesForElement(container, queries = defaultQueries) {
   return Object.keys(queries).reduce((helpers, key) => {
     const fn = queries[key];
-    helpers[key] = fn.bind(null, { testInstance: container, container: container.root });
+    helpers[key] = fn.bind(null, { container: container, rootInstance: container.root });
     return helpers;
   }, {});
 }

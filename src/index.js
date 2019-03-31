@@ -12,23 +12,23 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
   const wrapUiIfNeeded = innerElement =>
     WrapperComponent ? <WrapperComponent>{innerElement}</WrapperComponent> : innerElement;
 
-  let instance = {};
+  let container = {};
 
   act(() => {
-    instance = TR.create(wrapUiIfNeeded(ui), options);
+    container = TR.create(wrapUiIfNeeded(ui), options);
   });
 
   return {
-    baseElement: instance.root,
-    container: instance,
-    debug: (el = instance) => console.log(prettyPrint(el.toJSON())),
-    unmount: () => instance.unmount(),
+    container,
+    rootInstance: container.root,
+    debug: (el = container) => console.log(prettyPrint(el.toJSON())),
+    unmount: () => container.unmount(),
     rerender: rerenderUi => {
-      instance.update(wrapUiIfNeeded(rerenderUi));
+      container.update(wrapUiIfNeeded(rerenderUi));
       // Intentionally do not return anything to avoid unnecessarily complicating the API.
       // folks can use all the same utilities we return in the first place that are bound to the container
     },
-    ...getQueriesForElement(instance),
+    ...getQueriesForElement(container),
   };
 }
 

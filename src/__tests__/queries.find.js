@@ -5,7 +5,7 @@ import { render } from '../.';
 
 test('find asynchronously finds elements', async () => {
   const {
-    baseElement,
+    rootInstance,
 
     findByA11yLabel,
     findAllByA11yLabel,
@@ -102,7 +102,7 @@ test('find rejects when something cannot be found', async () => {
 });
 
 test('actually works with async code', async () => {
-  const { container, findByTestId, rerender } = render(<View />);
+  const { findByTestId, rerender, container } = render(<View />);
   setTimeout(() => rerender(<Text testID="text">correct dom</Text>), 20);
   await expect(findByTestId('text', {}, { container })).resolves.toBeTruthy();
 });

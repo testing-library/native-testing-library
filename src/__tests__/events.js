@@ -6,15 +6,15 @@ import { NativeEvent } from '../events';
 
 test('onChange works', () => {
   const handleChange = jest.fn();
-  const { baseElement } = render(<TextInput onChange={handleChange} />);
-  fireEvent.change(baseElement, { target: { value: 'a' } });
+  const { rootInstance } = render(<TextInput onChange={handleChange} />);
+  fireEvent.change(rootInstance, { target: { value: 'a' } });
   expect(handleChange).toHaveBeenCalledTimes(1);
 });
 
 test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
-  const { baseElement } = render(<Button onPress={handleEvent} title="test" />);
-  fireEvent(baseElement, new NativeEvent('press'));
+  const { rootInstance } = render(<Button onPress={handleEvent} title="test" />);
+  fireEvent(rootInstance, new NativeEvent('press'));
 });
 
 test('calling a handler when there is no valid target throws', () => {

@@ -18,7 +18,7 @@ const queryByA11yRole = queryByProp.bind(null, 'accessibilityRole');
 const queryAllByA11yRole = queryAllByProp.bind(null, 'accessibilityRole');
 
 function queryAllByText(
-  { container },
+  { rootInstance },
   text,
   { types = [Text, TextInput], exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
@@ -26,7 +26,7 @@ function queryAllByText(
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
   const baseArray = types.reduce(
-    (accumulator, currentValue) => [...accumulator, ...container.findAllByType(currentValue)],
+    (accumulator, currentValue) => [...accumulator, ...rootInstance.findAllByType(currentValue)],
     [],
   );
 
@@ -42,10 +42,10 @@ function queryByText(...args) {
 // 1. The error messages are specific to each one and depend on arguments
 // 2. The stack trace will look better because it'll have a helpful method name.
 
-function getAllByTestId({ container, testInstance }, id, ...rest) {
-  const els = queryAllByTestId({ container, testInstance }, id, ...rest);
+function getAllByTestId({ rootInstance, container }, id, ...rest) {
+  const els = queryAllByTestId({ rootInstance, container }, id, ...rest);
   if (!els.length) {
-    throw getElementError(`Unable to find an element with the testID: ${id}`, testInstance);
+    throw getElementError(`Unable to find an element with the testID: ${id}`, container);
   }
   return els;
 }
@@ -54,13 +54,10 @@ function getByTestId(...args) {
   return firstResultOrNull(getAllByTestId, ...args);
 }
 
-function getAllByA11yRole({ container, testInstance }, value, ...rest) {
-  const els = queryAllByA11yRole({ container, testInstance }, value, ...rest);
+function getAllByA11yRole({ rootInstance, container }, value, ...rest) {
+  const els = queryAllByA11yRole({ rootInstance, container }, value, ...rest);
   if (!els.length) {
-    throw getElementError(
-      `Unable to find an element by accessibilityRole="${value}".`,
-      testInstance,
-    );
+    throw getElementError(`Unable to find an element by accessibilityRole="${value}".`, container);
   }
   return els;
 }
@@ -69,10 +66,10 @@ function getByA11yRole(...args) {
   return firstResultOrNull(getAllByA11yRole, ...args);
 }
 
-function getAllByValue({ container, testInstance }, value, ...rest) {
-  const els = queryAllByValue({ container, testInstance }, value, ...rest);
+function getAllByValue({ rootInstance, container }, value, ...rest) {
+  const els = queryAllByValue({ rootInstance, container }, value, ...rest);
   if (!els.length) {
-    throw getElementError(`Unable to find an element with the value: ${value}.`, testInstance);
+    throw getElementError(`Unable to find an element with the value: ${value}.`, container);
   }
   return els;
 }
@@ -81,13 +78,10 @@ function getByValue(...args) {
   return firstResultOrNull(getAllByValue, ...args);
 }
 
-function getAllByA11yLabel({ container, testInstance }, text, ...rest) {
-  const els = queryAllByA11yLabel({ container, testInstance }, text, ...rest);
+function getAllByA11yLabel({ rootInstance, container }, text, ...rest) {
+  const els = queryAllByA11yLabel({ rootInstance, container }, text, ...rest);
   if (!els.length) {
-    throw getElementError(
-      `Unable to find an element by accessibilityLabel="${text}"`,
-      testInstance,
-    );
+    throw getElementError(`Unable to find an element by accessibilityLabel="${text}"`, container);
   }
   return els;
 }
@@ -96,12 +90,12 @@ function getByA11yLabel(...args) {
   return firstResultOrNull(getAllByA11yLabel, ...args);
 }
 
-function getAllByPlaceholder({ container, testInstance }, text, ...rest) {
-  const els = queryAllByPlaceholder({ container, testInstance }, text, ...rest);
+function getAllByPlaceholder({ rootInstance, container }, text, ...rest) {
+  const els = queryAllByPlaceholder({ rootInstance, container }, text, ...rest);
   if (!els.length) {
     throw getElementError(
       `Unable to find an element with the placeholder text of: ${text}`,
-      testInstance,
+      container,
     );
   }
   return els;
@@ -111,12 +105,12 @@ function getByPlaceholder(...args) {
   return firstResultOrNull(getAllByPlaceholder, ...args);
 }
 
-function getAllByText({ container, testInstance }, text, ...rest) {
-  const els = queryAllByText({ container, testInstance }, text, ...rest);
+function getAllByText({ rootInstance, container }, text, ...rest) {
+  const els = queryAllByText({ rootInstance, container }, text, ...rest);
   if (!els.length) {
     throw getElementError(
       `Unable to find an element with the text: ${text}. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.`,
-      testInstance,
+      container,
     );
   }
   return els;
@@ -127,9 +121,9 @@ function getByText(...args) {
 }
 
 function makeFinder(getter) {
-  return (defaultInstance, text, options, waitForElementOptions) =>
+  return (testInstance, text, options, waitForElementOptions) =>
     waitForElement(
-      (instance = defaultInstance) => getter(instance, text, options),
+      (instance = testInstance) => getter(instance, text, options),
       waitForElementOptions,
     );
 }

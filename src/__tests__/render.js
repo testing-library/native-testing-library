@@ -4,13 +4,13 @@ import { render } from '../';
 
 test('renders View', () => {
   const ref = React.createRef();
-  const { baseElement } = render(<View ref={ref} />);
-  expect(baseElement.instance).toBe(ref.current);
+  const { rootInstance } = render(<View ref={ref} />);
+  expect(rootInstance.instance).toBe(ref.current);
 });
 
-test('returns baseElement', () => {
-  const { baseElement } = render(<View />);
-  expect(baseElement).toBeTruthy();
+test('returns rootInstance', () => {
+  const { rootInstance } = render(<View />);
+  expect(rootInstance).toBeTruthy();
 });
 
 test('renders options.wrapper around node', () => {

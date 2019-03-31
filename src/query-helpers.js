@@ -66,20 +66,19 @@ function defaultFilter(node) {
 
 function queryAllByProp(
   attribute,
-  { container, testInstance },
+  { container, rootInstance },
   text,
   { filter, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
-
-  const allNodes = Array.from(container.findAll(c => c.props[attribute]));
+  const allNodes = Array.from(rootInstance.findAll(c => c.props[attribute]));
 
   return (
     allNodes
       // Then make sure to only match the odd numbered ones
       .filter((node, index) => (filter ? filter(node, index) : defaultFilter(node, index)))
-      .filter(node => matcher(node.props[attribute], container, text, matchNormalizer))
+      .filter(node => matcher(node.props[attribute], rootInstance, text, matchNormalizer))
   );
 }
 
