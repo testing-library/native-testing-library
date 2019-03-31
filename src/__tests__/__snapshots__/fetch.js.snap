@@ -3,8 +3,6 @@
 exports[`Fetch makes an API call and displays the greeting when load-greeting is clicked 1`] = `
 <View>
   <View
-    accessibilityRole="button"
-    accessibilityStates={Array []}
     accessible={true}
     isTVSelectable={true}
     onResponderGrant={[Function]}
@@ -19,28 +17,9 @@ exports[`Fetch makes an API call and displays the greeting when load-greeting is
       }
     }
   >
-    <View
-      style={
-        Array [
-          Object {},
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "#007AFF",
-              "fontSize": 18,
-              "padding": 8,
-              "textAlign": "center",
-            },
-          ]
-        }
-      >
-        Fetch
-      </Text>
-    </View>
+    <Text>
+      Fetch
+    </Text>
   </View>
   <Text>
     hello there

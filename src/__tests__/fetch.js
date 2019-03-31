@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 
 import { render, fireEvent, wait } from '../';
 
@@ -21,7 +21,9 @@ class Fetch extends React.Component {
     const { data } = this.state;
     return (
       <View>
-        <Button onPress={this.fetch} title="Fetch" />
+        <TouchableOpacity onPress={this.fetch}>
+          <Text>Fetch</Text>
+        </TouchableOpacity>
         {data ? <Text>{data.greeting}</Text> : null}
       </View>
     );

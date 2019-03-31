@@ -1,8 +1,6 @@
 import { prettyPrint } from './pretty-print';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
 
-const MOCKED_TYPES = ['Image', 'Text', 'TextInput', 'Modal', 'View', 'ActivityIndicator'];
-
 function debugDOM(htmlElement) {
   const limit = process.env.DEBUG_PRINT_LIMIT || 7000;
 
@@ -13,13 +11,19 @@ function getElementError(message, container) {
   return new Error([message, debugDOM(container)].filter(Boolean).join('\n\n'));
 }
 
-function filterNodeByType(node, type) {
-  return node
-    ? node.type === type ||
-        (node.type && node.type.name === type) ||
-        (node.type && node.type.displayName === type) ||
-        false
-    : false;
+function filterNodeByType(node = {}, type) {
+  if (!node) {
+    return false;
+  }
+
+  return (
+    node.type === type ||
+    (node.type && node.type.name === type) ||
+    (node.type && node.type.displayName === type) ||
+    (node.type && node.type.render && node.type.render.name === type) ||
+    (node.type && node.type.render && node.type.render.displayName === type) ||
+    false
+  );
 }
 
 function firstResultOrNull(queryFunction, ...args) {
@@ -49,6 +53,17 @@ function firstResultOrNull(queryFunction, ...args) {
 // so that you can only get the elements you expect to get. We provide a default that works for mocked
 // native components of only returning odd results. In the example above, that would be the inner-most
 // <Text /> component, which is the one you'll actually want (it's the mocked native <Text />).
+function defaultFilter(node) {
+  const name =
+    node.type.displayName ||
+    node.type.name ||
+    (node.type.render // handle React.forwardRef
+      ? node.type.render.displayName || node.type.render.name
+      : 'Unknown');
+
+  return name !== 'Unknown';
+}
+
 function queryAllByProp(
   attribute,
   { container, testInstance },
@@ -62,12 +77,8 @@ function queryAllByProp(
 
   return (
     allNodes
-      // For the default filter, get it down only to mocked types
-      .filter(
-        node => MOCKED_TYPES.includes(node.type) || MOCKED_TYPES.includes(node.type.displayName),
-      )
       // Then make sure to only match the odd numbered ones
-      .filter((node, index) => (filter ? filter(node, index) : index % 2 !== 0))
+      .filter((node, index) => (filter ? filter(node, index) : defaultFilter(node, index)))
       .filter(node => matcher(node.props[attribute], container, text, matchNormalizer))
   );
 }
@@ -76,4 +87,11 @@ function queryByProp(...args) {
   return firstResultOrNull(queryAllByProp, ...args);
 }
 
-export { getElementError, firstResultOrNull, filterNodeByType, queryAllByProp, queryByProp };
+export {
+  defaultFilter,
+  getElementError,
+  firstResultOrNull,
+  filterNodeByType,
+  queryAllByProp,
+  queryByProp,
+};

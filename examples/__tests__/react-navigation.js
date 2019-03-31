@@ -16,13 +16,19 @@ jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
 });
 
 // Even after the mocks, there are some warning message we'll want to filter out
-console.warn = (...args) => {
-  const finalArgs = args
-    .filter(arg => !arg.includes('Calling .measureInWindow()'))
-    .filter(arg => !arg.includes('Calling .setNativeProps()'));
+console.warn = arg => {
+  const warnings = [
+    'Calling .measureInWindow()',
+    'Calling .measureLayout()',
+    'Calling .setNativeProps()',
+    'Calling .focus()',
+    'Calling .blur()',
+  ];
 
-  if (finalArgs.length) {
-    console.warn(...finalArgs);
+  const finalArgs = warnings.reduce((acc, curr) => (arg.includes(curr) ? [...acc, arg] : acc), []);
+
+  if (!finalArgs.length) {
+    console.warn(arg);
   }
 };
 

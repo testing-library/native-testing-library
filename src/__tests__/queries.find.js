@@ -5,6 +5,8 @@ import { render } from '../.';
 
 test('find asynchronously finds elements', async () => {
   const {
+    baseElement,
+
     findByA11yLabel,
     findAllByA11yLabel,
 

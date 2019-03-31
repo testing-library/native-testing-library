@@ -14,42 +14,42 @@ cases(
     const queryRegex = new RegExp(query);
     const queryFunc = text => text === query;
 
-    expect(queries[queryFn](queryString)).toHaveLength(1);
-    expect(queries[queryFn](queryRegex)).toHaveLength(1);
-    expect(queries[queryFn](queryFunc)).toHaveLength(1);
+    expect(queries[queryFn](queryString)).toBeTruthy();
+    expect(queries[queryFn](queryRegex)).toBeTruthy();
+    expect(queries[queryFn](queryFunc)).toBeTruthy();
 
-    expect(queries[queryFn](query.toUpperCase())).toHaveLength(0); // case
-    expect(queries[queryFn](query.slice(0, 1))).toHaveLength(0); // substring
+    expect(queries[queryFn](query.toUpperCase())).toBeFalsy(); // case
+    expect(queries[queryFn](query.slice(0, 1))).toBeFalsy(); // substring
   },
   {
-    queryAllByTestId: {
+    queryByTestId: {
       dom: (
         <TouchableOpacity testID="link" onPress={jest.fn()}>
           Link
         </TouchableOpacity>
       ),
       query: `link`,
-      queryFn: `queryAllByTestId`,
+      queryFn: `queryByTestId`,
     },
-    queryAllByAccessibilityLabel: {
+    queryByAccessibilityLabel: {
       dom: <Image accessibilityLabel="Finding Nemo poster" src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
-      queryFn: `queryAllByA11yLabel`,
+      queryFn: `queryByA11yLabel`,
     },
-    queryAllByAccessibilityRole: {
+    queryByAccessibilityRole: {
       dom: <Image accessibilityRole="image" src="/finding-nemo.png" />,
       query: `image`,
-      queryFn: `queryAllByA11yRole`,
+      queryFn: `queryByA11yRole`,
     },
-    queryAllByPlaceholder: {
+    queryByPlaceholder: {
       dom: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
       query: `Dwayne 'The Rock' Johnson`,
-      queryFn: `queryAllByPlaceholder`,
+      queryFn: `queryByPlaceholder`,
     },
-    queryAllByText: {
+    queryByText: {
       dom: <Text>Some content</Text>,
       query: `Some content`,
-      queryFn: `queryAllByText`,
+      queryFn: `queryByText`,
     },
   },
 );
@@ -58,7 +58,7 @@ cases(
   'queries trim leading, trailing & inner whitespace by default',
   ({ dom, query, queryFn }) => {
     const queries = render(dom);
-    expect(queries[queryFn](query)).toHaveLength(1);
+    expect(queries[queryFn](query)).toBeTruthy();
     expect(
       queries[queryFn](query, {
         normalizer: getDefaultNormalizer({
@@ -66,19 +66,19 @@ cases(
           trim: false,
         }),
       }),
-    ).toHaveLength(0);
+    ).toBeFalsy();
   },
   {
-    queryAllByTestId: {
+    queryByTestId: {
       dom: (
         <TouchableOpacity testID=" link " onPress={jest.fn()}>
           Link
         </TouchableOpacity>
       ),
       query: `link`,
-      queryFn: `queryAllByTestId`,
+      queryFn: `queryByTestId`,
     },
-    queryAllByAccessibilityLabel: {
+    queryByAccessibilityLabel: {
       dom: (
         <Image
           accessibilityLabel="
@@ -87,19 +87,19 @@ cases(
         />
       ),
       query: `Finding Nemo poster`,
-      queryFn: `queryAllByA11yLabel`,
+      queryFn: `queryByA11yLabel`,
     },
-    queryAllByAccessibilityRole: {
+    queryByAccessibilityRole: {
       dom: <Image accessibilityRole=" image" src="/finding-nemo.png" />,
       query: `image`,
-      queryFn: `queryAllByA11yRole`,
+      queryFn: `queryByA11yRole`,
     },
-    queryAllByPlaceholder: {
+    queryByPlaceholder: {
       dom: <TextInput placeholder="  Dwayne 'The Rock' Johnson  " />,
       query: `Dwayne 'The Rock' Johnson`,
-      queryFn: `queryAllByPlaceholder`,
+      queryFn: `queryByPlaceholder`,
     },
-    queryAllByText: {
+    queryByText: {
       dom: (
         <Text>
           {`
@@ -112,7 +112,7 @@ cases(
         </Text>
       ),
       query: `Content with linebreaks is ok`,
-      queryFn: `queryAllByText`,
+      queryFn: `queryByText`,
     },
   },
 );
