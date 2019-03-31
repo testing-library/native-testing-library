@@ -5,7 +5,7 @@ import { FormattedDate } from 'react-intl-native';
 import IntlPolyfill from 'intl';
 import 'intl/locale-data/jsonp/pt';
 
-import { render } from '../../src';
+import { getByText, render } from '../../src';
 
 const setupTests = () => {
   if (global.Intl) {
@@ -39,7 +39,7 @@ const renderWithReactIntl = component => {
 setupTests();
 
 test('it should render FormattedDate and have a formatted pt date', () => {
-  const { getByText } = renderWithReactIntl(<FormatDateView />);
+  const { baseElement } = renderWithReactIntl(<FormatDateView />);
 
-  getByText('11/03/2019');
+  getByText({ container: baseElement }, '11/03/2019');
 });
