@@ -11,8 +11,12 @@ notifications:
 branches:
   only:
     - master
-install: npm install
-script: npm run test:coverage
+install: 
+  - npm install
+  - npm install -g codecov
+script: 
+  - npm run test:coverage
+  - codecov
 jobs:
   include:
     - stage: release
