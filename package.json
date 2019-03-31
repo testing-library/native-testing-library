@@ -56,7 +56,8 @@
     "react-navigation": "^3.5.1",
     "react-redux": "6.0.1",
     "react-test-renderer-tree-to-json": "^1.0.1",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "semantic-release": "^15.13.3"
   },
   "peerDependencies": {
     "react": "*",
