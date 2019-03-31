@@ -20,7 +20,7 @@ const queryAllByA11yRole = queryAllByProp.bind(null, 'accessibilityRole');
 function queryAllByText(
   container,
   text,
-  { types = [Text, TextInput], exact = true, collapseWhitespace, trim, normalizer } = {},
+  { types = ['Text', 'TextInput'], exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const rootInstance = container.root;
   const matcher = exact ? matches : fuzzyMatches;

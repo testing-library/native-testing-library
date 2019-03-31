@@ -11,19 +11,8 @@ function getElementError(message, container) {
   return new Error([message, debugDOM(container)].filter(Boolean).join('\n\n'));
 }
 
-function filterNodeByType(node = {}, type) {
-  if (!node) {
-    return false;
-  }
-
-  return (
-    node.type === type ||
-    (node.type && node.type.name === type) ||
-    (node.type && node.type.displayName === type) ||
-    (node.type && node.type.render && node.type.render.name === type) ||
-    (node.type && node.type.render && node.type.render.displayName === type) ||
-    false
-  );
+function filterNodeByType(node, type) {
+  return node.type === type;
 }
 
 function firstResultOrNull(queryFunction, ...args) {
@@ -54,14 +43,20 @@ function firstResultOrNull(queryFunction, ...args) {
 // native components of only returning odd results. In the example above, that would be the inner-most
 // <Text /> component, which is the one you'll actually want (it's the mocked native <Text />).
 function defaultFilter(node) {
-  const name =
-    node.type.displayName ||
-    node.type.name ||
-    (node.type.render // handle React.forwardRef
-      ? node.type.render.displayName || node.type.render.name
-      : 'Unknown');
+  const mockedTypes = [
+    'Image',
+    'Text',
+    'TextInput',
+    'Modal',
+    'View',
+    'RefreshControl',
+    'ScrollView',
+    'ActivityIndicator',
+    'ListView',
+    'ListViewDataSource',
+  ];
 
-  return name !== 'Unknown';
+  return mockedTypes.includes(node.type);
 }
 
 function queryAllByProp(
