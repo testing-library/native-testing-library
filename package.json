@@ -58,6 +58,10 @@
     "react-test-renderer-tree-to-json": "^1.0.1",
     "redux": "^4.0.0"
   },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "npm run pretty-quick"

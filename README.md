@@ -1,6 +1,6 @@
 <div align="center">
   <h1>rn-testing-library</h1>
-  <p>Light enzyme wrapper that enables good testing practices in React Native.</p>
+  <p>Simple and complete React Native testing utilities that encourage good testing practices.</p>
 </div>
 
 <hr />
