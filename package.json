@@ -3,7 +3,9 @@
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
   "main": "src/index.js",
-  "files": ["src"],
+  "files": [
+    "src/**"
+  ],
   "engines": {
     "node": ">=8"
   },
