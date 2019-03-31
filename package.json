@@ -33,7 +33,6 @@
   "author": "Brandon Carroll <brandonvcarroll@gmail.com> (https://github.com/bcarroll22)",
   "license": "MIT",
   "dependencies": {
-    "@sheerun/mutationobserver-shim": "^0.3.2",
     "pretty-format": "^24.5.0",
     "react-test-renderer": "^16.8.5",
     "wait-for-expect": "^1.1.1"

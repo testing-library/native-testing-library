@@ -5,19 +5,22 @@ node_js:
   - '9'
   - '10'
   - '11'
-cache: npm
+cache:
+  npm: true
+  directories:
+    - coverage
 notifications:
   email: false
 branches:
   only:
     - master
-install: npm install
+install: npm ci
 script: npm run test:coverage
 jobs:
   include:
     - stage: release
       node_js: '10'
       install: npm install -g codecov
-      script: 
+      script:
         - codecov
         - npm run semantic-release
