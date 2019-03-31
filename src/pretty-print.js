@@ -1,8 +1,7 @@
 import prettyFormat from 'pretty-format';
-
 const { ReactTestComponent, ReactElement } = prettyFormat.plugins;
 
-function prettyPrint(reactElement, maxLength, options) {
+function getPrettyOutput(reactElement, maxLength, options) {
   const debugContent = prettyFormat(reactElement, {
     plugins: [ReactTestComponent, ReactElement],
     printFunctionName: false,
@@ -13,6 +12,14 @@ function prettyPrint(reactElement, maxLength, options) {
   return maxLength !== undefined && reactElement.toString().length > maxLength
     ? `${debugContent.slice(0, maxLength)}...`
     : debugContent;
+}
+
+function prettyPrint(reactElement, ...args) {
+  try {
+    return getPrettyOutput(reactElement.toJSON(), ...args);
+  } catch (e) {
+    return getPrettyOutput(reactElement, ...args);
+  }
 }
 
 export { prettyPrint };

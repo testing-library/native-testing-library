@@ -21,7 +21,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
   return {
     container,
     rootInstance: container.root,
-    debug: (el = container) => console.log(prettyPrint(el.toJSON())),
+    debug: (el = container) => console.log(prettyPrint(el)),
     unmount: () => container.unmount(),
     rerender: rerenderUi => {
       container.update(wrapUiIfNeeded(rerenderUi));

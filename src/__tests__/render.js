@@ -1,6 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { render } from '../';
+
+test('renders View', () => {
+  const ref = React.createRef();
+  const { debug } = render(<View ref={ref} />);
+
+  debug(<Text>hi</Text>);
+});
 
 test('renders View', () => {
   const ref = React.createRef();
