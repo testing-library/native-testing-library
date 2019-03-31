@@ -66,10 +66,11 @@ function defaultFilter(node) {
 
 function queryAllByProp(
   attribute,
-  { container, rootInstance },
+  container,
   text,
   { filter, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
+  const rootInstance = container.root;
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
   const allNodes = Array.from(rootInstance.findAll(c => c.props[attribute]));

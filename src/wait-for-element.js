@@ -22,9 +22,7 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
 
     function onMutation() {
       try {
-        const result = container
-          ? callback({ container, rootInstance: container.root })
-          : callback();
+        const result = container ? callback(container) : callback();
         if (result) {
           onDone(null, result);
         }
