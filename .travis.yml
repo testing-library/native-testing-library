@@ -11,14 +11,13 @@ notifications:
 branches:
   only:
     - master
-install: 
-  - npm install
-  - npm install -g codecov
-script: 
-  - npm run test:coverage
-  - codecov
+install: npm install
+script: npm run test:coverage
 jobs:
   include:
     - stage: release
       node_js: '10'
-      script: npm run semantic-release
+      install: npm install -g codecov
+      script: 
+        - codecov
+        - npm run semantic-release
