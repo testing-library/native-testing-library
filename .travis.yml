@@ -14,7 +14,7 @@ notifications:
 branches:
   only:
     - master
-install: npm ci
+install: npm install
 script: npm run test:coverage
 jobs:
   include:
