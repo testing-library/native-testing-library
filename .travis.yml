@@ -8,13 +8,13 @@ node_js:
 cache: npm
 notifications:
   email: false
+branches:
+  only:
+    - master
 install: npm install
 script: npm run test:coverage
 jobs:
   include:
     - stage: release
-      branches:
-        only:
-          - master
       node_js: '10'
       script: npm run semantic-release

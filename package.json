@@ -15,7 +15,7 @@
     "commit:all": "npm run commit:add && npm run commit",
     "test": "jest",
     "pretty-quick": "pretty-quick --staged --pattern '**/*.(js|jsx|ts|tsx)'",
-    "prepublish": "rm -rf build; babel src --out-dir build --ignore 'src/__tests__/*'",
+    "prepublish": "rm -rf dist; babel src --out-dir dist --ignore 'src/__tests__/*'",
     "semantic-release": "semantic-release",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch --coverage"
