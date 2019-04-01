@@ -1,7 +1,5 @@
 import { fuzzyMatches, matches } from '../matches';
 
-// unit tests for text match utils
-
 const node = null;
 const normalizer = str => str;
 

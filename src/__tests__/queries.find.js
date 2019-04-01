@@ -5,8 +5,6 @@ import { render } from '../.';
 
 test('find asynchronously finds elements', async () => {
   const {
-    rootInstance,
-
     findByA11yLabel,
     findAllByA11yLabel,
 
@@ -76,11 +74,8 @@ test('find rejects when something cannot be found', async () => {
     findAllByTestId,
   } = render(<View />);
 
-  // I just don't want multiple lines for these.
-  // qo = queryOptions
-  // wo = waitForElementOptions
-  const qo = {}; // query options
-  const wo = { timeout: 10 }; // wait options
+  const qo = {};
+  const wo = { timeout: 10 };
 
   await expect(findByA11yLabel('x', qo, wo)).rejects.toThrow('x');
   await expect(findAllByA11yLabel('x', qo, wo)).rejects.toThrow('x');
@@ -103,6 +98,6 @@ test('find rejects when something cannot be found', async () => {
 
 test('actually works with async code', async () => {
   const { findByTestId, rerender, container } = render(<View />);
-  setTimeout(() => rerender(<Text testID="text">correct dom</Text>), 20);
+  setTimeout(() => rerender(<Text testID="text">correct tree</Text>), 20);
   await expect(findByTestId('text', {}, { container })).resolves.toBeTruthy();
 });

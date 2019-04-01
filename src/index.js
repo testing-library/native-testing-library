@@ -25,8 +25,6 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
     unmount: () => container.unmount(),
     rerender: rerenderUi => {
       container.update(wrapUiIfNeeded(rerenderUi));
-      // Intentionally do not return anything to avoid unnecessarily complicating the API.
-      // folks can use all the same utilities we return in the first place that are bound to the container
     },
     ...getQueriesForElement(container),
   };

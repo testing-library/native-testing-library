@@ -1,5 +1,4 @@
 import React from 'react';
-import 'jest-dom/extend-expect';
 import { Button } from 'react-native';
 
 import { render, fireEvent } from '../';
@@ -24,9 +23,8 @@ test('fireEvent triggers useEffect calls', () => {
   }
   const { getByText } = render(<Counter />);
   const buttonNode = getByText('0');
-  /**/
   effectCb.mockClear();
-  fireEvent.press(buttonNode); /**/
+  fireEvent.press(buttonNode);
   expect(buttonNode.props.children).toEqual('1');
   expect(effectCb).toHaveBeenCalledTimes(1);
 });

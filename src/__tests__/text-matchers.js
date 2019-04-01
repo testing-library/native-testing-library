@@ -7,8 +7,8 @@ import { getDefaultNormalizer } from '../matches';
 
 cases(
   'matches find case-sensitive full strings by default',
-  ({ dom, query, queryFn }) => {
-    const queries = render(dom);
+  ({ tree, query, queryFn }) => {
+    const queries = render(tree);
 
     const queryString = query;
     const queryRegex = new RegExp(query);
@@ -18,12 +18,12 @@ cases(
     expect(queries[queryFn](queryRegex)).toBeTruthy();
     expect(queries[queryFn](queryFunc)).toBeTruthy();
 
-    expect(queries[queryFn](query.toUpperCase())).toBeFalsy(); // case
-    expect(queries[queryFn](query.slice(0, 1))).toBeFalsy(); // substring
+    expect(queries[queryFn](query.toUpperCase())).toBeFalsy();
+    expect(queries[queryFn](query.slice(0, 1))).toBeFalsy();
   },
   {
     queryByTestId: {
-      dom: (
+      tree: (
         <TouchableOpacity testID="link" onPress={jest.fn()}>
           Link
         </TouchableOpacity>
@@ -32,22 +32,22 @@ cases(
       queryFn: `queryByTestId`,
     },
     queryByAccessibilityLabel: {
-      dom: <Image accessibilityLabel="Finding Nemo poster" src="/finding-nemo.png" />,
+      tree: <Image accessibilityLabel="Finding Nemo poster" src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
       queryFn: `queryByA11yLabel`,
     },
     queryByAccessibilityRole: {
-      dom: <Image accessibilityRole="image" src="/finding-nemo.png" />,
+      tree: <Image accessibilityRole="image" src="/finding-nemo.png" />,
       query: `image`,
       queryFn: `queryByA11yRole`,
     },
     queryByPlaceholder: {
-      dom: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
+      tree: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
       query: `Dwayne 'The Rock' Johnson`,
       queryFn: `queryByPlaceholder`,
     },
     queryByText: {
-      dom: <Text>Some content</Text>,
+      tree: <Text>Some content</Text>,
       query: `Some content`,
       queryFn: `queryByText`,
     },
@@ -56,8 +56,8 @@ cases(
 
 cases(
   'queries trim leading, trailing & inner whitespace by default',
-  ({ dom, query, queryFn }) => {
-    const queries = render(dom);
+  ({ tree, query, queryFn }) => {
+    const queries = render(tree);
     expect(queries[queryFn](query)).toBeTruthy();
     expect(
       queries[queryFn](query, {
@@ -70,7 +70,7 @@ cases(
   },
   {
     queryByTestId: {
-      dom: (
+      tree: (
         <TouchableOpacity testID=" link " onPress={jest.fn()}>
           Link
         </TouchableOpacity>
@@ -79,7 +79,7 @@ cases(
       queryFn: `queryByTestId`,
     },
     queryByAccessibilityLabel: {
-      dom: (
+      tree: (
         <Image
           accessibilityLabel="
             Finding Nemo poster "
@@ -90,17 +90,17 @@ cases(
       queryFn: `queryByA11yLabel`,
     },
     queryByAccessibilityRole: {
-      dom: <Image accessibilityRole=" image" src="/finding-nemo.png" />,
+      tree: <Image accessibilityRole=" image" src="/finding-nemo.png" />,
       query: `image`,
       queryFn: `queryByA11yRole`,
     },
     queryByPlaceholder: {
-      dom: <TextInput placeholder="  Dwayne 'The Rock' Johnson  " />,
+      tree: <TextInput placeholder="  Dwayne 'The Rock' Johnson  " />,
       query: `Dwayne 'The Rock' Johnson`,
       queryFn: `queryByPlaceholder`,
     },
     queryByText: {
-      dom: (
+      tree: (
         <Text>
           {`
             Content 
@@ -119,8 +119,8 @@ cases(
 
 cases(
   '{ exact } option toggles case-insensitive partial matches',
-  ({ dom, query, queryFn }) => {
-    const queries = render(dom);
+  ({ tree, query, queryFn }) => {
+    const queries = render(tree);
 
     const queryString = query;
     const queryRegex = new RegExp(query);
@@ -137,17 +137,17 @@ cases(
   },
   {
     queryAllByPlaceholder: {
-      dom: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
+      tree: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
       query: `Dwayne 'The Rock' Johnson`,
       queryFn: `queryAllByPlaceholder`,
     },
     queryAllByAccessibilityLabel: {
-      dom: <Image accessibilityLabel="Finding Nemo poster " src="/finding-nemo.png" />,
+      tree: <Image accessibilityLabel="Finding Nemo poster " src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
       queryFn: `queryAllByA11yLabel`,
     },
     queryAllByText: {
-      dom: (
+      tree: (
         <Text>
           {`
             Content 
@@ -164,9 +164,6 @@ cases(
   },
 );
 
-// A good use case for a custom normalizer is stripping
-// out Unicode control characters such as LRM (left-right-mark)
-// before matching
 const LRM = '\u200e';
 function removeUCC(str) {
   return str.replace(/[\u200e]/g, '');
@@ -174,38 +171,36 @@ function removeUCC(str) {
 
 cases(
   '{ normalizer } option allows custom pre-match normalization',
-  ({ dom, queryFn }) => {
-    const queries = render(dom);
+  ({ tree, queryFn }) => {
+    const queries = render(tree);
 
     const query = queries[queryFn];
 
-    // With the correct normalizer, we should match
     expect(query(/user n.me/i, { normalizer: removeUCC })).toHaveLength(1);
     expect(query('User name', { normalizer: removeUCC })).toHaveLength(1);
 
-    // Without the normalizer, we shouldn't
     expect(query(/user n.me/i)).toHaveLength(0);
     expect(query('User name')).toHaveLength(0);
   },
   {
     queryAllByPlaceholderText: {
-      dom: <TextInput placeholder={`User ${LRM}name`} />,
+      tree: <TextInput placeholder={`User ${LRM}name`} />,
       queryFn: 'queryAllByPlaceholder',
     },
     queryAllByText: {
-      dom: <Text>{`User ${LRM}name`}</Text>,
+      tree: <Text>{`User ${LRM}name`}</Text>,
       queryFn: 'queryAllByText',
     },
     queryAllByA11yLabel: {
-      dom: <Image accessibilityLabel={`User ${LRM}name`} src="username.jpg" />,
+      tree: <Image accessibilityLabel={`User ${LRM}name`} src="username.jpg" />,
       queryFn: 'queryAllByA11yLabel',
     },
     queryAllByValue: {
-      dom: <TextInput value={`User ${LRM}name`} />,
+      tree: <TextInput value={`User ${LRM}name`} />,
       queryFn: 'queryAllByValue',
     },
     queryAllByA11yRole: {
-      dom: <Image accessibilityRole={`User ${LRM}name`} />,
+      tree: <Image accessibilityRole={`User ${LRM}name`} />,
       queryFn: 'queryAllByA11yRole',
     },
   },
@@ -231,16 +226,9 @@ test('top-level trim and collapseWhitespace options are not supported if normali
 });
 
 test('getDefaultNormalizer returns a normalizer that supports trim and collapseWhitespace', () => {
-  // Default is trim: true and collapseWhitespace: true
   expect(getDefaultNormalizer()('  abc  def  ')).toEqual('abc def');
-
-  // Turning off trimming should not turn off whitespace collapsing
   expect(getDefaultNormalizer({ trim: false })('  abc  def  ')).toEqual(' abc def ');
-
-  // Turning off whitespace collapsing should not turn off trimming
   expect(getDefaultNormalizer({ collapseWhitespace: false })('  abc  def  ')).toEqual('abc  def');
-
-  // Whilst it's rather pointless, we should be able to turn both off
   expect(getDefaultNormalizer({ trim: false, collapseWhitespace: false })('  abc  def  ')).toEqual(
     '  abc  def  ',
   );

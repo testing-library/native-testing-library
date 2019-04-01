@@ -37,20 +37,9 @@ function getDefaultNormalizer({ trim = true, collapseWhitespace = true } = {}) {
   };
 }
 
-/**
- * Constructs a normalizer to pass to functions in matches.js
- * @param {boolean|undefined} trim The user-specified value for `trim`, without
- * any defaulting having been applied
- * @param {boolean|undefined} collapseWhitespace The user-specified value for
- * `collapseWhitespace`, without any defaulting having been applied
- * @param {Function|undefined} normalizer The user-specified normalizer
- * @returns {Function} A normalizer
- */
 function makeNormalizer({ trim, collapseWhitespace, normalizer }) {
   if (normalizer) {
-    // User has specified a custom normalizer
     if (typeof trim !== 'undefined' || typeof collapseWhitespace !== 'undefined') {
-      // They've also specified a value for trim or collapseWhitespace
       throw new Error(
         'trim and collapseWhitespace are not supported with a normalizer. ' +
           'If you want to use the default trim and collapseWhitespace logic in your normalizer, ' +
@@ -60,7 +49,6 @@ function makeNormalizer({ trim, collapseWhitespace, normalizer }) {
 
     return normalizer;
   } else {
-    // No custom normalizer specified. Just use default.
     return getDefaultNormalizer({ trim, collapseWhitespace });
   }
 }

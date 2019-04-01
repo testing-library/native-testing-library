@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 import { render } from '../';
 import { prettyPrint } from '../pretty-print';
 
-test('it prints out the given DOM element tree', () => {
+test('it prints out the given element tree', () => {
   const { container } = render(<Text>Hello World!</Text>);
   expect(prettyPrint(container)).toMatchInlineSnapshot(`
 "[36m<Text>[39m

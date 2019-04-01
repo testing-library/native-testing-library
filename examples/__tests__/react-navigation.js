@@ -4,7 +4,6 @@ import { createStackNavigator, createAppContainer, withNavigation } from 'react-
 
 import { render, fireEvent } from '../../src';
 
-// React Navigation uses some packages that don't play nice with Jest
 jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
   const View = require('react-native/Libraries/Components/View/View');
   return {
@@ -15,7 +14,6 @@ jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
   };
 });
 
-// Even after the mocks, there are some warning message we'll want to filter out
 console.warn = arg => {
   const warnings = [
     'Calling .measureInWindow()',
@@ -55,8 +53,6 @@ const LocationDisplay = withNavigation(({ navigation }) => (
   <Text testID="location-display">{navigation.state.routeName}</Text>
 ));
 
-// this is a handy function that I would utilize for any component
-// that relies on the navigation being in context
 function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
   const AppNavigator = createStackNavigator(
     {

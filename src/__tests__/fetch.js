@@ -31,21 +31,17 @@ class Fetch extends React.Component {
 }
 
 test('Fetch makes an API call and displays the greeting when load-greeting is clicked', async () => {
-  // Arrange
   fetch.mockResponseOnce(JSON.stringify({ data: { greeting: 'hello there' } }));
   const url = '/greeting';
   const { container, getByText } = render(<Fetch url={url} />);
 
-  // Act
   fireEvent.press(getByText('Fetch'));
 
   await wait();
 
-  // Assert
   expect(fetch).toHaveBeenCalledTimes(1);
   expect(fetch).toHaveBeenCalledWith(url);
-  // this assertion is funny because if the textContent were not "hello there"
-  // then the `getByText` would throw anyway... 🤔
+
   expect(getByText('hello there').props.children).toEqual('hello there');
   expect(container).toMatchSnapshot();
 });

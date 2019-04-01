@@ -33,15 +33,12 @@ test('can specify our own timeout time', async () => {
   const promise = waitForElement(() => {}, { timeout: 4700 });
   const handler = jest.fn();
   promise.then(handler, handler);
-  // advance beyond the default
+
   jest.advanceTimersByTime(4600);
-  // promise was neither rejected nor resolved
   expect(handler).toHaveBeenCalledTimes(0);
 
-  // advance beyond our specified timeout
   jest.advanceTimersByTime(150);
 
-  // timed out
   await expect(promise).rejects.toThrow(/timed out/i);
   jest.useRealTimers();
 });

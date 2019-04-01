@@ -38,11 +38,6 @@ function queryByText(...args) {
   return firstResultOrNull(queryAllByText, ...args);
 }
 
-// getters
-// the reason we're not dynamically generating these functions that look so similar:
-// 1. The error messages are specific to each one and depend on arguments
-// 2. The stack trace will look better because it'll have a helpful method name.
-
 function getAllByTestId(container, id, ...rest) {
   const els = queryAllByTestId(container, id, ...rest);
   if (!els.length) {

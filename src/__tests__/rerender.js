@@ -9,7 +9,6 @@ test('rerender will re-render the element', () => {
 
   const message = getByText('hi');
 
-  //  console.log(message.props.children);
   expect(message.props.children).toEqual('hi');
   rerender(<Greeting message="hey" />);
   expect(message.props.children).toEqual('hey');

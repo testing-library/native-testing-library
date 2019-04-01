@@ -26,11 +26,8 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
         if (result) {
           onDone(null, result);
         }
-        // If `callback` returns falsy value, wait for the next mutation or timeout.
       } catch (error) {
-        // Save the callback error to reject the promise with it.
         lastError = error;
-        // If `callback` throws an error, wait for the next mutation or timeout.
         observer = setTimeout(onMutation, interval);
       }
     }

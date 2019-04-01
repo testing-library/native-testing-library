@@ -29,10 +29,8 @@ test('login form submits', () => {
 
   const submitButtonNode = getByText('Submit');
 
-  // Act
   fireEvent.press(submitButtonNode);
 
-  // Assert
   expect(handleSubmit).toHaveBeenCalledTimes(1);
   expect(handleSubmit).toHaveBeenCalledWith(fakeUser);
 });

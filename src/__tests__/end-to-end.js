@@ -16,7 +16,7 @@ class ComponentWithLoader extends React.Component {
   state = { loading: true };
   async componentDidMount() {
     const data = await fetchAMessage();
-    this.setState({ data, loading: false }); // eslint-disable-line
+    this.setState({ data, loading: false });
   }
   render() {
     if (this.state.loading) {

@@ -49,15 +49,15 @@ test('It should allow a $ to be in the input when the value is changed', () => {
 
 test('It should not allow letters to be inputted', () => {
   const { input } = setup();
-  expect(input.props.value).toBe(''); // empty before
+  expect(input.props.value).toBe('');
   fireEvent.change(input, { text: 'Good Day' });
-  expect(input.props.value).toBe(''); //empty after
+  expect(input.props.value).toBe('');
 });
 
 test('It should allow the $ to be deleted', () => {
   const { input } = setup();
   fireEvent.change(input, { text: '23' });
-  expect(input.props.value).toBe('$23'); // need to make a change so React registers "" as a change
+  expect(input.props.value).toBe('$23');
   fireEvent.change(input, { text: '' });
   expect(input.props.value).toBe('');
 });

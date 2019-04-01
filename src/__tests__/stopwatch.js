@@ -43,14 +43,9 @@ test('unmounts a component', async () => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
   const { unmount, getByText, container } = render(<StopWatch />);
   fireEvent.press(getByText('Start'));
+
   unmount();
-  // hey there reader! You don't need to have an assertion like this one
-  // this is just me making sure that the unmount function works.
-  // You don't need to do this in your apps. Just rely on the fact that this works.
+
   expect(container.toJSON()).toBeNull();
-  // just wait to see if the interval is cleared or not
-  // if it's not, then we'll call setState on an unmounted component
-  // and get an error.
-  // eslint-disable-next-line no-console
   await wait(() => expect(console.error).not.toHaveBeenCalled());
 });
