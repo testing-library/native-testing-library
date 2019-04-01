@@ -5,8 +5,9 @@ import act from './act-compat';
 import * as queries from './queries';
 import { prettyPrint } from './pretty-print';
 import * as queryHelpers from './query-helpers';
-import { fireEvent as rntlFireEvent, NativeEvent } from './events';
+import { resultContainer, TestHook } from './hooks';
 import { getQueriesForElement } from './get-queries-for-element';
+import { fireEvent as rntlFireEvent, NativeEvent } from './events';
 
 function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
   const wrapUiIfNeeded = innerElement =>
@@ -23,10 +24,38 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
     rootInstance: container.root,
     debug: (el = container) => console.log(prettyPrint(el)),
     unmount: () => container.unmount(),
-    rerender: rerenderUi => {
-      container.update(wrapUiIfNeeded(rerenderUi));
-    },
+    rerender: rerenderUi => container.update(wrapUiIfNeeded(rerenderUi)),
     ...getQueriesForElement(container),
+  };
+}
+
+function renderHook(callback, { initialProps, ...options } = {}) {
+  const { result, updateResult, addResolver } = resultContainer();
+  const hookProps = { current: initialProps };
+
+  const toRender = () => (
+    <TestHook callback={callback} hookProps={hookProps.current}>
+      {updateResult}
+    </TestHook>
+  );
+
+  const { unmount, rerender: rerenderComponent } = render(toRender(), options);
+
+  return {
+    result,
+    waitForNextUpdate: () =>
+      new Promise(resolve =>
+        act(() => {
+          addResolver(resolve);
+        }),
+      ),
+    rerender: (newProps = hookProps.current) => {
+      hookProps.current = newProps;
+      act(() => {
+        rerenderComponent(toRender());
+      });
+    },
+    unmount,
   };
 }
 
@@ -58,4 +87,4 @@ export * from './wait';
 export * from './wait-for-element';
 export { getDefaultNormalizer } from './matches';
 
-export { act, fireEvent, queries, queryHelpers, render, NativeEvent };
+export { act, fireEvent, queries, queryHelpers, render, renderHook, NativeEvent };
