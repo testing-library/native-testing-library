@@ -94,10 +94,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bcarroll22/rntl.git"
+    "url": "https://github.com/bcarroll22/native-testing-library.git"
   },
   "bugs": {
-    "url": "https://github.com/bcarroll22/rntl/issues"
+    "url": "https://github.com/bcarroll22/native-testing-library/issues"
   },
-  "homepage": "https://github.com/bcarroll22/rntl#readme"
+  "homepage": "https://github.com/bcarroll22/native-testing-library#readme"
 }
