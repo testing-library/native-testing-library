@@ -11,17 +11,48 @@ test('onChange works', () => {
   expect(handleChange).toHaveBeenCalledTimes(1);
 });
 
+test('onChangeText works', () => {
+  function OnChangeText() {
+    const [text, setText] = React.useState('first');
+
+    return <TextInput onChangeText={setText} value={text} testID="input" />;
+  }
+
+  const { getByTestId } = render(<OnChangeText />);
+  const input = getByTestId('input');
+
+  expect(input.props.value).toBe('first');
+  fireEvent.changeText(input, 'second');
+  expect(input.props.value).toBe('second');
+});
+
 test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
   const { rootInstance } = render(<Button onPress={handleEvent} title="test" />);
+
   fireEvent(rootInstance, new NativeEvent('press'));
+  expect(handleEvent).toBeCalledTimes(1);
+});
+
+test('calling a custom event works as well', () => {
+  const event = { nativeEvent: { value: 'testing' } };
+  const onMyEvent = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
+  const MyComponent = ({ onMyEvent }) => <TextInput value="test" onChange={onMyEvent} />;
+
+  const { rootInstance } = render(<MyComponent onMyEvent={onMyEvent} />);
+  fireEvent(rootInstance, new NativeEvent('myEvent', event));
+
+  expect(onMyEvent).toHaveBeenCalledWith({
+    nativeEvent: { value: 'testing' },
+    type: 'CustomEvent',
+  });
 });
 
 test('calling a handler when there is no valid target throws', () => {
-  const spy = jest.fn();
-  const { getByTestId } = render(<Image onPress={spy} testID="image" />);
+  const handleEvent = jest.fn();
+  const { getByTestId } = render(<Image onPress={handleEvent} testID="image" />);
   expect(() => fireEvent.press(getByTestId('image'))).toThrow();
-  expect(spy).toBeCalledTimes(0);
+  expect(handleEvent).toBeCalledTimes(0);
 });
 
 test('calling an event that has no defined handler throws', () => {
@@ -30,8 +61,8 @@ test('calling an event that has no defined handler throws', () => {
 });
 
 test('calling an event sets nativeEvent properly', () => {
-  const event = { value: 'testing' };
-  const onChange = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual(event));
+  const event = { nativeEvent: { value: 'testing' } };
+  const onChange = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
 
   const { getByValue } = render(<TextInput value="test" onChange={onChange} />);
   fireEvent.change(getByValue('test'), event);

@@ -33,6 +33,10 @@ const eventMap = {
       'TextInput',
     ],
   },
+  changeText: {
+    type: 'ChangeEvent',
+    validTargets: ['TextInput'],
+  },
   contentSizeChange: {
     type: 'ContentSizeChangeEvent',
     validTargets: ['VirtualizedList', 'FlatList', 'SectionList', 'TextInput', 'ScrollView'],
@@ -190,16 +194,22 @@ const eventMap = {
     type: 'SyntheticEvent',
     validTargets: ['Image'],
   },
+
+  // Custom events, like a component onWhatever callback
+  custom: {
+    type: 'CustomEvent',
+    validTargets: [],
+  },
 };
 
 class NativeEvent {
-  constructor(typeArg, eventInit = {}) {
-    const config = eventMap[typeArg];
+  constructor(typeArg, event = {}) {
+    const config = eventMap[typeArg] || eventMap.custom;
+    const { validTargets = [], ...rest } = event;
 
     this.typeArg = typeArg;
-    this.nativeEvent = eventInit;
-    this.type = config.type;
-    this.validTargets = config.validTargets;
+    this.event = typeof event === 'object' ? { type: config.type, ...rest } : event;
+    this.validTargets = [...config.validTargets, ...validTargets];
   }
 
   set target(target) {
@@ -216,11 +226,11 @@ function getEventHandlerName(key) {
 }
 
 function isValidTarget(element, event) {
-  return (
-    event.validTargets.includes(element.type) ||
-    event.validTargets.includes(element.type.name) ||
-    event.validTargets.includes(element.type.displayName)
-  );
+  return event.validTargets.length
+    ? event.validTargets.includes(element.type) ||
+        event.validTargets.includes(element.type.name) ||
+        event.validTargets.includes(element.type.displayName)
+    : true;
 }
 
 function findEventHandler(element, event) {
@@ -242,7 +252,7 @@ function findEventHandler(element, event) {
 function fireEvent(element, event) {
   event.target = findEventHandler(element, event);
 
-  return event.target(event);
+  return event.target(event.event);
 }
 
 Object.keys(eventMap).forEach(key => {
