@@ -1,6 +1,9 @@
 <div align="center">
   <h1>native-testing-library (react native)</h1>
   <p>Simple and complete React Native testing utilities that encourage good testing practices.</p>
+  
+  [**Read The Docs**](https://bcarroll22.github.io/native-testing-library-docs/docs/intro) |
+  [Edit the docs](https://github.com/bcarroll22/native-testing-library-docs)
 </div>
 
 <hr />
