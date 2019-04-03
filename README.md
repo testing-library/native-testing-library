@@ -108,7 +108,7 @@ they relate to what's happening in the other libraries in this family of tools.
 
 ## Installation
 
-This module should be install as in your project's `devDependencies`:
+This module should be installed in your project's `devDependencies`:
 
 ```
 npm install --save-dev native-testing-library
