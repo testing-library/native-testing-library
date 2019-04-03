@@ -4,7 +4,7 @@
     height="80"
     width="80"
     alt="goat"
-    src="https://raw.githubusercontent.com/brandonvcarroll/native-testing-library/master/other/mascot.png"
+    src="https://raw.githubusercontent.com/bcarroll2/native-testing-library/master/other/mascot.png"
   />
     
   <p>Simple and complete React Native testing utilities that encourage good testing practices.</p>
