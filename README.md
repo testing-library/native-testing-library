@@ -84,6 +84,8 @@ test('examples of some things', async () => {
 });
 ```
 
+## Guiding principles
+
 > [The more your tests resemble the way your software is used, the more confidence they can give you.](https://twitter.com/kentcdodds/status/977018512689455106)
 
 We try to only expose methods and utilities that encourage you to write tests that closely resemble
