@@ -55,6 +55,13 @@ test('calling a handler when there is no valid target throws', () => {
   expect(handleEvent).toBeCalledTimes(0);
 });
 
+test('calling a handler the target is disabled throws', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(<Button disabled onPress={handleEvent} title="button" />);
+  expect(() => fireEvent.press(getByText('button'))).toThrow();
+  expect(handleEvent).toBeCalledTimes(0);
+});
+
 test('calling an event that has no defined handler throws', () => {
   const { getByText } = render(<Text>test</Text>);
   expect(() => fireEvent.press(getByText('test'))).toThrow();

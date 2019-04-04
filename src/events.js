@@ -202,6 +202,15 @@ const eventMap = {
   },
 };
 
+const disableableElements = [
+  'Slider',
+  'Switch',
+  'TouchableHighlight',
+  'TouchableNativeFeedback',
+  'TouchableOpacity',
+  'TouchableWithoutFeedback',
+];
+
 class NativeEvent {
   constructor(typeArg, event = {}) {
     const config = eventMap[typeArg] || eventMap.custom;
@@ -225,25 +234,37 @@ function getEventHandlerName(key) {
   return `on${key.charAt(0).toUpperCase()}${key.slice(1)}`;
 }
 
+function validateElementType(list, element) {
+  return (
+    list.includes(element.type) ||
+    list.includes(element.type.name) ||
+    list.includes(element.type.displayName)
+  );
+}
+
 function isValidTarget(element, event) {
-  return event.validTargets.length
-    ? event.validTargets.includes(element.type) ||
-        event.validTargets.includes(element.type.name) ||
-        event.validTargets.includes(element.type.displayName)
-    : true;
+  return event.validTargets.length ? validateElementType(event.validTargets, element) : true;
+}
+
+function isDisabled(element) {
+  return element.props.disabled && validateElementType(disableableElements, element);
 }
 
 function findEventHandler(element, event) {
   const { typeArg } = event;
   const eventHandler = getEventHandlerName(typeArg);
-  const isValid = isValidTarget(element, event);
+  const valid = isValidTarget(element, event);
+  const disabled = isDisabled(element);
 
-  if (typeof element.props[eventHandler] === 'function' && isValid) {
+  if (typeof element.props[eventHandler] === 'function' && valid) {
+    if (disabled) {
+      throw new Error(`A target was found for event: "${typeArg}", but the target is disabled!`);
+    }
     return element.props[eventHandler];
   }
 
   if (element.parent === null || element.parent.parent === null) {
-    throw new Error(`No handler found for event: ${typeArg}`);
+    throw new Error(`No target found for event: "${typeArg}"`);
   }
 
   return findEventHandler(element.parent, event);
