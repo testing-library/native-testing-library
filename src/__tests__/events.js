@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Text, TextInput } from 'react-native';
+import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
 import { render, fireEvent } from '../';
 import { NativeEvent } from '../events';
@@ -55,10 +55,21 @@ test('calling a handler when there is no valid target throws', () => {
   expect(handleEvent).toBeCalledTimes(0);
 });
 
-test('calling a handler the target is disabled throws', () => {
+test('calling a handler if a Button is disabled throws', () => {
   const handleEvent = jest.fn();
   const { getByText } = render(<Button disabled onPress={handleEvent} title="button" />);
   expect(() => fireEvent.press(getByText('button'))).toThrow();
+  expect(handleEvent).toBeCalledTimes(0);
+});
+
+test('calling a handler if a Touchable is disabled throws', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(
+    <TouchableHighlight disabled onPress={jest.fn()}>
+      <Text>touchable</Text>
+    </TouchableHighlight>
+  );
+  expect(() => fireEvent.press(getByText('touchable'))).toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 

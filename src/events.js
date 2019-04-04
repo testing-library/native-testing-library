@@ -258,7 +258,7 @@ function findEventHandler(element, event) {
 
   if (typeof element.props[eventHandler] === 'function' && valid) {
     if (disabled) {
-      throw new Error(`A target was found for event: "${typeArg}", but the target is disabled!`);
+      throw new Error(`A target was found for event: "${typeArg}", but the target is disabled`);
     }
     return element.props[eventHandler];
   }
