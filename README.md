@@ -129,7 +129,7 @@ import { renderHook } from 'native-testing-library';
 
 Reads more about hooks on the [docs site](https://native-testing-library.com/docs/api-render-hook).
 
-## Prior art
+## Inspiration
 
 Huge thanks to Kent C. Dodds for evangelizing this approach to testing. We could have never come up
 with this library without him 🙏. Check out his awesome work and learn more about testing with
@@ -137,15 +137,15 @@ confidence at [testinghavascript.com](https://testingjavascript.com/) (you won't
 it), and of course, use this library's big brother, `react-testing-library` for your DOM
 applications as well!
 
-Another huge source of inspiration was the original
-[`react-native-testing-library`](https://github.com/callstack/react-native-testing-library) made by
-the awesome engineers at [Callstack](https://callstack.com/). Seeing their implementation and how
-they solved some of the big gotchas with testing React Native using this philosphy was extremely
-helpful. (And if you know anyone looking for some React Native development, be sure to send them
-their way 😉.)
-
-Last but not least, the hook testing ability of this library is quite literally the same as
+The hook testing ability of this library is the same implementation as
 [react-hooks-testing-library](https://github.com/mpeyper/react-hooks-testing-library). The only
 reason it was included in this package is because we need you to import render from us, not the
 `dom-testing-library`, and that's an important blocker. Some day, maybe we'll try to allow use of
 that library with this one somehow.
+
+## Other Solutions
+
+The awesome engineers at [Callstack](https://callstack.com/) built a similar package called
+[`react-native-testing-library`](https://github.com/callstack/react-native-testing-library). 
+If you find yourself needing things like shallow rendering and the ability to query elements 
+by type and props, you'll definitely want to check it out!
