@@ -1,11 +1,14 @@
 <div align="center">
   <h1>(React) Native Testing Library</h1>
-  <img
-    height="80"
-    width="80"
-    alt="goat"
-    src="https://raw.githubusercontent.com/bcarroll22/native-testing-library/master/other/mascot.png"
-  />
+  
+  <a href="https://www.joypixels.com/emoji/1f433">
+    <img
+      height="80"
+      width="80"
+      alt="goat"
+      src="https://raw.githubusercontent.com/bcarroll22/native-testing-library/master/other/whale.png"
+    />
+  </a>
     
   <p>Simple and complete React Native testing utilities that encourage good testing practices.</p>
   
