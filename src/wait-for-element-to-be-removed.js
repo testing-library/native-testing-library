@@ -26,6 +26,7 @@ function waitForElementToBeRemoved(callback, { container, interval = 50, timeout
     function onDone(error, result) {
       const setImmediate = getSetImmediate();
       clearTimeout(timer);
+      /* istanbul ignore next */
       setImmediate(() => clearTimeout(observer));
       if (error) {
         reject(error);
