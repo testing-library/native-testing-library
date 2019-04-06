@@ -25,9 +25,9 @@ test('requires an unempty array of elements to exist first', () => {
 });
 
 test('times out after 4500ms by default', () => {
-  const { rootInstance } = render(<View />);
+  const { baseElement } = render(<View />);
   const promise = expect(
-    waitForElementToBeRemoved(() => rootInstance),
+    waitForElementToBeRemoved(() => baseElement),
   ).rejects.toThrowErrorMatchingInlineSnapshot(`"Timed out in waitForElementToBeRemoved."`);
 
   jest.advanceTimersByTime(4501);

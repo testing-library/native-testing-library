@@ -6,8 +6,8 @@ import { NativeEvent } from '../events';
 
 test('onChange works', () => {
   const handleChange = jest.fn();
-  const { rootInstance } = render(<TextInput onChange={handleChange} />);
-  fireEvent.change(rootInstance, { target: { value: 'a' } });
+  const { baseElement } = render(<TextInput onChange={handleChange} />);
+  fireEvent.change(baseElement, { target: { value: 'a' } });
   expect(handleChange).toHaveBeenCalledTimes(1);
 });
 
@@ -28,9 +28,9 @@ test('onChangeText works', () => {
 
 test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
-  const { rootInstance } = render(<Button onPress={handleEvent} title="test" />);
+  const { baseElement } = render(<Button onPress={handleEvent} title="test" />);
 
-  fireEvent(rootInstance, new NativeEvent('press'));
+  fireEvent(baseElement, new NativeEvent('press'));
   expect(handleEvent).toBeCalledTimes(1);
 });
 
@@ -39,8 +39,8 @@ test('calling a custom event works as well', () => {
   const onMyEvent = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
   const MyComponent = ({ onMyEvent }) => <TextInput value="test" onChange={onMyEvent} />;
 
-  const { rootInstance } = render(<MyComponent onMyEvent={onMyEvent} />);
-  fireEvent(rootInstance, new NativeEvent('myEvent', event));
+  const { baseElement } = render(<MyComponent onMyEvent={onMyEvent} />);
+  fireEvent(baseElement, new NativeEvent('myEvent', event));
 
   expect(onMyEvent).toHaveBeenCalledWith({
     nativeEvent: { value: 'testing' },

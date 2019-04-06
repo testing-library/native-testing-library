@@ -4,7 +4,13 @@ import { Text, TextInput } from 'react-native';
 import { getNodeText } from './get-node-text';
 import { waitForElement } from './wait-for-element';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
-import { getElementError, firstResultOrNull, queryAllByProp, queryByProp } from './query-helpers';
+import {
+  getElementError,
+  firstResultOrNull,
+  queryAllByProp,
+  queryByProp,
+  removeBadProperties,
+} from './query-helpers';
 
 const queryByA11yLabel = queryByProp.bind(null, 'accessibilityLabel');
 const queryAllByA11yLabel = queryAllByProp.bind(null, 'accessibilityLabel');
@@ -22,37 +28,21 @@ function queryAllByText(
   text,
   { types = ['Text', 'TextInput'], exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const rootInstance = container.root;
+  const baseElement = container.root;
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
   const baseArray = types.reduce(
-    (accumulator, currentValue) => [...accumulator, ...rootInstance.findAllByType(currentValue)],
+    (accumulator, currentValue) => [
+      ...accumulator,
+      ...baseElement.findAll(n => n.type === currentValue),
+    ],
     [],
   );
 
   return [...baseArray]
     .filter(node => matcher(getNodeText(node), node, text, matchNormalizer))
-    .map(node => {
-      // We take the guiding principles seriously around these parts. These methods just let
-      // you do too much unfortunately, and they make it hard to follow the rules of the
-      // testing-library. It's not that we don't trust you, in fact we do trust you! We've
-      // left `findAll` on the instance for you as an emergency escape hatch for when
-      // you're really in a bind. We do want you to test successfully, after all ☺️
-      //
-      // The main intent is to:
-      //   1) Make it hard to assert on implementation details
-      //   2) Force you to consider how to test from a user's perspective
-      //
-      // Of course if you can't figure that out, we still want you to be able to use this library,
-      // so use `findAll`, just use it sparingly! We really believe you can do everything you
-      // need using the query methods provided on the `render` API.
-      ['find', 'findAllByProps', 'findAllByType', 'findByProps', 'findByType', 'instance'].forEach(
-        op => Object.defineProperty(node, op, { get: undefined }),
-      );
-
-      return node;
-    });
+    .map(removeBadProperties);
 }
 
 function queryByText(...args) {

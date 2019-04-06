@@ -3,14 +3,13 @@ import { View } from 'react-native';
 import { render } from '../';
 
 test('renders View', () => {
-  const ref = React.createRef();
-  const { rootInstance } = render(<View ref={ref} />);
-  expect(rootInstance.instance).toBe(ref.current);
+  const { baseElement } = render(<View />);
+  expect(baseElement).not.toBeNull();
 });
 
-test('returns rootInstance', () => {
-  const { rootInstance } = render(<View />);
-  expect(rootInstance).toBeTruthy();
+test('returns baseElement', () => {
+  const { baseElement } = render(<View />);
+  expect(baseElement).toBeTruthy();
 });
 
 test('renders options.wrapper around node', () => {

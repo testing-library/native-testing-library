@@ -19,9 +19,11 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
     container = TR.create(wrapUiIfNeeded(ui), options);
   });
 
+  const baseElement = queryHelpers.removeBadProperties(container.root);
+
   return {
     container,
-    rootInstance: container.root,
+    baseElement,
     debug: (el = container) => console.log(prettyPrint(el)),
     unmount: () => container.unmount(),
     rerender: rerenderUi => {
