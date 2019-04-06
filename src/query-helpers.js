@@ -62,7 +62,7 @@ function removeBadProperties(node) {
 function queryAllByProp(
   attribute,
   container,
-  text,
+  match,
   { filter, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const baseElement = container.root;
@@ -72,7 +72,11 @@ function queryAllByProp(
 
   return allNodes
     .filter((node, index) => (filter ? filter(node, index) : defaultFilter(node, index)))
-    .filter(node => matcher(node.props[attribute], baseElement, text, matchNormalizer))
+    .filter(({ props }) =>
+      typeof props[attribute] === 'string'
+        ? matcher(props[attribute], baseElement, match, matchNormalizer)
+        : JSON.stringify(props[attribute]) === JSON.stringify(match),
+    )
     .map(removeBadProperties);
 }
 

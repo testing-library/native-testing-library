@@ -5,23 +5,24 @@ import { render } from '../.';
 
 test('find asynchronously finds elements', async () => {
   const {
-    findByA11yLabel,
+    findAllByA11yHint,
     findAllByA11yLabel,
-
-    findByPlaceholder,
-    findAllByPlaceholder,
-
-    findByText,
-    findAllByText,
-
-    findByValue,
-    findAllByValue,
-
-    findByA11yRole,
     findAllByA11yRole,
-
-    findByTestId,
+    findAllByA11yStates,
+    findAllByA11yTraits,
+    findAllByPlaceholder,
     findAllByTestId,
+    findAllByText,
+    findAllByValue,
+    findByA11yHint,
+    findByA11yLabel,
+    findByA11yRole,
+    findByA11yStates,
+    findByA11yTraits,
+    findByPlaceholder,
+    findByTestId,
+    findByText,
+    findByValue,
   } = render(
     <View>
       <Text testID="test-id" accessibilityRole="text">
@@ -29,13 +30,25 @@ test('find asynchronously finds elements', async () => {
       </Text>
       <TextInput placeholder="placeholder" />
       <TextInput value="value" />
+      <TextInput accessibilityStates={['disabled']} />
       <Image accessibilityLabel="test-label" src="/lucy-ricardo.png" />
-      <View role="dialog" />
+      <Image accessibilityHint="test-hint" src="/lucy-ricardo.png" />
+      <View accessibilityRole="dialog" />
+      <View accessibilityTraits={['button']} />
     </View>,
   );
 
+  await expect(findByA11yHint('test-hint')).resolves.toBeTruthy();
+  await expect(findAllByA11yHint('test-hint')).resolves.toHaveLength(1);
+
   await expect(findByA11yLabel('test-label')).resolves.toBeTruthy();
   await expect(findAllByA11yLabel('test-label')).resolves.toHaveLength(1);
+
+  await expect(findByA11yStates(['disabled'])).resolves.toBeTruthy();
+  await expect(findAllByA11yStates(['disabled'])).resolves.toHaveLength(1);
+
+  await expect(findByA11yTraits(['button'])).resolves.toBeTruthy();
+  await expect(findAllByA11yTraits(['button'])).resolves.toHaveLength(1);
 
   await expect(findByPlaceholder('placeholder')).resolves.toBeTruthy();
   await expect(findAllByPlaceholder('placeholder')).resolves.toHaveLength(1);
@@ -55,30 +68,43 @@ test('find asynchronously finds elements', async () => {
 
 test('find rejects when something cannot be found', async () => {
   const {
-    findByA11yLabel,
+    findAllByA11yHint,
     findAllByA11yLabel,
-
-    findByPlaceholder,
-    findAllByPlaceholder,
-
-    findByText,
-    findAllByText,
-
-    findByValue,
-    findAllByValue,
-
-    findByA11yRole,
     findAllByA11yRole,
-
-    findByTestId,
+    findAllByA11yStates,
+    findAllByA11yTraits,
+    findAllByPlaceholder,
     findAllByTestId,
+    findAllByText,
+    findAllByValue,
+    findByA11yHint,
+    findByA11yLabel,
+    findByA11yRole,
+    findByA11yStates,
+    findByA11yTraits,
+    findByPlaceholder,
+    findByTestId,
+    findByText,
+    findByValue,
   } = render(<View />);
 
   const qo = {};
   const wo = { timeout: 10 };
 
+  await expect(findByA11yHint('x', qo, wo)).rejects.toThrow('x');
+  await expect(findAllByA11yHint('x', qo, wo)).rejects.toThrow('x');
+
   await expect(findByA11yLabel('x', qo, wo)).rejects.toThrow('x');
   await expect(findAllByA11yLabel('x', qo, wo)).rejects.toThrow('x');
+
+  await expect(findByA11yRole('x', qo, wo)).rejects.toThrow('x');
+  await expect(findAllByA11yRole('x', qo, wo)).rejects.toThrow('x');
+
+  await expect(findByA11yStates('x', qo, wo)).rejects.toThrow('x');
+  await expect(findAllByA11yStates('x', qo, wo)).rejects.toThrow('x');
+
+  await expect(findByA11yTraits('x', qo, wo)).rejects.toThrow('x');
+  await expect(findAllByA11yTraits('x', qo, wo)).rejects.toThrow('x');
 
   await expect(findByPlaceholder('x', qo, wo)).rejects.toThrow('x');
   await expect(findAllByPlaceholder('x', qo, wo)).rejects.toThrow('x');
@@ -88,9 +114,6 @@ test('find rejects when something cannot be found', async () => {
 
   await expect(findByValue('x', qo, wo)).rejects.toThrow('x');
   await expect(findAllByValue('x', qo, wo)).rejects.toThrow('x');
-
-  await expect(findByA11yRole('x', qo, wo)).rejects.toThrow('x');
-  await expect(findAllByA11yRole('x', qo, wo)).rejects.toThrow('x');
 
   await expect(findByTestId('x', qo, wo)).rejects.toThrow('x');
   await expect(findAllByTestId('x', qo, wo)).rejects.toThrow('x');

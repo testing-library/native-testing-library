@@ -33,7 +33,7 @@ test('resolves only when the element is removed', async () => {
   // 2. The element should be removed immediately
   //    so if it doesn't in the first 100ms then we know something's wrong
   //    so we'll fail early and not wait the full timeout
-  await waitForElementToBeRemoved(() => queryAllByTestId('view'), { timeout: 500 });
+  await waitForElementToBeRemoved(() => queryAllByTestId('view'), { timeout: 250 });
 });
 
 test('resolves on mutation if callback throws an error', async () => {
@@ -55,5 +55,5 @@ test('resolves on mutation if callback throws an error', async () => {
 
   const { getByTestId } = render(<MutatedElement />);
 
-  await waitForElementToBeRemoved(() => getByTestId('view'), { timeout: 100 });
+  await waitForElementToBeRemoved(() => getByTestId('view'), { timeout: 250 });
 });
