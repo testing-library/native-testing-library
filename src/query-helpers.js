@@ -72,7 +72,8 @@ function queryAllByProp(
 
   return allNodes
     .filter((node, index) => (filter ? filter(node, index) : defaultFilter(node, index)))
-    .filter(node => matcher(node.props[attribute], baseElement, text, matchNormalizer));
+    .filter(node => matcher(node.props[attribute], baseElement, text, matchNormalizer))
+    .map(removeBadProperties);
 }
 
 function queryByProp(...args) {
