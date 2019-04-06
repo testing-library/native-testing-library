@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "pretty-format": "^24.5.0",
-    "react-test-renderer": "^16.8.5",
+    "react-test-renderer": "^16.9.0-alpha.0",
     "wait-for-expect": "^1.1.1"
   },
   "devDependencies": {
@@ -51,7 +51,7 @@
     "metro-react-native-babel-preset": "^0.52.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
-    "react": "^16.8.5",
+    "react": "^16.9.0-alpha.0",
     "react-intl": "^2.8.0",
     "react-intl-native": "^2.1.2",
     "react-native": "^0.59.0",

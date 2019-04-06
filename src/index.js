@@ -24,7 +24,11 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
     rootInstance: container.root,
     debug: (el = container) => console.log(prettyPrint(el)),
     unmount: () => container.unmount(),
-    rerender: rerenderUi => container.update(wrapUiIfNeeded(rerenderUi)),
+    rerender: rerenderUi => {
+      act(() => {
+        container.update(wrapUiIfNeeded(rerenderUi));
+      });
+    },
     ...getQueriesForElement(container),
   };
 }
@@ -43,17 +47,10 @@ function renderHook(callback, { initialProps, ...options } = {}) {
 
   return {
     result,
-    waitForNextUpdate: () =>
-      new Promise(resolve =>
-        act(() => {
-          addResolver(resolve);
-        }),
-      ),
+    waitForNextUpdate: () => new Promise(resolve => addResolver(resolve)),
     rerender: (newProps = hookProps.current) => {
       hookProps.current = newProps;
-      act(() => {
-        rerenderComponent(toRender());
-      });
+      rerenderComponent(toRender());
     },
     unmount,
   };
@@ -85,6 +82,7 @@ export * from './queries';
 export * from './query-helpers';
 export * from './wait';
 export * from './wait-for-element';
+export * from './wait-for-element-to-be-removed';
 export { getDefaultNormalizer } from './matches';
 
 export { act, fireEvent, queries, queryHelpers, render, renderHook, NativeEvent };

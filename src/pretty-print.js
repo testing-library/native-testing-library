@@ -9,7 +9,7 @@ function getPrettyOutput(reactElement, maxLength, options) {
     ...options,
   });
 
-  return maxLength !== undefined && reactElement.toString().length > maxLength
+  return maxLength !== undefined && debugContent && debugContent.toString().length > maxLength
     ? `${debugContent.slice(0, maxLength)}...`
     : debugContent;
 }

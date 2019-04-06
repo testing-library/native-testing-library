@@ -1,3 +1,4 @@
+import { getConfig } from './config';
 import { getSetImmediate } from './helpers';
 
 function waitForElement(callback, { container, interval = 50, timeout = 4500 } = {}) {
@@ -40,4 +41,8 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
   });
 }
 
-export { waitForElement };
+function waitForElementWrapper(...args) {
+  return getConfig().asyncWrapper(() => waitForElement(...args));
+}
+
+export { waitForElementWrapper as waitForElement };

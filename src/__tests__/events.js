@@ -67,7 +67,7 @@ test('calling a handler if a Touchable is disabled throws', () => {
   const { getByText } = render(
     <TouchableHighlight disabled onPress={jest.fn()}>
       <Text>touchable</Text>
-    </TouchableHighlight>
+    </TouchableHighlight>,
   );
   expect(() => fireEvent.press(getByText('touchable'))).toThrow();
   expect(handleEvent).toBeCalledTimes(0);
