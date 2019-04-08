@@ -1,5 +1,7 @@
 import React from 'react';
+import 'jest-native/extend-expect';
 import { Text } from 'react-native';
+
 import { render, wait } from '../';
 
 const fetchAMessage = () =>
@@ -32,5 +34,5 @@ test('it waits for the data to be loaded', async () => {
   expect(queryByText('Loading...')).toBeTruthy();
 
   await wait(() => expect(queryByText('Loading...')).toBeNull());
-  expect(queryByTestId('message').props.children.join('')).toMatch(/Hello World/);
+  expect(queryByTestId('message')).toHaveTextContent(/Hello World/);
 });

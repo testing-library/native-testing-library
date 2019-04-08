@@ -1,4 +1,5 @@
 import React from 'react';
+import 'jest-native/extend-expect';
 import { Text } from 'react-native';
 
 import { render } from '../';
@@ -9,7 +10,7 @@ test('rerender will re-render the element', () => {
 
   const message = getByText('hi');
 
-  expect(message.props.children).toEqual('hi');
+  expect(message).toHaveTextContent('hi');
   rerender(<Greeting message="hey" />);
-  expect(message.props.children).toEqual('hey');
+  expect(message).toHaveTextContent('hey');
 });

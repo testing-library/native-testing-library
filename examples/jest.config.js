@@ -4,6 +4,6 @@ module.exports = {
   roots: [__dirname],
   rootDir: __dirname,
   moduleNameMapper: {
-    'rn-testing-library': '<rootDir>src',
+    'native-testing-library': '<rootDir>src',
   },
 };

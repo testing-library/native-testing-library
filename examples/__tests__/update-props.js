@@ -1,6 +1,7 @@
 import React from 'react';
+import 'jest-native/extend-expect';
 import { Text, View } from 'react-native';
-import { render } from '../../src';
+import { render } from 'native-testing-library';
 
 let idCounter = 1;
 
@@ -18,10 +19,10 @@ class NumberDisplay extends React.Component {
 
 test('calling render with the same component on the same container does not remount', () => {
   const { getByTestId, rerender } = render(<NumberDisplay number={1} />);
-  expect(getByTestId('number-display').props.children).toEqual(1);
+  expect(getByTestId('number-display')).toHaveTextContent(1);
 
   rerender(<NumberDisplay number={2} />);
-  expect(getByTestId('number-display').props.children).toEqual(2);
+  expect(getByTestId('number-display')).toHaveTextContent(2);
 
-  expect(getByTestId('instance-id').props.children).toEqual(1);
+  expect(getByTestId('instance-id')).toHaveTextContent(1);
 });

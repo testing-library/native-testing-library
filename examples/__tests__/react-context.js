@@ -1,12 +1,13 @@
+import 'jest-native/extend-expect';
 import React from 'react';
 import { Text } from 'react-native';
+import { render } from 'native-testing-library';
 
-import { render } from '../../src';
 import { NameContext, NameProvider, NameConsumer } from '../react-context';
 
 test('NameConsumer shows default value', () => {
   const { getByText } = render(<NameConsumer />);
-  expect(getByText(/^My Name Is:/).props.children.join('')).toBe('My Name Is: Unknown');
+  expect(getByText(/^My Name Is:/)).toHaveTextContent('My Name Is: Unknown');
 });
 
 test('NameConsumer shows value from provider', () => {
@@ -16,7 +17,7 @@ test('NameConsumer shows value from provider', () => {
     </NameContext.Provider>
   );
   const { getByText } = render(tree);
-  expect(getByText(/^My Name Is:/).props.children.join('')).toBe('My Name Is: C3P0');
+  expect(getByText(/^My Name Is:/)).toHaveTextContent('My Name Is: C3P0');
 });
 
 test('NameProvider composes full name from first, last', () => {
@@ -26,7 +27,7 @@ test('NameProvider composes full name from first, last', () => {
     </NameProvider>
   );
   const { getByText } = render(tree);
-  expect(getByText(/^Received:/).props.children.join('')).toBe('Received: Boba Fett');
+  expect(getByText(/^Received:/)).toHaveTextContent('Received: Boba Fett');
 });
 
 test('NameProvider/Consumer shows name of character', () => {
@@ -36,5 +37,5 @@ test('NameProvider/Consumer shows name of character', () => {
     </NameProvider>
   );
   const { getByText } = render(tree);
-  expect(getByText(/^My Name Is:/).props.children.join('')).toBe('My Name Is: Leia Organa');
+  expect(getByText(/^My Name Is:/)).toHaveTextContent('My Name Is: Leia Organa');
 });

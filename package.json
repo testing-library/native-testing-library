@@ -48,6 +48,7 @@
     "jest": "24.5.0",
     "jest-fetch-mock": "^2.1.1",
     "jest-in-case": "^1.0.2",
+    "jest-native": "^1.2.0",
     "metro-react-native-babel-preset": "^0.52.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",

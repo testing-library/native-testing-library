@@ -1,4 +1,5 @@
 import React from 'react';
+import 'jest-native/extend-expect';
 import { TouchableOpacity, Text, View } from 'react-native';
 
 import { render, fireEvent, wait } from '../';
@@ -42,6 +43,6 @@ test('Fetch makes an API call and displays the greeting when load-greeting is cl
   expect(fetch).toHaveBeenCalledTimes(1);
   expect(fetch).toHaveBeenCalledWith(url);
 
-  expect(getByText('hello there').props.children).toEqual('hello there');
+  expect(getByText('hello there')).toHaveTextContent('hello there');
   expect(container).toMatchSnapshot();
 });

@@ -5,7 +5,7 @@ import { FormattedDate } from 'react-intl-native';
 import IntlPolyfill from 'intl';
 import 'intl/locale-data/jsonp/pt';
 
-import { getByText, render } from '../../src';
+import { getByText, render } from 'native-testing-library';
 
 const setupTests = () => {
   if (global.Intl) {

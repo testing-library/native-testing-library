@@ -1,11 +1,12 @@
+import 'jest-native/extend-expect';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer, withNavigation } from 'react-navigation';
 
-import { render, fireEvent } from '../../src';
+import { render, fireEvent } from 'native-testing-library';
 
 jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
-  const View = require('react-native/Libraries/Components/View/View');
+  const View = require('react-native').View;
   return {
     State: {},
     PanGestureHandler: View,
@@ -14,6 +15,7 @@ jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
   };
 });
 
+const originalConsoleWarn = console.warn;
 console.warn = arg => {
   const warnings = [
     'Calling .measureInWindow()',
@@ -25,21 +27,23 @@ console.warn = arg => {
 
   const finalArgs = warnings.reduce((acc, curr) => (arg.includes(curr) ? [...acc, arg] : acc), []);
 
-  if (!finalArgs.length) {
-    console.warn(arg);
+  if (finalArgs.length) {
+    return;
   }
+
+  originalConsoleWarn(message);
 };
 
 const Home = ({ navigation }) => (
   <View>
     <Text testID="title">Home page</Text>
-    <Button title="About page" onPress={() => navigation.navigate('About')} />
+    <Button title="Go to about" onPress={() => navigation.navigate('About')} />
   </View>
 );
 const About = ({ navigation }) => (
   <View>
     <Text testID="title">About page</Text>
-    <Button title="About page" onPress={() => navigation.navigate('Home')} />
+    <Button title="Go to home" onPress={() => navigation.navigate('Home')} />
   </View>
 );
 const Location = () => (
@@ -71,9 +75,12 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
 
 test('full app rendering/navigating', async () => {
   const { findByText, getByTestId, getByText } = renderWithNavigation();
-  expect(getByTestId('title').props.children).toMatch('Home page');
-  fireEvent.press(getByText(/About page/i));
-  await expect(findByText('About page')).toBeTruthy();
+
+  expect(getByTestId('title')).toHaveTextContent('Home page');
+  fireEvent.press(getByText(/Go to about/i));
+
+  const result = await findByText('About page');
+  expect(result).toHaveTextContent('About page');
 });
 
 test('rendering a component that uses withNavigation', () => {
@@ -81,5 +88,5 @@ test('rendering a component that uses withNavigation', () => {
   const { getByTestId } = renderWithNavigation({
     navigatorConfig: { initialRouteName },
   });
-  expect(getByTestId('location-display').props.children).toBe(initialRouteName);
+  expect(getByTestId('location-display')).toHaveTextContent(initialRouteName);
 });
