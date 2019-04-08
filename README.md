@@ -28,6 +28,22 @@
 [![Watch on GitHub](https://img.shields.io/github/watchers/bcarroll22/native-testing-library.svg?style=social)](https://github.com/bcarroll22/native-testing-library/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/bcarroll22/native-testing-library.svg?style=social)](https://github.com/bcarroll22/native-testing-library/stargazers)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+## Table of Contents
+
+- [The problem](#the-problem)
+- [This solution](#this-solution)
+- [Example](#example)
+- [Guiding principles](#guiding-principles)
+- [Installation](#installation)
+- [Hooks](#hooks)
+- [Inspiration](#inspiration)
+- [Other Solutions](#other-solutions)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## The problem
 
 You want to write maintainable tests for your React Native application. You love Kent Dodds' testing
@@ -146,6 +162,6 @@ that library with this one somehow.
 ## Other Solutions
 
 The awesome engineers at [Callstack](https://callstack.com/) built a similar package called
-[`react-native-testing-library`](https://github.com/callstack/react-native-testing-library). 
-If you find yourself needing things like shallow rendering and the ability to query elements 
+[`react-native-testing-library`](https://github.com/callstack/react-native-testing-library).
+If you find yourself needing things like shallow rendering and the ability to query elements
 by type and props, you'll definitely want to check it out!

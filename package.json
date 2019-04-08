@@ -13,6 +13,7 @@
     "commit": "git-cz",
     "commit:add": "git add .",
     "commit:all": "npm run commit:add && npm run commit",
+    "readme:toc": "doctoc README.md --maxlevel 3 --title '## Table of Contents'",
     "test": "jest",
     "pretty-quick": "pretty-quick --staged --pattern '**/*.(js|jsx|ts|tsx)'",
     "prepublish": "rm -rf dist; babel src --out-dir dist --ignore 'src/__tests__/*'",
