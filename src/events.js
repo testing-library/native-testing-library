@@ -88,6 +88,7 @@ const eventMap = {
       'TouchableOpacity',
       'TouchableWithoutFeedback',
       'TouchableNativeFeedback',
+      'Text',
     ],
   },
   press: {
@@ -100,6 +101,7 @@ const eventMap = {
       'TouchableOpacity',
       'TouchableWithoutFeedback',
       'TouchableNativeFeedback',
+      'Text',
     ],
   },
   pressIn: {
@@ -112,6 +114,7 @@ const eventMap = {
       'TouchableWithoutFeedback',
       'TouchableNativeFeedback',
       'YellowBoxPressable',
+      'Text',
     ],
   },
   pressOut: {
@@ -124,6 +127,7 @@ const eventMap = {
       'TouchableWithoutFeedback',
       'TouchableNativeFeedback',
       'YellowBoxPressable',
+      'Text',
     ],
   },
   momentumScrollBegin: {
