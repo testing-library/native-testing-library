@@ -11,12 +11,11 @@ cache:
     - coverage
 notifications:
   email: false
-install: npm install
-script: npm run test:coverage
+install: npm i && npm i -g codecov
+script: npm run test:coverage && codecov
 jobs:
   include:
     - stage: release
       if: branch = master AND type != pull_request
       node_js: '10'
-      install: npm install -g codecov
-      script: codecov && npm run semantic-release
+      script: npm run semantic-release
