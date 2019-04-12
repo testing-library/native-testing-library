@@ -1,7 +1,7 @@
 import { getConfig } from './config';
 import { getSetImmediate } from './helpers';
 
-function waitForElementToBeRemoved(callback, { container, interval = 50, timeout = 4500 } = {}) {
+function waitForElementToBeRemoved(callback, { interval = 50, timeout = 4500 } = {}) {
   return new Promise((resolve, reject) => {
     if (typeof callback !== 'function') {
       reject(new Error('waitForElementToBeRemoved requires a callback as the first parameter'));
@@ -12,7 +12,7 @@ function waitForElementToBeRemoved(callback, { container, interval = 50, timeout
 
     // Check if the element is not present
     /* istanbul ignore next */
-    const result = container ? callback(container) : callback();
+    const result = callback();
     if (!result || (Array.isArray(result) && !result.length)) {
       onDone(
         new Error(
@@ -38,7 +38,7 @@ function waitForElementToBeRemoved(callback, { container, interval = 50, timeout
     function onMutation() {
       try {
         /* istanbul ignore next */
-        const result = container ? callback(container) : callback();
+        const result = callback();
         if (!result || (Array.isArray(result) && !result.length)) {
           onDone(null, true);
         } else {

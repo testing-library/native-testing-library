@@ -120,7 +120,7 @@ test('find rejects when something cannot be found', async () => {
 });
 
 test('actually works with async code', async () => {
-  const { findByTestId, rerender, container } = render(<View />);
+  const { findByTestId, rerender } = render(<View />);
   setTimeout(() => rerender(<Text testID="text">correct tree</Text>), 20);
-  await expect(findByTestId('text', {}, { container })).resolves.toBeTruthy();
+  await expect(findByTestId('text', {})).resolves.toBeTruthy();
 });

@@ -38,6 +38,10 @@ function defaultFilter(node) {
   return mockedTypes.includes(node.type);
 }
 
+function getBaseElement(container) {
+  return container.root ? container.root : container;
+}
+
 function removeBadProperties(node) {
   // We take the guiding principles seriously around these parts. These methods just let
   // you do too much unfortunately, and they make it hard to follow the rules of the
@@ -65,7 +69,7 @@ function queryAllByProp(
   match,
   { filter, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const baseElement = container.root;
+  const baseElement = getBaseElement(container);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
   const allNodes = Array.from(baseElement.findAll(c => c.props[attribute]));
@@ -86,6 +90,7 @@ function queryByProp(...args) {
 
 export {
   defaultFilter,
+  getBaseElement,
   getElementError,
   firstResultOrNull,
   filterNodeByType,

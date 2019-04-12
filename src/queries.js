@@ -5,6 +5,7 @@ import { getNodeText } from './get-node-text';
 import { waitForElement } from './wait-for-element';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
 import {
+  getBaseElement,
   getElementError,
   firstResultOrNull,
   queryAllByProp,
@@ -175,7 +176,7 @@ function queryAllByText(
   text,
   { types = ['Text', 'TextInput'], exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const baseElement = container.root;
+  const baseElement = getBaseElement(container);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
@@ -187,7 +188,7 @@ function queryAllByText(
     [],
   );
 
-  return [...baseArray]
+  return baseArray
     .filter(node => matcher(getNodeText(node), node, text, matchNormalizer))
     .map(removeBadProperties);
 }
@@ -202,11 +203,8 @@ function queryByText(...args) {
  |--------------------------------------------------------------------------
  */
 function makeFinder(getter) {
-  return (testContainer, text, options, waitForElementOptions) =>
-    waitForElement(
-      (container = testContainer) => getter(container, text, options),
-      waitForElementOptions,
-    );
+  return (container, text, options, waitForElementOptions) =>
+    waitForElement(() => getter(container, text, options), waitForElementOptions);
 }
 
 /*

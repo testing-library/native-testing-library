@@ -8,4 +8,4 @@ function getQueriesForElement(container, queries = defaultQueries) {
   }, {});
 }
 
-export { getQueriesForElement };
+export { getQueriesForElement, getQueriesForElement as within };

@@ -1,7 +1,7 @@
 import { getConfig } from './config';
 import { getSetImmediate } from './helpers';
 
-function waitForElement(callback, { container, interval = 50, timeout = 4500 } = {}) {
+function waitForElement(callback, { interval = 50, timeout = 4500 } = {}) {
   return new Promise((resolve, reject) => {
     if (typeof callback !== 'function') {
       reject(new Error('waitForElement requires a callback as the first parameter'));
@@ -23,7 +23,7 @@ function waitForElement(callback, { container, interval = 50, timeout = 4500 } =
 
     function onMutation() {
       try {
-        const result = container ? callback(container) : callback();
+        const result = callback();
         if (result) {
           onDone(null, result);
         }

@@ -13,8 +13,8 @@ test('waits for element to appear in the document', async () => {
 });
 
 test('waits for element to appear in a specified container', async () => {
-  const { rerender, container, getByTestId } = render(<View />);
-  const promise = waitForElement(() => getByTestId('test'), { container });
+  const { rerender, getByTestId } = render(<View />);
+  const promise = waitForElement(() => getByTestId('test'));
   setTimeout(() => rerender(<View testID="test" />));
   const element = await promise;
   expect(element).toBeTruthy();
@@ -44,7 +44,7 @@ test('can specify our own timeout time', async () => {
 });
 
 test('throws last thrown error', async () => {
-  const { rerender, container } = render(<View />);
+  const { rerender } = render(<View />);
   let error;
   setTimeout(() => {
     error = new Error('first error');
@@ -58,14 +58,14 @@ test('throws last thrown error', async () => {
     () => {
       throw error;
     },
-    { container, timeout: 50 },
+    { timeout: 50 },
   );
   await expect(promise).rejects.toThrow(error);
 });
 
 test('waits until callback does not return null', async () => {
-  const { rerender, container, queryByTestId } = render(<View />);
-  const promise = waitForElement(() => queryByTestId('text'), { container });
+  const { rerender, queryByTestId } = render(<View />);
+  const promise = waitForElement(() => queryByTestId('text'));
   rerender(<View testID="text" />);
   const element = await promise;
   expect(element).toBeTruthy();
