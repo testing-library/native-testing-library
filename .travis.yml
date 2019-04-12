@@ -23,4 +23,4 @@ jobs:
       install: npm install -g codecov
       script:
         - codecov
-        - [ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run semantic-release'
+        - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run semantic-release'
