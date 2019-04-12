@@ -286,4 +286,4 @@ Object.keys(eventMap).forEach(key => {
   };
 });
 
-export { fireEvent, getEventHandlerName, NativeEvent };
+export { eventMap, fireEvent, getEventHandlerName, NativeEvent };

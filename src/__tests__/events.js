@@ -1,8 +1,26 @@
 import React from 'react';
+import 'jest-native/extend-expect';
 import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
-import { render, fireEvent } from '../';
-import { NativeEvent } from '../events';
+import { render, fireEvent, getEventHandlerName, wait } from '../';
+import { eventMap, NativeEvent } from '../events';
+
+Object.keys(eventMap).forEach(key => {
+  const handlerName = getEventHandlerName(key);
+
+  describe(`${handlerName}`, () => {
+    const config = eventMap[key];
+
+    config.validTargets.forEach(element => {
+      const handler = jest.fn();
+      const { baseElement } = render(React.createElement(element, { [handlerName]: handler }));
+
+      fireEvent[key](baseElement);
+
+      expect(handler).toHaveBeenCalledTimes(1);
+    });
+  });
+});
 
 test('onChange works', () => {
   const handleChange = jest.fn();
@@ -24,6 +42,27 @@ test('onChangeText works', () => {
   expect(input.props.value).toBe('first');
   fireEvent.changeText(input, 'second');
   expect(input.props.value).toBe('second');
+});
+
+test('assigns target properties', async () => {
+  class MyComponent extends React.Component {
+    state = { value: '' };
+    onChange = ({ nativeEvent }) => {
+      this.setState({ value: nativeEvent.text });
+      this.props.onChange();
+    };
+    render() {
+      return <TextInput testID="input" value={this.state.value} onChange={this.onChange} />;
+    }
+  }
+
+  const spy = jest.fn();
+  const value = 'a';
+  const { getByTestId } = render(<MyComponent onChange={spy} />);
+  const input = getByTestId('input');
+  fireEvent.change(input, { nativeEvent: { text: value } });
+  expect(spy).toHaveBeenCalledTimes(1);
+  await wait(() => expect(input.props.value).toBe(value));
 });
 
 test('calling `fireEvent` directly works too', () => {
