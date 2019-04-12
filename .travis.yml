@@ -11,16 +11,12 @@ cache:
     - coverage
 notifications:
   email: false
-branches:
-  only:
-    - master
 install: npm install
 script: npm run test:coverage
 jobs:
   include:
     - stage: release
+      if: branch = master AND type != pull_request
       node_js: '10'
       install: npm install -g codecov
-      script:
-        - codecov
-        - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && npm run semantic-release'
+      script: codecov && npm run semantic-release
