@@ -149,7 +149,7 @@ Reads more about hooks on the [docs site](https://native-testing-library.com/doc
 
 Huge thanks to Kent C. Dodds for evangelizing this approach to testing. We could have never come up
 with this library without him 🙏. Check out his awesome work and learn more about testing with
-confidence at [testinghavascript.com](https://testingjavascript.com/) (you won't regret purchasing
+confidence at [testingjavascript.com](https://testingjavascript.com/) (you won't regret purchasing
 it), and of course, use this library's big brother, `react-testing-library` for your DOM
 applications as well!
 
