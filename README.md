@@ -1,4 +1,5 @@
 <div align="center">
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
   <h1>(React) Native Testing Library</h1>
   
   <a href="https://www.joypixels.com/emoji/1f433">
@@ -165,3 +166,15 @@ The awesome engineers at [Callstack](https://callstack.com/) built a similar pac
 [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library).
 If you find yourself needing things like shallow rendering and the ability to query elements
 by type and props, you'll definitely want to check it out!
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="https://github.com/bcarroll22"><img src="https://avatars2.githubusercontent.com/u/11020406?v=4" width="100px;" alt="Brandon Carroll"/><br /><sub><b>Brandon Carroll</b></sub></a><br /><a href="https://github.com/bcarroll22/native-testing-library/commits?author=bcarroll22" title="Code">💻</a> <a href="https://github.com/bcarroll22/native-testing-library/commits?author=bcarroll22" title="Documentation">📖</a> <a href="#infra-bcarroll22" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/bcarroll22/native-testing-library/commits?author=bcarroll22" title="Tests">⚠️</a></td><td align="center"><a href="https://kentcdodds.com"><img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;" alt="Kent C. Dodds"/><br /><sub><b>Kent C. Dodds</b></sub></a><br /><a href="#ideas-kentcdodds" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="http://exercism.io/profiles/wolverineks/619ce225090a43cb891d2edcbbf50401"><img src="https://avatars2.githubusercontent.com/u/8462274?v=4" width="100px;" alt="Kevin Sullivan"/><br /><sub><b>Kevin Sullivan</b></sub></a><br /><a href="https://github.com/bcarroll22/native-testing-library/commits?author=wolverineks" title="Documentation">📖</a></td></tr></table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

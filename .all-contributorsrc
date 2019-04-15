@@ -6,7 +6,8 @@
     "README.md"
   ],
   "imageSize": 100,
-  "commit": false,
+  "commit": true,
+  "commitConvention": "angular",
   "contributors": [
     {
       "login": "bcarroll22",
@@ -27,6 +28,15 @@
       "profile": "https://kentcdodds.com",
       "contributions": [
         "ideas"
+      ]
+    },
+    {
+      "login": "wolverineks",
+      "name": "Kevin Sullivan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/8462274?v=4",
+      "profile": "http://exercism.io/profiles/wolverineks/619ce225090a43cb891d2edcbbf50401",
+      "contributions": [
+        "doc"
       ]
     }
   ],
