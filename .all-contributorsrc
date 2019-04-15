@@ -57,6 +57,17 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "TAGraves",
+      "name": "Tommy Graves",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2263711?v=4",
+      "profile": "http://tagraves.com",
+      "contributions": [
+        "ideas",
+        "maintenance",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
