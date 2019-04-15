@@ -3,6 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/**"
   ],
@@ -16,7 +17,7 @@
     "readme:toc": "doctoc README.md --maxlevel 3 --title '## Table of Contents'",
     "test": "jest",
     "pretty-quick": "pretty-quick --staged --pattern '**/*.(js|jsx|ts|tsx)'",
-    "prepublish": "rm -rf dist; babel src --out-dir dist --ignore 'src/__tests__/*'",
+    "prepublish": "rm -rf dist; babel src --out-dir dist --ignore 'src/__tests__/*' && cp src/index.d.ts dist/index.d.ts",
     "semantic-release": "semantic-release",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch --coverage"
