@@ -1,0 +1,35 @@
+{
+  "projectName": "native-testing-library",
+  "projectOwner": "bcarroll22",
+  "repoType": "github",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "bcarroll22",
+      "name": "Brandon Carroll",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/11020406?v=4",
+      "profile": "https://github.com/bcarroll22",
+      "contributions": [
+        "code",
+        "doc",
+        "infra",
+        "test"
+      ]
+    },
+    {
+      "login": "kentcdodds",
+      "name": "Kent C. Dodds",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1500684?v=3",
+      "profile": "https://kentcdodds.com",
+      "contributions": [
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "repoHost": "https://github.com"
+}
