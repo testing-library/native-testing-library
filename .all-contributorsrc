@@ -22,21 +22,23 @@
       ]
     },
     {
+      "login": "TAGraves",
+      "name": "Tommy Graves",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/2263711?v=4",
+      "profile": "http://tagraves.com",
+      "contributions": [
+        "ideas",
+        "maintenance",
+        "review"
+      ]
+    },
+    {
       "login": "kentcdodds",
       "name": "Kent C. Dodds",
       "avatar_url": "https://avatars.githubusercontent.com/u/1500684?v=3",
       "profile": "https://kentcdodds.com",
       "contributions": [
         "ideas"
-      ]
-    },
-    {
-      "login": "wolverineks",
-      "name": "Kevin Sullivan",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/8462274?v=4",
-      "profile": "http://exercism.io/profiles/wolverineks/619ce225090a43cb891d2edcbbf50401",
-      "contributions": [
-        "doc"
       ]
     },
     {
@@ -59,14 +61,12 @@
       ]
     },
     {
-      "login": "TAGraves",
-      "name": "Tommy Graves",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/2263711?v=4",
-      "profile": "http://tagraves.com",
+      "login": "wolverineks",
+      "name": "Kevin Sullivan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/8462274?v=4",
+      "profile": "http://exercism.io/profiles/wolverineks/619ce225090a43cb891d2edcbbf50401",
       "contributions": [
-        "ideas",
-        "maintenance",
-        "review"
+        "doc"
       ]
     }
   ],
