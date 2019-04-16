@@ -166,10 +166,8 @@ that library with this one somehow.
 
 ## Other Solutions
 
-The awesome engineers at [Callstack](https://callstack.com/) built a similar package called
-[`react-native-testing-library`](https://github.com/callstack/react-native-testing-library).
-If you find yourself needing things like shallow rendering and the ability to query elements
-by type and props, you'll definitely want to check it out!
+[`react-native-testing-library`](https://github.com/callstack/react-native-testing-library)
+[`enzyme`](https://airbnb.io/enzyme/docs/guides/react-native.html)
 
 ## Guiding Principles
 
