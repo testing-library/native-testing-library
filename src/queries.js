@@ -6,6 +6,7 @@ import { waitForElement } from './wait-for-element';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
 import {
   getBaseElement,
+  getGetByElementError,
   getElementError,
   firstResultOrNull,
   queryAllByProp,
@@ -107,40 +108,94 @@ function getAllByValue(container, value, ...rest) {
  | Get by...
  |--------------------------------------------------------------------------
  */
-function getByA11yHint(...args) {
-  return firstResultOrNull(getAllByA11yHint, ...args);
+function getByA11yHint(container, hint, ...args) {
+  const els = getAllByA11yHint(container, hint, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(
+      `Found multiple elements with the accessibilityHint: ${hint}`,
+      container,
+    );
+  }
+  return els[0];
 }
 
-function getByA11yLabel(...args) {
-  return firstResultOrNull(getAllByA11yLabel, ...args);
+function getByA11yLabel(container, label, ...args) {
+  const els = getAllByA11yLabel(container, label, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(
+      `Found multiple elements with the accessibilityLabel: ${label}`,
+      container,
+    );
+  }
+  return els[0];
 }
 
-function getByPlaceholder(...args) {
-  return firstResultOrNull(getAllByPlaceholder, ...args);
+function getByA11yRole(container, role, ...args) {
+  const els = getAllByA11yRole(container, role, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(
+      `Found multiple elements with the accessibilityRole: "${role}"`,
+      container,
+    );
+  }
+  return els[0];
 }
 
-function getByA11yRole(...args) {
-  return firstResultOrNull(getAllByA11yRole, ...args);
+function getByA11yStates(container, states, ...args) {
+  const els = getAllByA11yStates(container, states, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(
+      `Found multiple elements with the accessibilityStates: ${JSON.stringify(states)}`,
+      container,
+    );
+  }
+  return els[0];
 }
 
-function getByA11yStates(...args) {
-  return firstResultOrNull(getAllByA11yStates, ...args);
+function getByA11yTraits(container, traits, ...args) {
+  const els = getAllByA11yTraits(container, traits, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(
+      `Found multiple elements with the accessibilityTraits: ${JSON.stringify(traits)}`,
+      container,
+    );
+  }
+  return els[0];
 }
 
-function getByA11yTraits(...args) {
-  return firstResultOrNull(getAllByA11yTraits, ...args);
+function getByPlaceholder(container, placeholder, ...args) {
+  const els = getAllByPlaceholder(container, placeholder, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(
+      `Found multiple elements with the placeholder: "${placeholder}"`,
+      container,
+    );
+  }
+  return els[0];
 }
 
-function getByTestId(...args) {
-  return firstResultOrNull(getAllByTestId, ...args);
+function getByTestId(container, id, ...args) {
+  const els = getAllByTestId(container, id, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(`Found multiple elements with the testID: "${id}"`, container);
+  }
+  return els[0];
 }
 
-function getByText(...args) {
-  return firstResultOrNull(getAllByText, ...args);
+function getByText(container, text, ...args) {
+  const els = getAllByText(container, text, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(`Found multiple elements with the text: ${text}`, container);
+  }
+  return els[0];
 }
 
-function getByValue(...args) {
-  return firstResultOrNull(getAllByValue, ...args);
+function getByValue(container, value, ...args) {
+  const els = getAllByValue(container, value, ...args);
+  if (els.length > 1) {
+    throw getGetByElementError(`Found multiple elements with the value: ${value}`, container);
+  }
+  return els[0];
 }
 
 /*

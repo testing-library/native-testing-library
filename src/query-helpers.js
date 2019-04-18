@@ -15,6 +15,13 @@ function filterNodeByType(node, type) {
   return node.type === type;
 }
 
+function getGetByElementError(message, container) {
+  return getElementError(
+    `${message}\n\n(If this is intentional, then use the \`*AllBy*\` variant of the query (like \`getAllByText\` or \`findAllByText\`)).`,
+    container,
+  )
+}
+
 function firstResultOrNull(queryFunction, ...args) {
   const result = queryFunction(...args);
   if (result.length === 0) return null;
@@ -90,10 +97,11 @@ function queryByProp(...args) {
 
 export {
   defaultFilter,
+  filterNodeByType,
+  firstResultOrNull,
   getBaseElement,
   getElementError,
-  firstResultOrNull,
-  filterNodeByType,
+  getGetByElementError,
   queryAllByProp,
   queryByProp,
   removeBadProperties,
