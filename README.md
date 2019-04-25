@@ -166,8 +166,8 @@ that library with this one somehow.
 
 ## Other Solutions
 
-* [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library)
-* [`enzyme`](https://airbnb.io/enzyme/docs/guides/react-native.html)
+- [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library)
+- [`enzyme`](https://airbnb.io/enzyme/docs/guides/react-native.html)
 
 ## Guiding Principles
 
