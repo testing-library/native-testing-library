@@ -141,6 +141,11 @@ cases(
       query: `Dwayne 'The Rock' Johnson`,
       queryFn: `queryAllByPlaceholder`,
     },
+    queryAllByValue: {
+      tree: <TextInput value="Dwayne 'The Rock' Johnson" />,
+      query: `Dwayne 'The Rock' Johnson`,
+      queryFn: `queryAllByValue`,
+    },
     queryAllByAccessibilityLabel: {
       tree: <Image accessibilityLabel="Finding Nemo poster " src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
