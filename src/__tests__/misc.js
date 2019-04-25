@@ -10,6 +10,7 @@ test('queryByProp', () => {
   const { container } = render(
     <View>
       <View testID="foo" importantForAccessibility="no" />
+      <View importantForAccessibility="no" />
       <View importantForAccessibility="no-hide-descendants" />
     </View>,
   );
