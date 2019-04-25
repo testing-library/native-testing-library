@@ -97,10 +97,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bcarroll22/native-testing-library.git"
+    "url": "https://github.com/testing-library/native-testing-library.git"
   },
   "bugs": {
-    "url": "https://github.com/bcarroll22/native-testing-library/issues"
+    "url": "https://github.com/testing-library/native-testing-library/issues"
   },
-  "homepage": "https://github.com/bcarroll22/native-testing-library#readme"
+  "homepage": "https://github.com/testing-library/native-testing-library#readme"
 }

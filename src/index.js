@@ -24,7 +24,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
   return {
     container,
     baseElement,
-    debug: (el = container) => console.log(prettyPrint(el)),
+    debug: (el = baseElement) => console.log(prettyPrint(el)),
     unmount: () => container.unmount(),
     rerender: rerenderUi => {
       act(() => {

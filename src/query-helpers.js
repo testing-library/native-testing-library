@@ -1,4 +1,5 @@
 import { prettyPrint } from './pretty-print';
+import { waitForElement } from './wait-for-element';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
 
 function debugTree(htmlElement) {
@@ -15,10 +16,11 @@ function filterNodeByType(node, type) {
   return node.type === type;
 }
 
-function firstResultOrNull(queryFunction, ...args) {
-  const result = queryFunction(...args);
-  if (result.length === 0) return null;
-  return result[0];
+function getMultipleElementsFoundError(message, container) {
+  return getElementError(
+    `${message}\n\n(If this is intentional, then use the \`*AllBy*\` variant of the query (like \`queryAllByText\`, \`getAllByText\`, or \`findAllByText\`)).`,
+    container,
+  );
 }
 
 function defaultFilter(node) {
@@ -63,6 +65,10 @@ function removeBadProperties(node) {
   return node;
 }
 
+function getPropMatchAsString(prop) {
+  return typeof prop === 'string' ? prop : JSON.stringify(prop);
+}
+
 function queryAllByProp(
   attribute,
   container,
@@ -72,9 +78,8 @@ function queryAllByProp(
   const baseElement = getBaseElement(container);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
-  const allNodes = Array.from(baseElement.findAll(c => c.props[attribute]));
 
-  return allNodes
+  return Array.from(baseElement.findAll(c => c.props[attribute]))
     .filter((node, index) => (filter ? filter(node, index) : defaultFilter(node, index)))
     .filter(({ props }) =>
       typeof props[attribute] === 'string'
@@ -84,16 +89,67 @@ function queryAllByProp(
     .map(removeBadProperties);
 }
 
-function queryByProp(...args) {
-  return firstResultOrNull(queryAllByProp, ...args);
+function queryByProp(prop, container, match, ...args) {
+  const els = queryAllByProp(prop, container, match, ...args);
+  if (els.length > 1) {
+    throw getMultipleElementsFoundError(
+      `Found multiple elements by [${prop}=${getPropMatchAsString(match)}]`,
+      container,
+    );
+  }
+  return els[0] || null;
+}
+
+// accepts a query and returns a function that throws if more than one element is returned, otherwise
+// returns the result or null
+function makeSingleQuery(allQuery, getMultipleError) {
+  return (container, ...args) => {
+    const els = allQuery(container, ...args);
+    if (els.length > 1) {
+      throw getMultipleElementsFoundError(getMultipleError(container, ...args), container);
+    }
+    return els[0] || null;
+  };
+}
+
+// accepts a query and returns a function that throws if an empty list is returned
+function makeGetAllQuery(allQuery, getMissingError) {
+  return (container, ...args) => {
+    const els = allQuery(container, ...args);
+    if (!els.length) {
+      throw getElementError(getMissingError(container, ...args), container);
+    }
+    return els;
+  };
+}
+
+// accepts a getter  and returns a function that calls waitForElement which invokes the getter.
+function makeFindQuery(getter) {
+  return (container, text, options, waitForElementOptions) =>
+    waitForElement(() => getter(container, text, options), waitForElementOptions);
+}
+
+function buildQueries(queryAllBy, getMultipleError, getMissingError) {
+  const queryBy = makeSingleQuery(queryAllBy, getMultipleError);
+  const getAllBy = makeGetAllQuery(queryAllBy, getMissingError);
+  const getBy = makeSingleQuery(getAllBy, getMultipleError);
+  const findAllBy = makeFindQuery(getAllBy);
+  const findBy = makeFindQuery(getBy);
+
+  return [queryBy, getAllBy, getBy, findAllBy, findBy];
 }
 
 export {
+  buildQueries,
   defaultFilter,
+  filterNodeByType,
   getBaseElement,
   getElementError,
-  firstResultOrNull,
-  filterNodeByType,
+  getMultipleElementsFoundError,
+  getPropMatchAsString,
+  makeFindQuery,
+  makeGetAllQuery,
+  makeSingleQuery,
   queryAllByProp,
   queryByProp,
   removeBadProperties,

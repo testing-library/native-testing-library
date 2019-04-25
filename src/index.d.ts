@@ -227,7 +227,6 @@ export interface Queries {
 export declare function defaultFilter(node: NativeTestInstance): boolean
 export declare function getBaseElement(container: ReactTestRenderer | ReactTestInstance): ReactTestInstance
 export declare function getElementError(message: string, container: ReactTestRenderer): Error
-export declare function firstResultOrNull<T extends any[], U>(query: (...args: T) => U[], ...args: T): U | null
 export declare function filterNodeByType(node: NativeTestInstance, type: string): boolean
 export declare function queryAllByProp(
   attribute: string,
@@ -295,7 +294,7 @@ export declare function render<T>(ui: ReactElement, options: RenderOptionsWithQu
 export interface RenderResult {
   container: ReactTestRenderer
   baseElement: NativeTestInstance
-  debug: () => void
+  debug: (el?: NativeTestInstance) => void
   rerender: (ui: ReactElement) => void
   unmount: () => void
 }
