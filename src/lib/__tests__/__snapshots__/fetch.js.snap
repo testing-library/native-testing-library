@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fetch makes an API call and displays the greeting when load-greeting is clicked 1`] = `
+<View>
+  <TouchableOpacity
+    activeOpacity={0.2}
+    onPress={[Function]}
+  >
+    <Text>
+      Fetch
+    </Text>
+  </TouchableOpacity>
+  <Text>
+    hello there
+  </Text>
+</View>
+`;

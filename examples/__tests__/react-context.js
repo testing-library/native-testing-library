@@ -1,7 +1,7 @@
 import 'jest-native/extend-expect';
 import React from 'react';
 import { Text } from 'react-native';
-import { render } from 'native-testing-library';
+import { render } from '../../src';
 
 import { NameContext, NameProvider, NameConsumer } from '../react-context';
 

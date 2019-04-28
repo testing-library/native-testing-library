@@ -3,7 +3,7 @@ import React from 'react';
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import { Button, Text, View } from 'react-native';
-import { render, fireEvent } from 'native-testing-library';
+import { render, fireEvent } from '../../src';
 
 class Counter extends React.Component {
   increment = () => {
@@ -53,26 +53,26 @@ function renderWithRedux(ui, { initialState, store = createStore(reducer, initia
 }
 
 test('can render with redux with defaults', () => {
-  const { getByTestId, getByText } = renderWithRedux(<ConnectedCounter />);
-  fireEvent.press(getByText('+'));
+  const { getByTestId, getByTitle } = renderWithRedux(<ConnectedCounter />);
+  fireEvent.press(getByTitle('+'));
   expect(getByTestId('count-value')).toHaveTextContent(1);
 });
 
 test('can render with redux with custom initial state', () => {
-  const { getByTestId, getByText } = renderWithRedux(<ConnectedCounter />, {
+  const { getByTestId, getByTitle } = renderWithRedux(<ConnectedCounter />, {
     initialState: { count: 3 },
   });
-  fireEvent.press(getByText('-'));
+  fireEvent.press(getByTitle('-'));
   expect(getByTestId('count-value')).toHaveTextContent(2);
 });
 
 test('can render with redux with custom store', () => {
   const store = createStore(() => ({ count: 1000 }));
-  const { getByTestId, getByText } = renderWithRedux(<ConnectedCounter />, {
+  const { getByTestId, getByTitle } = renderWithRedux(<ConnectedCounter />, {
     store,
   });
-  fireEvent.press(getByText('+'));
+  fireEvent.press(getByTitle('+'));
   expect(getByTestId('count-value')).toHaveTextContent(1000);
-  fireEvent.press(getByText('-'));
+  fireEvent.press(getByTitle('-'));
   expect(getByTestId('count-value')).toHaveTextContent(1000);
 });

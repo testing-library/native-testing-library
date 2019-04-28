@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer, withNavigation } from 'react-navigation';
 
-import { render, fireEvent } from 'native-testing-library';
+import { render, fireEvent } from '../../src';
 
 jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
   const View = require('react-native').View;
@@ -14,25 +14,6 @@ jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
     Directions: {},
   };
 });
-
-const originalConsoleWarn = console.warn;
-console.warn = arg => {
-  const warnings = [
-    'Calling .measureInWindow()',
-    'Calling .measureLayout()',
-    'Calling .setNativeProps()',
-    'Calling .focus()',
-    'Calling .blur()',
-  ];
-
-  const finalArgs = warnings.reduce((acc, curr) => (arg.includes(curr) ? [...acc, arg] : acc), []);
-
-  if (finalArgs.length) {
-    return;
-  }
-
-  originalConsoleWarn(message);
-};
 
 const Home = ({ navigation }) => (
   <View>
@@ -70,14 +51,14 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
 
   const App = createAppContainer(AppNavigator);
 
-  return { ...render(<App />), navigationContainer: App };
+  return { ...render(<App detached />), navigationContainer: App };
 }
 
 test('full app rendering/navigating', async () => {
-  const { findByText, getByTestId, getByText } = renderWithNavigation();
+  const { findByText, getByTestId, getByTitle } = renderWithNavigation();
 
   expect(getByTestId('title')).toHaveTextContent('Home page');
-  fireEvent.press(getByText(/Go to about/i));
+  fireEvent.press(getByTitle(/Go to about/i));
 
   const result = await findByText('About page');
   expect(result).toHaveTextContent('About page');

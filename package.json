@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/**"
+    "dist/**",
+    "typings",
+    "jest-preset.js"
   ],
   "engines": {
     "node": ">=8"
@@ -16,8 +18,8 @@
     "commit:all": "npm run commit:add && npm run commit",
     "readme:toc": "doctoc README.md --maxlevel 3 --title '## Table of Contents'",
     "test": "jest",
-    "pretty-quick": "pretty-quick --staged --pattern '**/*.(js|jsx|ts|tsx)'",
-    "prepublish": "rm -rf dist; babel src --out-dir dist --ignore 'src/__tests__/*' && cp src/index.d.ts dist/index.d.ts",
+    "pretty-quick": "pretty-quick --staged",
+    "prepublishOnly": "rm -rf dist; babel src --out-dir dist --ignore 'src/**/__tests__/*'",
     "semantic-release": "semantic-release",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch --coverage"
@@ -35,6 +37,7 @@
   "author": "Brandon Carroll <brandonvcarroll@gmail.com> (https://github.com/bcarroll22)",
   "license": "MIT",
   "dependencies": {
+    "jest-native": "2.0.0-alpha.5",
     "pretty-format": "^24.5.0",
     "react-test-renderer": "^16.8.5",
     "wait-for-expect": "^1.1.1"
@@ -50,18 +53,17 @@
     "jest": "24.5.0",
     "jest-fetch-mock": "^2.1.1",
     "jest-in-case": "^1.0.2",
-    "jest-native": "^1.2.0",
     "metro-react-native-babel-preset": "^0.52.0",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
     "react": "^16.8.5",
+    "react-hooks-testing-library": "^0.5.0",
     "react-intl": "^2.8.0",
     "react-intl-native": "^2.1.2",
     "react-native": "^0.59.0",
     "react-native-gesture-handler": "^1.1.0",
     "react-navigation": "^3.5.1",
     "react-redux": "6.0.1",
-    "react-test-renderer-tree-to-json": "^1.0.1",
     "redux": "^4.0.0",
     "semantic-release": "^15.13.3"
   },
