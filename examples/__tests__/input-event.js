@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
-import { render, fireEvent } from 'native-testing-library';
+import { TextInput } from 'react-native';
+import { render, fireEvent } from '../../src';
 
 class CostInput extends React.Component {
   state = {

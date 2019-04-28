@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-native/extend-expect';
 import { Text, View } from 'react-native';
-import { render } from 'native-testing-library';
+import { render } from '../../src';
 
 let idCounter = 1;
 

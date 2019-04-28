@@ -1,10 +1,9 @@
+const jestPreset = require('./jest-preset');
+
 const ignores = ['/node_modules/', '/__tests__/helpers/', '__mocks__'];
 
-module.exports = {
-  preset: 'react-native',
-  transformIgnorePatterns: ['node_modules/(?!(react-native.*|@?react-navigation.*)/)'],
-  collectCoverageFrom: ['src/**/*.+(js|jsx|ts|tsx)'],
-  testMatch: ['**/__tests__/**/*.+(js|jsx|ts|tsx)'],
+module.exports = Object.assign(jestPreset, {
+  collectCoverageFrom: ['src/lib/**/*.+(js|jsx|ts|tsx)'],
   testPathIgnorePatterns: [...ignores],
   coverageThreshold: {
     global: {
@@ -14,4 +13,4 @@ module.exports = {
       statements: 100,
     },
   },
-};
+});
