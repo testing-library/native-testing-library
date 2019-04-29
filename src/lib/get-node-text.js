@@ -1,11 +1,12 @@
-import { filterNodeByType } from './query-helpers';
-
 function getNodeText(node) {
-  if (filterNodeByType(node, 'TextInput')) {
-    return node.props.value;
+  switch (node.type) {
+    case 'Button':
+      return node.getProp('title');
+    case 'TextInput':
+      return node.getProp('value');
+    default:
+      return Array.from(node.children).join('');
   }
-
-  return Array.from(node.children).join('');
 }
 
 export { getNodeText };

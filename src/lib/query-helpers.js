@@ -14,10 +14,6 @@ function getElementError(message, container) {
   return new Error([message, debugTree(container)].filter(Boolean).join('\n\n'));
 }
 
-function filterNodeByType(node, type) {
-  return node.type === type;
-}
-
 function getMultipleElementsFoundError(message, container) {
   return getElementError(
     `${message}\n\n(If this is intentional, then use the \`*AllBy*\` variant of the query (like \`queryAllByText\`, \`getAllByText\`, or \`findAllByText\`)).`,
@@ -25,8 +21,8 @@ function getMultipleElementsFoundError(message, container) {
   );
 }
 
-function defaultFilter(node, mockedTypes = getCoreComponents()) {
-  return mockedTypes.includes(node.type);
+function defaultFilter(node) {
+  return getCoreComponents().includes(node.type);
 }
 
 function getBaseElement(container) {
@@ -61,7 +57,15 @@ function proxyUnsafeProperties(node) {
       if (key === 'findAll' || key === 'find') {
         const ref = target[key];
         return function(...args) {
-          return ref.apply(this, args).filter(el => defaultFilter(el));
+          return ref
+            .apply(this, args)
+            .filter(defaultFilter)
+            .map(proxyUnsafeProperties);
+        };
+      } else if (key === 'getProp') {
+        return function(prop) {
+          /* istanbul ignore next */
+          return target.props ? target.props[prop] : null;
         };
       } else if (UNSAFE_METHODS.includes(key)) {
         return undefined;
@@ -73,36 +77,29 @@ function proxyUnsafeProperties(node) {
   });
 }
 
-function getPropMatchAsString(prop) {
-  return typeof prop === 'string' ? prop : JSON.stringify(prop);
-}
-
 function queryAllByProp(
-  attribute,
+  prop,
   container,
   match,
-  { exact = true, collapseWhitespace, trim, normalizer } = {},
+  { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const baseElement = getBaseElement(container);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(baseElement.findAll(c => c.props[attribute]))
-    .filter(({ props }) =>
-      typeof props[attribute] === 'string'
-        ? matcher(props[attribute], baseElement, match, matchNormalizer)
-        : JSON.stringify(props[attribute]) === JSON.stringify(match),
-    )
-    .map(proxyUnsafeProperties);
+  return Array.from(baseElement.findAll(c => c.props[prop]))
+    .filter(filter)
+    .filter(node => {
+      const value = node.getProp(prop);
+
+      return matcher(value, baseElement, match, matchNormalizer);
+    });
 }
 
 function queryByProp(prop, container, match, ...args) {
   const els = queryAllByProp(prop, container, match, ...args);
   if (els.length > 1) {
-    throw getMultipleElementsFoundError(
-      `Found multiple elements by [${prop}=${getPropMatchAsString(match)}]`,
-      container,
-    );
+    throw getMultipleElementsFoundError(`Found multiple elements by [${prop}=${match}]`, container);
   }
   return els[0] || null;
 }
@@ -149,11 +146,9 @@ function buildQueries(queryAllBy, getMultipleError, getMissingError) {
 export {
   buildQueries,
   defaultFilter,
-  filterNodeByType,
   getBaseElement,
   getElementError,
   getMultipleElementsFoundError,
-  getPropMatchAsString,
   makeFindQuery,
   makeGetAllQuery,
   makeSingleQuery,

@@ -20,7 +20,7 @@ cases(
         </View>
       ),
     },
-    getByA11yLabel: {
+    getByLabelText: {
       query: /his/,
       tree: (
         <View>
@@ -29,7 +29,7 @@ cases(
         </View>
       ),
     },
-    getByA11yRole: {
+    getByRole: {
       query: 'button',
       tree: (
         <View>
@@ -38,25 +38,7 @@ cases(
         </View>
       ),
     },
-    getByA11yStates: {
-      query: ['selected'],
-      tree: (
-        <View>
-          <View accessibilityStates={['selected']} />
-          <View accessibilityStates={['selected']} />
-        </View>
-      ),
-    },
-    getByA11yTraits: {
-      query: ['button'],
-      tree: (
-        <View>
-          <View accessibilityTraits={['button']} />
-          <View accessibilityTraits={['button']} />
-        </View>
-      ),
-    },
-    getByPlaceholder: {
+    getByPlaceholderText: {
       query: /his/,
       tree: (
         <View>
@@ -92,7 +74,7 @@ cases(
         </View>
       ),
     },
-    getByValue: {
+    getByDisplayValue: {
       query: /his/,
       tree: (
         <View>
@@ -120,7 +102,7 @@ cases(
         </View>
       ),
     },
-    queryByA11yLabel: {
+    queryByLabelText: {
       query: /his/,
       tree: (
         <View>
@@ -129,7 +111,7 @@ cases(
         </View>
       ),
     },
-    queryByA11yRole: {
+    queryByRole: {
       query: 'button',
       tree: (
         <View>
@@ -138,25 +120,7 @@ cases(
         </View>
       ),
     },
-    queryByA11yStates: {
-      query: ['selected'],
-      tree: (
-        <View>
-          <View accessibilityStates={['selected']} />
-          <View accessibilityStates={['selected']} />
-        </View>
-      ),
-    },
-    queryByA11yTraits: {
-      query: ['button'],
-      tree: (
-        <View>
-          <View accessibilityTraits={['button']} />
-          <View accessibilityTraits={['button']} />
-        </View>
-      ),
-    },
-    queryByPlaceholder: {
+    queryByPlaceholderText: {
       query: /his/,
       tree: (
         <View>
@@ -192,7 +156,7 @@ cases(
         </View>
       ),
     },
-    queryByValue: {
+    queryByDisplayValue: {
       query: /his/,
       tree: (
         <View>

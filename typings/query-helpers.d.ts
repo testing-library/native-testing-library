@@ -8,6 +8,10 @@ export interface SelectorMatcherOptions extends MatcherOptions {
   selector?: string;
 }
 
+type ReactTestInstance = {
+  getProp: (string) => NativeTestInstance;
+};
+
 export type NativeTestInstance = Omit<
   ReactTestInstance,
   'findAllByProps' | 'findAllByType' | 'findByProps' | 'findByType' | 'instance'

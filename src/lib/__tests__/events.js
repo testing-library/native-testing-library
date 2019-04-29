@@ -121,6 +121,6 @@ test('calling an event sets nativeEvent properly', () => {
   const event = { nativeEvent: { value: 'testing' } };
   const onChange = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
 
-  const { getByValue } = render(<TextInput value="test" onChange={onChange} />);
-  fireEvent.change(getByValue('test'), event);
+  const { getByDisplayValue } = render(<TextInput value="test" onChange={onChange} />);
+  fireEvent.change(getByDisplayValue('test'), event);
 });

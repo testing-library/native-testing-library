@@ -30,8 +30,8 @@ test('picker', () => {
       </Picker>
     );
   }
-  const { findByValue, getByValue } = render(<Wrapper />);
+  const { findByDisplayValue, getByDisplayValue } = render(<Wrapper />);
 
-  fireEvent.valueChange(getByValue('js'), 'java');
-  expect(() => findByValue('js')).not.toThrow();
+  fireEvent.valueChange(getByDisplayValue('js'), 'java');
+  expect(() => findByDisplayValue('js')).not.toThrow();
 });

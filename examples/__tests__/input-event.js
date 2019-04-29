@@ -29,7 +29,7 @@ class CostInput extends React.Component {
 
 const setup = () => {
   const utils = render(<CostInput />);
-  const input = utils.getByA11yLabel('cost-input');
+  const input = utils.getByLabelText('cost-input');
   return {
     input,
     ...utils,

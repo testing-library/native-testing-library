@@ -1,6 +1,6 @@
 import React from 'react';
 import cases from 'jest-in-case';
-import { Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Button, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import { render } from '../';
 import { getDefaultNormalizer } from '../matches';
@@ -34,17 +34,17 @@ cases(
     queryByAccessibilityLabel: {
       tree: <Image accessibilityLabel="Finding Nemo poster" src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
-      queryFn: `queryByA11yLabel`,
+      queryFn: `queryByLabelText`,
     },
     queryByAccessibilityRole: {
       tree: <Image accessibilityRole="image" src="/finding-nemo.png" />,
       query: `image`,
-      queryFn: `queryByA11yRole`,
+      queryFn: `queryByRole`,
     },
-    queryByPlaceholder: {
+    queryByPlaceholderText: {
       tree: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
       query: `Dwayne 'The Rock' Johnson`,
-      queryFn: `queryByPlaceholder`,
+      queryFn: `queryByPlaceholderText`,
     },
     queryByText: {
       tree: <Text>Some content</Text>,
@@ -87,17 +87,17 @@ cases(
         />
       ),
       query: `Finding Nemo poster`,
-      queryFn: `queryByA11yLabel`,
+      queryFn: `queryByLabelText`,
     },
     queryByAccessibilityRole: {
       tree: <Image accessibilityRole=" image" src="/finding-nemo.png" />,
       query: `image`,
-      queryFn: `queryByA11yRole`,
+      queryFn: `queryByRole`,
     },
-    queryByPlaceholder: {
+    queryByPlaceholderText: {
       tree: <TextInput placeholder="  Dwayne 'The Rock' Johnson  " />,
       query: `Dwayne 'The Rock' Johnson`,
-      queryFn: `queryByPlaceholder`,
+      queryFn: `queryByPlaceholderText`,
     },
     queryByText: {
       tree: (
@@ -113,6 +113,11 @@ cases(
       ),
       query: `Content with linebreaks is ok`,
       queryFn: `queryByText`,
+    },
+    queryByTitle: {
+      tree: <Button title=" link " onPress={jest.fn()} />,
+      query: `link`,
+      queryFn: `queryByTitle`,
     },
   },
 );
@@ -136,20 +141,20 @@ cases(
     expect(queries[queryFn](query.toLowerCase(), { exact: false })).toHaveLength(1);
   },
   {
-    queryAllByPlaceholder: {
+    queryAllByPlaceholderText: {
       tree: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
       query: `Dwayne 'The Rock' Johnson`,
-      queryFn: `queryAllByPlaceholder`,
+      queryFn: `queryAllByPlaceholderText`,
     },
-    queryAllByValue: {
+    queryAllByDisplayValue: {
       tree: <TextInput value="Dwayne 'The Rock' Johnson" />,
       query: `Dwayne 'The Rock' Johnson`,
-      queryFn: `queryAllByValue`,
+      queryFn: `queryAllByDisplayValue`,
     },
     queryAllByAccessibilityLabel: {
       tree: <Image accessibilityLabel="Finding Nemo poster " src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
-      queryFn: `queryAllByA11yLabel`,
+      queryFn: `queryAllByLabelText`,
     },
     queryAllByText: {
       tree: (
@@ -165,6 +170,11 @@ cases(
       ),
       query: `Content with linebreaks is ok`,
       queryFn: `queryAllByText`,
+    },
+    queryAllByTitle: {
+      tree: <Button title=" link " onPress={jest.fn()} />,
+      query: `link`,
+      queryFn: `queryAllByTitle`,
     },
   },
 );
@@ -188,25 +198,25 @@ cases(
     expect(query('User name')).toHaveLength(0);
   },
   {
-    queryAllByPlaceholderText: {
+    queryAllByPlaceholderTextText: {
       tree: <TextInput placeholder={`User ${LRM}name`} />,
-      queryFn: 'queryAllByPlaceholder',
+      queryFn: 'queryAllByPlaceholderText',
     },
     queryAllByText: {
       tree: <Text>{`User ${LRM}name`}</Text>,
       queryFn: 'queryAllByText',
     },
-    queryAllByA11yLabel: {
+    queryAllByLabelText: {
       tree: <Image accessibilityLabel={`User ${LRM}name`} src="username.jpg" />,
-      queryFn: 'queryAllByA11yLabel',
+      queryFn: 'queryAllByLabelText',
     },
-    queryAllByValue: {
+    queryAllByDisplayValue: {
       tree: <TextInput value={`User ${LRM}name`} />,
-      queryFn: 'queryAllByValue',
+      queryFn: 'queryAllByDisplayValue',
     },
-    queryAllByA11yRole: {
+    queryAllByRole: {
       tree: <Image accessibilityRole={`User ${LRM}name`} />,
-      queryFn: 'queryAllByA11yRole',
+      queryFn: 'queryAllByRole',
     },
   },
 );

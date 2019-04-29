@@ -5,21 +5,20 @@ import {
   getNodeText,
   buildQueries,
   getBaseElement,
-  proxyUnsafeProperties,
 } from './all-utils';
 
 function queryAllByText(
   container,
   text,
-  { exact = true, collapseWhitespace, trim, normalizer } = {},
+  { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const baseElement = getBaseElement(container);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(baseElement.findAll(n => ['TextInput', 'Text'].includes(n.type)))
-    .filter(node => matcher(getNodeText(node), node, text, matchNormalizer))
-    .map(proxyUnsafeProperties);
+  return Array.from(baseElement.findAll(n => ['Button', 'TextInput', 'Text'].includes(n.type)))
+    .filter(filter)
+    .filter(node => matcher(getNodeText(node), node, text, matchNormalizer));
 }
 
 const getMultipleError = (c, text) => `Found multiple elements with the text: ${text}`;

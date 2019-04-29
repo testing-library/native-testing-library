@@ -68,55 +68,55 @@ export type FindByText = (
 ) => Promise<ReactTestRenderer>;
 
 export const getByA11yHint: GetByBoundProp;
-export const getByA11yLabel: GetByBoundProp;
-export const getByA11yRole: GetByBoundProp;
+export const getByLabelText: GetByBoundProp;
+export const getByRole: GetByBoundProp;
 export const getByA11yStates: GetByBoundProp;
 export const getByA11yTraits: GetByBoundProp;
-export const getByPlaceholder: GetByBoundProp;
+export const getByPlaceholderText: GetByBoundProp;
 export const getByTestId: GetByBoundProp;
 export const getByText: GetByText;
 
 export const getAllByA11yHint: AllByBoundProp;
-export const getAllByA11yLabel: AllByBoundProp;
-export const getAllByA11yRole: AllByBoundProp;
+export const getAllByLabelText: AllByBoundProp;
+export const getAllByRole: AllByBoundProp;
 export const getAllByA11yStates: AllByBoundProp;
 export const getAllByA11yTraits: AllByBoundProp;
-export const getAllByPlaceholder: AllByBoundProp;
+export const getAllByPlaceholderText: AllByBoundProp;
 export const getAllByTestId: AllByBoundProp;
 export const getAllByText: AllByText;
 
 export const queryByA11yHint: QueryByBoundProp;
-export const queryByA11yLabel: QueryByBoundProp;
-export const queryByA11yRole: QueryByBoundProp;
+export const queryByLabelText: QueryByBoundProp;
+export const queryByRole: QueryByBoundProp;
 export const queryByA11yStates: QueryByBoundProp;
 export const queryByA11yTraits: QueryByBoundProp;
-export const queryByPlaceholder: QueryByBoundProp;
+export const queryByPlaceholderText: QueryByBoundProp;
 export const queryByTestId: QueryByBoundProp;
 export const queryByText: QueryByText;
 
 export const queryAllByA11yHint: AllByBoundProp;
-export const queryAllByA11yLabel: AllByBoundProp;
-export const queryAllByA11yRole: AllByBoundProp;
+export const queryAllByLabelText: AllByBoundProp;
+export const queryAllByRole: AllByBoundProp;
 export const queryAllByA11yStates: AllByBoundProp;
 export const queryAllByA11yTraits: AllByBoundProp;
-export const queryAllByPlaceholder: AllByBoundProp;
+export const queryAllByPlaceholderText: AllByBoundProp;
 export const queryAllByTestId: AllByBoundProp;
 export const queryAllByText: AllByText;
 
 export const findByA11yHint: FindByBoundProp;
-export const findByA11yLabel: FindByBoundProp;
-export const findByA11yRole: FindByBoundProp;
+export const findByLabelText: FindByBoundProp;
+export const findByRole: FindByBoundProp;
 export const findByA11yStates: FindByBoundProp;
 export const findByA11yTraits: FindByBoundProp;
-export const findByPlaceholder: FindByBoundProp;
+export const findByPlaceholderText: FindByBoundProp;
 export const findByTestId: FindByBoundProp;
 export const findByText: FindByText;
 
 export const findAllByA11yHint: FindAllByBoundProp;
-export const findAllByA11yLabel: FindAllByBoundProp;
-export const findAllByA11yRole: FindAllByBoundProp;
+export const findAllByLabelText: FindAllByBoundProp;
+export const findAllByRole: FindAllByBoundProp;
 export const findAllByA11yStates: FindAllByBoundProp;
 export const findAllByA11yTraits: FindAllByBoundProp;
-export const findAllByPlaceholder: FindAllByBoundProp;
+export const findAllByPlaceholderText: FindAllByBoundProp;
 export const findAllByTestId: FindAllByBoundProp;
 export const findAllByText: FindAllByText;
