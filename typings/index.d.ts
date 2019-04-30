@@ -9,7 +9,7 @@ import { NativeTestInstance } from './query-helpers';
 declare const within: typeof getQueriesForElement;
 
 interface Query extends Function {
-  (container: ReactTestRenderer, ...args: any[]):
+  (baseElement: ReactTestRenderer, ...args: any[]):
     | Error
     | Promise<HTMLElement[]>
     | Promise<HTMLElement>
@@ -23,8 +23,8 @@ interface Queries {
 }
 
 export type RenderResult<Q extends Queries = typeof queries> = {
-  container: ReactTestRenderer;
-  baseElement: NativeTestInstance;
+  baseElement: ReactTestRenderer;
+  container: NativeTestInstance;
   debug: () => void;
   rerender: (ui: ReactElement) => void;
   unmount: () => void;

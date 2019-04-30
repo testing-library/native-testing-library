@@ -1,15 +1,15 @@
-import { matches, fuzzyMatches, makeNormalizer, buildQueries, getBaseElement } from './all-utils';
+import { matches, fuzzyMatches, makeNormalizer, buildQueries, getContainer } from './all-utils';
 
 function queryAllByDisplayValue(
-  container,
+  baseElement,
   value,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const baseElement = getBaseElement(container);
+  const container = getContainer(baseElement);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(baseElement.findAll(n => ['TextInput', 'Picker'].includes(n.type)))
+  return Array.from(container.findAll(n => ['TextInput', 'Picker'].includes(n.type)))
     .filter(filter)
     .filter(node => {
       if (node.type === 'Picker') {

@@ -13,9 +13,9 @@ Object.keys(eventMap).forEach(key => {
 
     config.validTargets.forEach(element => {
       const handler = jest.fn();
-      const { baseElement } = render(React.createElement(element, { [handlerName]: handler }));
+      const { container } = render(React.createElement(element, { [handlerName]: handler }));
 
-      fireEvent[key](baseElement);
+      fireEvent[key](container);
 
       expect(handler).toHaveBeenCalledTimes(1);
     });
@@ -24,8 +24,8 @@ Object.keys(eventMap).forEach(key => {
 
 test('onChange works', () => {
   const handleChange = jest.fn();
-  const { baseElement } = render(<TextInput onChange={handleChange} />);
-  fireEvent.change(baseElement, { target: { value: 'a' } });
+  const { container } = render(<TextInput onChange={handleChange} />);
+  fireEvent.change(container, { target: { value: 'a' } });
   expect(handleChange).toHaveBeenCalledTimes(1);
 });
 
@@ -67,9 +67,9 @@ test('assigns target properties', async () => {
 
 test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
-  const { baseElement } = render(<Button onPress={handleEvent} title="test" />);
+  const { container } = render(<Button onPress={handleEvent} title="test" />);
 
-  fireEvent(baseElement, new NativeEvent('press'));
+  fireEvent(container, new NativeEvent('press'));
   expect(handleEvent).toBeCalledTimes(1);
 });
 
@@ -78,8 +78,8 @@ test('calling a custom event works as well', () => {
   const onMyEvent = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
   const MyComponent = ({ onMyEvent }) => <TextInput value="test" onChange={onMyEvent} />;
 
-  const { baseElement } = render(<MyComponent onMyEvent={onMyEvent} />);
-  fireEvent(baseElement, new NativeEvent('myEvent', event));
+  const { container } = render(<MyComponent onMyEvent={onMyEvent} />);
+  fireEvent(container, new NativeEvent('myEvent', event));
 
   expect(onMyEvent).toHaveBeenCalledWith({
     nativeEvent: { value: 'testing' },

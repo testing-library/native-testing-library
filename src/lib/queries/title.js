@@ -1,15 +1,15 @@
-import { buildQueries, matches, fuzzyMatches, makeNormalizer, getBaseElement } from './all-utils';
+import { buildQueries, matches, fuzzyMatches, makeNormalizer, getContainer } from './all-utils';
 
 function queryAllByTitle(
-  container,
+  baseElement,
   value,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const baseElement = getBaseElement(container);
+  const container = getContainer(baseElement);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(baseElement.findAll(n => ['Button', 'RefreshControl'].includes(n.type)))
+  return Array.from(container.findAll(n => ['Button', 'RefreshControl'].includes(n.type)))
     .filter(filter)
     .filter(node => matcher(node.getProp('title'), node, value, matchNormalizer));
 }

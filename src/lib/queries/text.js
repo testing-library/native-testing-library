@@ -4,19 +4,19 @@ import {
   makeNormalizer,
   getNodeText,
   buildQueries,
-  getBaseElement,
+  getContainer,
 } from './all-utils';
 
 function queryAllByText(
-  container,
+  baseElement,
   text,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const baseElement = getBaseElement(container);
+  const container = getContainer(baseElement);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(baseElement.findAll(n => ['Button', 'TextInput', 'Text'].includes(n.type)))
+  return Array.from(container.findAll(n => ['Button', 'TextInput', 'Text'].includes(n.type)))
     .filter(filter)
     .filter(node => matcher(getNodeText(node), node, text, matchNormalizer));
 }

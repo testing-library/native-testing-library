@@ -5,63 +5,63 @@ import { WaitForElementOptions } from './wait-for-element';
 import { SelectorMatcherOptions } from './query-helpers';
 
 export type QueryByBoundProp = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => ReactTestRenderer | null;
 
 export type AllByBoundProp = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => ReactTestRenderer[];
 
 export type FindAllByBoundProp = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => Promise<ReactTestRenderer[]>;
 
 export type GetByBoundProp = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => ReactTestRenderer;
 
 export type FindByBoundProp = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
 ) => Promise<ReactTestRenderer>;
 
 export type QueryByText = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => ReactTestRenderer | null;
 
 export type AllByText = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => ReactTestRenderer[];
 
 export type FindAllByText = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
 ) => Promise<ReactTestRenderer[]>;
 
 export type GetByText = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: WaitForElementOptions,
 ) => ReactTestRenderer;
 
 export type FindByText = (
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,

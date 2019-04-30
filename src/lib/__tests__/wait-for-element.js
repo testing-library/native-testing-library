@@ -12,7 +12,7 @@ test('waits for element to appear in the document', async () => {
   expect(element).toBeTruthy();
 });
 
-test('waits for element to appear in a specified container', async () => {
+test('waits for element to appear in a specified baseElement', async () => {
   const { rerender, getByTestId } = render(<View />);
   const promise = waitForElement(() => getByTestId('test'));
   setTimeout(() => rerender(<View testID="test" />));

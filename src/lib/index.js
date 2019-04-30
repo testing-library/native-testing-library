@@ -12,23 +12,23 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
   const wrapUiIfNeeded = innerElement =>
     WrapperComponent ? <WrapperComponent>{innerElement}</WrapperComponent> : innerElement;
 
-  let container = {};
+  let baseElement = {};
 
   act(() => {
-    container = TR.create(wrapUiIfNeeded(ui), options);
+    baseElement = TR.create(wrapUiIfNeeded(ui), options);
   });
 
   return {
-    container,
-    baseElement: queryHelpers.proxyUnsafeProperties(container.root),
-    debug: () => console.log(prettyPrint(container.toJSON())),
-    unmount: () => container.unmount(),
+    baseElement,
+    container: queryHelpers.proxyUnsafeProperties(baseElement.root),
+    debug: () => console.log(prettyPrint(baseElement.toJSON())),
+    unmount: () => baseElement.unmount(),
     rerender: rerenderUi => {
       act(() => {
-        container.update(wrapUiIfNeeded(rerenderUi));
+        baseElement.update(wrapUiIfNeeded(rerenderUi));
       });
     },
-    ...getQueriesForElement(container),
+    ...getQueriesForElement(baseElement),
   };
 }
 

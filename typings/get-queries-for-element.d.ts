@@ -15,7 +15,7 @@ export type BoundFunction<T> = T extends (
 export type BoundFunctions<T> = { [P in keyof T]: BoundFunction<T[P]> };
 
 interface Query extends Function {
-  (container: ReactTestRenderer, ...args: any[]):
+  (baseElement: ReactTestRenderer, ...args: any[]):
     | Error
     | Promise<ReactTestRenderer[]>
     | Promise<ReactTestRenderer>

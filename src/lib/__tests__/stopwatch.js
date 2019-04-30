@@ -41,11 +41,11 @@ const wait = time => new Promise(resolve => setTimeout(resolve, time));
 
 test('unmounts a component', async () => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
-  const { unmount, getByTitle, container } = render(<StopWatch />);
+  const { unmount, getByTitle, baseElement } = render(<StopWatch />);
   fireEvent.press(getByTitle('Start'));
 
   unmount();
 
-  expect(container.toJSON()).toBeNull();
+  expect(baseElement.toJSON()).toBeNull();
   await wait(() => expect(console.error).not.toHaveBeenCalled());
 });

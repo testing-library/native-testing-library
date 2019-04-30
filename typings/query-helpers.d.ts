@@ -19,24 +19,24 @@ export type NativeTestInstance = Omit<
 
 export type QueryByProp = (
   attribute: string,
-  container: ReactTestRenderer,
+  baseElement: ReactTestRenderer,
   match: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance | null;
 
 export type AllByProp = (
   attribute: string,
-  container: HTMLElement,
+  baseElement: HTMLElement,
   id: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance[];
 
 // TODO: finish types of the rest of the helpers
 export const defaultFilter: (node: NativeTestInstance) => boolean;
-export const getBaseElement: (
-  container: ReactTestRenderer | ReactTestInstance,
+export const getContainer: (
+  baseElement: ReactTestRenderer | ReactTestInstance,
 ) => ReactTestInstance;
-export const getElementError: (message: string, container: ReactTestRenderer) => Error;
+export const getElementError: (message: string, baseElement: ReactTestRenderer) => Error;
 export const queryAllByProp: AllByProp;
 export const queryByProp: QueryByProp;
 export const proxyUnsafeProperties: (node: ReactTestInstance) => NativeTestInstance;
