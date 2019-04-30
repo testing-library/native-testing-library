@@ -11,7 +11,7 @@ cases(
     expect(() => utils[name](query)).toThrow(/multiple elements/i);
   },
   {
-    getByA11yHint: {
+    getByHintText: {
       query: /his/,
       tree: (
         <View>
@@ -93,7 +93,7 @@ cases(
     expect(() => utils[name](query)).toThrow(/multiple elements/i);
   },
   {
-    queryByA11yHint: {
+    queryByHintText: {
       query: /his/,
       tree: (
         <View>

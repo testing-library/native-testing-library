@@ -31,15 +31,15 @@ cases(
       query: `link`,
       queryFn: `queryByTestId`,
     },
-    queryByAccessibilityLabel: {
+    queryByHintText: {
+      tree: <Image accessibilityHint="Finding Nemo poster" src="/finding-nemo.png" />,
+      query: `Finding Nemo poster`,
+      queryFn: `queryByHintText`,
+    },
+    queryByLabelText: {
       tree: <Image accessibilityLabel="Finding Nemo poster" src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
       queryFn: `queryByLabelText`,
-    },
-    queryByAccessibilityRole: {
-      tree: <Image accessibilityRole="image" src="/finding-nemo.png" />,
-      query: `image`,
-      queryFn: `queryByRole`,
     },
     queryByPlaceholderText: {
       tree: <TextInput placeholder="Dwayne 'The Rock' Johnson" />,
@@ -50,6 +50,11 @@ cases(
       tree: <Text>Some content</Text>,
       query: `Some content`,
       queryFn: `queryByText`,
+    },
+    queryByTitle: {
+      tree: <Button title=" link " onPress={jest.fn()} />,
+      query: `link`,
+      queryFn: `queryByTitle`,
     },
   },
 );
@@ -78,7 +83,18 @@ cases(
       query: `link`,
       queryFn: `queryByTestId`,
     },
-    queryByAccessibilityLabel: {
+    queryByHintText: {
+      tree: (
+        <Image
+          accessibilityHint="
+            Finding Nemo poster "
+          src="/finding-nemo.png"
+        />
+      ),
+      query: `Finding Nemo poster`,
+      queryFn: `queryByHintText`,
+    },
+    queryByLabelText: {
       tree: (
         <Image
           accessibilityLabel="
@@ -88,11 +104,6 @@ cases(
       ),
       query: `Finding Nemo poster`,
       queryFn: `queryByLabelText`,
-    },
-    queryByAccessibilityRole: {
-      tree: <Image accessibilityRole=" image" src="/finding-nemo.png" />,
-      query: `image`,
-      queryFn: `queryByRole`,
     },
     queryByPlaceholderText: {
       tree: <TextInput placeholder="  Dwayne 'The Rock' Johnson  " />,
@@ -151,7 +162,12 @@ cases(
       query: `Dwayne 'The Rock' Johnson`,
       queryFn: `queryAllByDisplayValue`,
     },
-    queryAllByAccessibilityLabel: {
+    queryAllByHintText: {
+      tree: <Image accessibilityHint="Finding Nemo poster " src="/finding-nemo.png" />,
+      query: `Finding Nemo poster`,
+      queryFn: `queryAllByHintText`,
+    },
+    queryAllByLabelText: {
       tree: <Image accessibilityLabel="Finding Nemo poster " src="/finding-nemo.png" />,
       query: `Finding Nemo poster`,
       queryFn: `queryAllByLabelText`,
@@ -198,13 +214,17 @@ cases(
     expect(query('User name')).toHaveLength(0);
   },
   {
-    queryAllByPlaceholderTextText: {
+    queryAllByPlaceholderText: {
       tree: <TextInput placeholder={`User ${LRM}name`} />,
       queryFn: 'queryAllByPlaceholderText',
     },
     queryAllByText: {
       tree: <Text>{`User ${LRM}name`}</Text>,
       queryFn: 'queryAllByText',
+    },
+    queryAllByHintText: {
+      tree: <Image accessibilityHint={`User ${LRM}name`} src="username.jpg" />,
+      queryFn: 'queryAllByHintText',
     },
     queryAllByLabelText: {
       tree: <Image accessibilityLabel={`User ${LRM}name`} src="username.jpg" />,
@@ -213,10 +233,6 @@ cases(
     queryAllByDisplayValue: {
       tree: <TextInput value={`User ${LRM}name`} />,
       queryFn: 'queryAllByDisplayValue',
-    },
-    queryAllByRole: {
-      tree: <Image accessibilityRole={`User ${LRM}name`} />,
-      queryFn: 'queryAllByRole',
     },
   },
 );

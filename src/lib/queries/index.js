@@ -1,5 +1,5 @@
-export * from './a11y-hint';
 export * from './display-value';
+export * from './hint-text';
 export * from './label-text';
 export * from './placeholder-text';
 export * from './role';

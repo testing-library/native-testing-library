@@ -18,11 +18,9 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
     container = TR.create(wrapUiIfNeeded(ui), options);
   });
 
-  const baseElement = queryHelpers.proxyUnsafeProperties(container.root);
-
   return {
     container,
-    baseElement,
+    baseElement: queryHelpers.proxyUnsafeProperties(container.root),
     debug: () => console.log(prettyPrint(container.toJSON())),
     unmount: () => container.unmount(),
     rerender: rerenderUi => {
