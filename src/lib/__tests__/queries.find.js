@@ -35,8 +35,12 @@ test('find asynchronously finds elements', async () => {
       <Image accessibilityLabel="test-label" src="/lucy-ricardo.png" />
       <Image accessibilityHint="test-hint" src="/lucy-ricardo.png" />
       <View accessibilityRole="dialog" />
+      <View accessibilityRole="fake" />
     </View>,
   );
+
+  // Things get annoying querying accessibilityTraits with `queryByRole`
+  jest.spyOn(console, 'warn').mockImplementation(() => {});
 
   await expect(findByHintText('test-hint')).resolves.toBeTruthy();
   await expect(findAllByHintText('test-hint')).resolves.toHaveLength(1);
@@ -74,8 +78,14 @@ test('find asynchronously finds elements', async () => {
   await expect(findByRole(['none'])).resolves.toBeTruthy();
   await expect(findAllByRole(['none'])).resolves.toHaveLength(1);
 
+  await expect(findByRole('fake', {}, { timeout: 50 })).rejects.toThrow();
+
   await expect(findByTestId('test-id')).resolves.toBeTruthy();
   await expect(findAllByTestId('test-id')).resolves.toHaveLength(1);
+
+  console.warn.mock.calls.forEach(([message]) => {
+    expect(message).toMatch(/Found elements matching accessibilityTraits/);
+  });
 });
 
 test('find rejects when something cannot be found', async () => {
