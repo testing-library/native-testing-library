@@ -39,7 +39,7 @@ const renderWithReactIntl = component => {
 setupTests();
 
 test('it should render FormattedDate and have a formatted pt date', () => {
-  const { baseElement } = renderWithReactIntl(<FormatDateView />);
+  const { testRenderer } = renderWithReactIntl(<FormatDateView />);
 
-  getByText(baseElement, '11/03/2019');
+  getByText(testRenderer, '11/03/2019');
 });

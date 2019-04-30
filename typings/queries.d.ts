@@ -5,63 +5,63 @@ import { WaitForElementOptions } from './wait-for-element';
 import { SelectorMatcherOptions } from './query-helpers';
 
 export type QueryByBoundProp = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => ReactTestRenderer | null;
 
 export type AllByBoundProp = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => ReactTestRenderer[];
 
 export type FindAllByBoundProp = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => Promise<ReactTestRenderer[]>;
 
 export type GetByBoundProp = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
 ) => ReactTestRenderer;
 
 export type FindByBoundProp = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
 ) => Promise<ReactTestRenderer>;
 
 export type QueryByText = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => ReactTestRenderer | null;
 
 export type AllByText = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => ReactTestRenderer[];
 
 export type FindAllByText = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
 ) => Promise<ReactTestRenderer[]>;
 
 export type GetByText = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: WaitForElementOptions,
 ) => ReactTestRenderer;
 
 export type FindByText = (
-  baseElement: ReactTestRenderer,
+  testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,

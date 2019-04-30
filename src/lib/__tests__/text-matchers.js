@@ -2,7 +2,7 @@ import React from 'react';
 import cases from 'jest-in-case';
 import { Button, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 
-import { render } from '../';
+import { render } from '../../';
 import { getDefaultNormalizer } from '../matches';
 
 cases(

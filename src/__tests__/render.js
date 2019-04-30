@@ -15,12 +15,12 @@ test('returns container', () => {
 test('renders options.wrapper around node', () => {
   const WrapperComponent = ({ children }) => <View testID="wrapper">{children}</View>;
 
-  const { baseElement, getByTestId } = render(<View testID="inner" />, {
+  const { testRenderer, getByTestId } = render(<View testID="inner" />, {
     wrapper: WrapperComponent,
   });
 
   expect(getByTestId('wrapper')).toBeTruthy();
-  expect(baseElement.toJSON()).toMatchInlineSnapshot(`
+  expect(testRenderer.toJSON()).toMatchInlineSnapshot(`
 <View
   testID="wrapper"
 >

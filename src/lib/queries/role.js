@@ -34,8 +34,8 @@ const validTraits = [
   'text',
 ];
 
-function queryAllByRole(baseElement, value, { filter = n => n } = {}) {
-  const container = getContainer(baseElement);
+function queryAllByRole(testRenderer, value, { filter = n => n } = {}) {
+  const container = getContainer(testRenderer);
 
   const roleElements = container.findAll(c => c.props.accessibilityRole);
   const traitElements = container.findAll(c => c.props.accessibilityTraits);

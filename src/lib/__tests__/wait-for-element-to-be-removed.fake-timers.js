@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { render } from '../';
+import { render } from '../../';
 import { waitForElementToBeRemoved } from '../wait-for-element-to-be-removed';
 
 jest.useFakeTimers();

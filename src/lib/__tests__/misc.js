@@ -1,10 +1,10 @@
 import React from 'react';
 import { Picker, View } from 'react-native';
 
-import { fireEvent, render, queryByProp, queryByTestId } from '../';
+import { fireEvent, render, queryByProp, queryByTestId } from '../../';
 
 test('queryByProp', () => {
-  const { baseElement } = render(
+  const { testRenderer } = render(
     <View>
       <View testID="foo" importantForAccessibility="no" />
       <View importantForAccessibility="no" />
@@ -12,9 +12,9 @@ test('queryByProp', () => {
     </View>,
   );
 
-  expect(queryByTestId(baseElement, 'foo')).not.toBeNull();
-  expect(queryByProp('importantForAccessibility', baseElement, 'auto')).toBeNull();
-  expect(() => queryByProp('importantForAccessibility', baseElement, /no/)).toThrow(
+  expect(queryByTestId(testRenderer, 'foo')).not.toBeNull();
+  expect(queryByProp('importantForAccessibility', testRenderer, 'auto')).toBeNull();
+  expect(() => queryByProp('importantForAccessibility', testRenderer, /no/)).toThrow(
     /multiple elements/,
   );
 });

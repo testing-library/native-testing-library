@@ -51,7 +51,7 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
 
   const App = createAppContainer(AppNavigator);
 
-  return { ...render(<App detached />), navigationBaseElement: App };
+  return { ...render(<App detached />), navigationTestRenderer: App };
 }
 
 test('full app rendering/navigating', async () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { render } from '../';
+import { render } from '../../';
 import { waitForElement } from '../wait-for-element';
 
 test('waits for element to appear in the document', async () => {
@@ -12,7 +12,7 @@ test('waits for element to appear in the document', async () => {
   expect(element).toBeTruthy();
 });
 
-test('waits for element to appear in a specified baseElement', async () => {
+test('waits for element to appear in a specified testRenderer', async () => {
   const { rerender, getByTestId } = render(<View />);
   const promise = waitForElement(() => getByTestId('test'));
   setTimeout(() => rerender(<View testID="test" />));

@@ -17,7 +17,7 @@ class NumberDisplay extends React.Component {
   }
 }
 
-test('calling render with the same component on the same baseElement does not remount', () => {
+test('calling render with the same component on the same testRenderer does not remount', () => {
   const { getByTestId, rerender } = render(<NumberDisplay number={1} />);
   expect(getByTestId('number-display')).toHaveTextContent(1);
 

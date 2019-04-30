@@ -8,11 +8,11 @@ import {
 } from './all-utils';
 
 function queryAllByText(
-  baseElement,
+  testRenderer,
   text,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const container = getContainer(baseElement);
+  const container = getContainer(testRenderer);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 

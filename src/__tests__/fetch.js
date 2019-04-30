@@ -34,7 +34,7 @@ class Fetch extends React.Component {
 test('Fetch makes an API call and displays the greeting when load-greeting is clicked', async () => {
   fetch.mockResponseOnce(JSON.stringify({ data: { greeting: 'hello there' } }));
   const url = '/greeting';
-  const { baseElement, getByText } = render(<Fetch url={url} />);
+  const { testRenderer, getByText } = render(<Fetch url={url} />);
 
   fireEvent.press(getByText('Fetch'));
 
@@ -44,5 +44,5 @@ test('Fetch makes an API call and displays the greeting when load-greeting is cl
   expect(fetch).toHaveBeenCalledWith(url);
 
   expect(getByText('hello there')).toHaveTextContent('hello there');
-  expect(baseElement).toMatchSnapshot();
+  expect(testRenderer).toMatchSnapshot();
 });

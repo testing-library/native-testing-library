@@ -1,64 +1,22 @@
-import React from 'react';
-import TR from 'react-test-renderer';
-
-import act from './act-compat';
-import * as queries from './queries';
-import { prettyPrint } from './pretty-print';
-import * as queryHelpers from './query-helpers';
 import { getQueriesForElement } from './get-queries-for-element';
-import { fireEvent as rntlFireEvent, NativeEvent } from './events';
+import * as queries from './queries';
+import * as queryHelpers from './query-helpers';
 
-function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
-  const wrapUiIfNeeded = innerElement =>
-    WrapperComponent ? <WrapperComponent>{innerElement}</WrapperComponent> : innerElement;
-
-  let baseElement = {};
-
-  act(() => {
-    baseElement = TR.create(wrapUiIfNeeded(ui), options);
-  });
-
-  return {
-    baseElement,
-    container: queryHelpers.proxyUnsafeProperties(baseElement.root),
-    debug: () => console.log(prettyPrint(baseElement.toJSON())),
-    unmount: () => baseElement.unmount(),
-    rerender: rerenderUi => {
-      act(() => {
-        baseElement.update(wrapUiIfNeeded(rerenderUi));
-      });
-    },
-    ...getQueriesForElement(baseElement),
-  };
-}
-
-function fireEvent(...args) {
-  let returnValue;
-  act(() => {
-    returnValue = rntlFireEvent(...args);
-  });
-  return returnValue;
-}
-
-Object.keys(rntlFireEvent).forEach(key => {
-  fireEvent[key] = (...args) => {
-    let returnValue;
-    act(() => {
-      returnValue = rntlFireEvent[key](...args);
-    });
-    return returnValue;
-  };
-});
-
-export * from './events';
-export * from './get-node-text';
-export * from './get-queries-for-element';
-export * from './pretty-print';
 export * from './queries';
-export * from './query-helpers';
 export * from './wait';
 export * from './wait-for-element';
 export * from './wait-for-element-to-be-removed';
 export { getDefaultNormalizer } from './matches';
+export * from './get-node-text';
+export * from './events';
+export * from './get-queries-for-element';
+export * from './query-helpers';
+export * from './pretty-print';
+export { configure } from './config';
 
-export { act, fireEvent, queries, queryHelpers, render, NativeEvent };
+export {
+  getQueriesForElement as within,
+  // export query utils under a namespace for convenience:
+  queries,
+  queryHelpers,
+};

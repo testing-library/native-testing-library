@@ -1,15 +1,23 @@
-import { asyncAct } from './act-compat';
-
 let config = {
-  asyncWrapper: async cb => {
-    let result;
-    asyncAct(() => {
-      result = cb();
-    });
-    return result;
-  },
+  // no default config in NTL...
 };
 
-export function getConfig() {
+function configure(newConfig) {
+  if (typeof newConfig === 'function') {
+    // Pass the existing config out to the provided function
+    // and accept a delta in return
+    newConfig = newConfig(config);
+  }
+
+  // Merge the incoming config delta
+  config = {
+    ...config,
+    ...newConfig,
+  };
+}
+
+function getConfig() {
   return config;
 }
+
+export { configure, getConfig };

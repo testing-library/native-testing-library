@@ -1,11 +1,11 @@
 import { matches, fuzzyMatches, makeNormalizer, buildQueries, getContainer } from './all-utils';
 
 function queryAllByDisplayValue(
-  baseElement,
+  testRenderer,
   value,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const container = getContainer(baseElement);
+  const container = getContainer(testRenderer);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 

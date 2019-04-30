@@ -1,11 +1,11 @@
 import { buildQueries, matches, fuzzyMatches, makeNormalizer, getContainer } from './all-utils';
 
 function queryAllByTitle(
-  baseElement,
+  testRenderer,
   value,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const container = getContainer(baseElement);
+  const container = getContainer(testRenderer);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 

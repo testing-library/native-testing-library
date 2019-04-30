@@ -4,20 +4,20 @@ import { prettyPrint } from './pretty-print';
 import { waitForElement } from './wait-for-element';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
 
-function debugTree(baseElement) {
+function debugTree(testRenderer) {
   const limit = process.env.DEBUG_PRINT_LIMIT || 7000;
 
-  return prettyPrint(baseElement.toJSON(), limit);
+  return prettyPrint(testRenderer.toJSON(), limit);
 }
 
-function getElementError(message, baseElement) {
-  return new Error([message, debugTree(baseElement)].filter(Boolean).join('\n\n'));
+function getElementError(message, testRenderer) {
+  return new Error([message, debugTree(testRenderer)].filter(Boolean).join('\n\n'));
 }
 
-function getMultipleElementsFoundError(message, baseElement) {
+function getMultipleElementsFoundError(message, testRenderer) {
   return getElementError(
     `${message}\n\n(If this is intentional, then use the \`*AllBy*\` variant of the query (like \`queryAllByText\`, \`getAllByText\`, or \`findAllByText\`)).`,
-    baseElement,
+    testRenderer,
   );
 }
 
@@ -25,8 +25,8 @@ function defaultFilter(node) {
   return getCoreComponents().includes(node.type);
 }
 
-function getContainer(baseElement) {
-  return proxyUnsafeProperties(baseElement.root ? baseElement.root : baseElement);
+function getContainer(testRenderer) {
+  return proxyUnsafeProperties(testRenderer.root ? testRenderer.root : testRenderer);
 }
 
 function proxyUnsafeProperties(node) {
@@ -79,11 +79,11 @@ function proxyUnsafeProperties(node) {
 
 function queryAllByProp(
   prop,
-  baseElement,
+  testRenderer,
   match,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const container = getContainer(baseElement);
+  const container = getContainer(testRenderer);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
@@ -96,12 +96,12 @@ function queryAllByProp(
     });
 }
 
-function queryByProp(prop, baseElement, match, ...args) {
-  const els = queryAllByProp(prop, baseElement, match, ...args);
+function queryByProp(prop, testRenderer, match, ...args) {
+  const els = queryAllByProp(prop, testRenderer, match, ...args);
   if (els.length > 1) {
     throw getMultipleElementsFoundError(
       `Found multiple elements by [${prop}=${match}]`,
-      baseElement,
+      testRenderer,
     );
   }
   return els[0] || null;
@@ -110,10 +110,10 @@ function queryByProp(prop, baseElement, match, ...args) {
 // accepts a query and returns a function that throws if more than one element is returned, otherwise
 // returns the result or null
 function makeSingleQuery(allQuery, getMultipleError) {
-  return (baseElement, ...args) => {
-    const els = allQuery(baseElement, ...args);
+  return (testRenderer, ...args) => {
+    const els = allQuery(testRenderer, ...args);
     if (els.length > 1) {
-      throw getMultipleElementsFoundError(getMultipleError(baseElement, ...args), baseElement);
+      throw getMultipleElementsFoundError(getMultipleError(testRenderer, ...args), testRenderer);
     }
     return els[0] || null;
   };
@@ -121,10 +121,10 @@ function makeSingleQuery(allQuery, getMultipleError) {
 
 // accepts a query and returns a function that throws if an empty list is returned
 function makeGetAllQuery(allQuery, getMissingError) {
-  return (baseElement, ...args) => {
-    const els = allQuery(baseElement, ...args);
+  return (testRenderer, ...args) => {
+    const els = allQuery(testRenderer, ...args);
     if (!els.length) {
-      throw getElementError(getMissingError(baseElement, ...args), baseElement);
+      throw getElementError(getMissingError(testRenderer, ...args), testRenderer);
     }
     return els;
   };
@@ -132,8 +132,8 @@ function makeGetAllQuery(allQuery, getMissingError) {
 
 // accepts a getter  and returns a function that calls waitForElement which invokes the getter.
 function makeFindQuery(getter) {
-  return (baseElement, text, options, waitForElementOptions) =>
-    waitForElement(() => getter(baseElement, text, options), waitForElementOptions);
+  return (testRenderer, text, options, waitForElementOptions) =>
+    waitForElement(() => getter(testRenderer, text, options), waitForElementOptions);
 }
 
 function buildQueries(queryAllBy, getMultipleError, getMissingError) {

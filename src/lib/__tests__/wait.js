@@ -1,4 +1,4 @@
-import { wait } from '../wait';
+import { wait } from '../../';
 
 test('it waits for the data to be loaded', async () => {
   const spy = jest.fn();

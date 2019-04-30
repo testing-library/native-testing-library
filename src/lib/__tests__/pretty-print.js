@@ -1,23 +1,23 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { render } from '../';
+import { render } from '../../';
 import { prettyPrint } from '../pretty-print';
 
 test('it prints correctly with no children', () => {
-  const { baseElement } = render(<View />);
+  const { testRenderer } = render(<View />);
 
-  expect(prettyPrint(baseElement.toJSON())).toMatchInlineSnapshot(`"[36m<View />[39m"`);
+  expect(prettyPrint(testRenderer.toJSON())).toMatchInlineSnapshot(`"[36m<View />[39m"`);
 });
 
 test('it prints correctly with one child', () => {
-  const { baseElement } = render(
+  const { testRenderer } = render(
     <View>
       <Text>Hello World!</Text>
     </View>,
   );
 
-  expect(prettyPrint(baseElement.toJSON())).toMatchInlineSnapshot(`
+  expect(prettyPrint(testRenderer.toJSON())).toMatchInlineSnapshot(`
 "[36m<View>[39m
   [36m<Text>[39m
     [0mHello World![0m
@@ -27,14 +27,14 @@ test('it prints correctly with one child', () => {
 });
 
 test('it prints correctly with multiple children', () => {
-  const { baseElement } = render(
+  const { testRenderer } = render(
     <View>
       <Text>Hello</Text>
       <Text>World!</Text>
     </View>,
   );
 
-  expect(prettyPrint(baseElement.toJSON())).toMatchInlineSnapshot(`
+  expect(prettyPrint(testRenderer.toJSON())).toMatchInlineSnapshot(`
 "[36m<View>[39m
   [36m<Text>[39m
     [0mHello[0m
@@ -47,11 +47,11 @@ test('it prints correctly with multiple children', () => {
 });
 
 test('it supports truncating the output length', () => {
-  const { baseElement } = render(
+  const { testRenderer } = render(
     <View>
       <Text>Hello World!</Text>
     </View>,
   );
 
-  expect(prettyPrint(baseElement.toJSON(), 5)).toMatch(/\.\.\./);
+  expect(prettyPrint(testRenderer.toJSON(), 5)).toMatch(/\.\.\./);
 });
