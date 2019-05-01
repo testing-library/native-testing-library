@@ -1,4 +1,4 @@
-import { mockComponent } from './mock-component';
+import { mockComponent } from './mock-components';
 import { getCoreComponents, setCoreComponents } from './core-components';
 
 module.exports = {
