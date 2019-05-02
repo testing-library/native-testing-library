@@ -1,7 +1,10 @@
+import { NativeTestInstance } from './query-helpers';
+
 export type MatcherFunction = (content: string, element: HTMLElement) => boolean;
 export type Matcher = string | RegExp | MatcherFunction;
 
 export type NormalizerFn = (text: string) => string;
+export type SelectorFn = (element: NativeTestInstance) => boolean;
 
 export interface MatcherOptions {
   exact?: boolean;
@@ -9,6 +12,7 @@ export interface MatcherOptions {
   trim?: boolean;
   /** Use normalizer with getDefaultNormalizer instead */
   collapseWhitespace?: boolean;
+  selector?: SelectorFn;
   normalizer?: NormalizerFn;
 }
 
