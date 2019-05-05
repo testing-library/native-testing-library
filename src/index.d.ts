@@ -104,7 +104,7 @@ type BoundQueries<T> = { [P in keyof T]: Bound<T[P]> }
 export type NativeTestInstance = Omit<ReactTestInstance, 'find' | 'findAllByProps' | 'findAllByType' | 'findByProps' | 'findByType' | 'instance'>
 
 export type TextMatch = string | RegExp | ((value: string) => boolean)
-export type FilterFn = (value: string, index: number) => boolean
+export type FilterFn = (node: NativeTestInstance, index: number) => boolean
 export type NormalizerFn = (input: string) => string
 
 export interface NormalizerOptions {
