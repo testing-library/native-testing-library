@@ -9,7 +9,7 @@ import { resultContainer, TestHook } from './hooks';
 import { getQueriesForElement } from './get-queries-for-element';
 import { fireEvent as rntlFireEvent, NativeEvent } from './events';
 
-function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
+function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   const wrapUiIfNeeded = innerElement =>
     WrapperComponent ? <WrapperComponent>{innerElement}</WrapperComponent> : innerElement;
 
@@ -31,7 +31,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
         container.update(wrapUiIfNeeded(rerenderUi));
       });
     },
-    ...getQueriesForElement(container),
+    ...getQueriesForElement(container, queries || undefined),
   };
 }
 
