@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { render } from '../';
+import { Text, View } from 'react-native';
+import { queryAllByProp, render } from '../';
 
 test('renders View', () => {
   const { container } = render(<View />);
@@ -29,14 +29,4 @@ test('renders options.wrapper around node', () => {
   />
 </View>
 `);
-});
-
-test('returns the queries passed as options bound to the container', () => {
-  const _getQueryPassedAsOption = { bind: jest.fn(() => _getQueryPassedAsOption) };
-  const queries = { getQueryPassedAsOption: _getQueryPassedAsOption };
-
-  const { container, getQueryPassedAsOption } = render(<View />, { queries });
-
-  expect(queries.getQueryPassedAsOption.bind).toHaveBeenCalledWith(null, container);
-  expect(getQueryPassedAsOption).toEqual(_getQueryPassedAsOption);
 });
