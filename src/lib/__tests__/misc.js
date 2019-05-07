@@ -1,7 +1,7 @@
 import React from 'react';
-import { Picker, View } from 'react-native';
+import { View } from 'react-native';
 
-import { fireEvent, render, queryByProp, queryByTestId } from '../../';
+import { render, queryByProp, queryByTestId } from '../../';
 
 test('queryByProp', () => {
   const { container } = render(
@@ -17,21 +17,4 @@ test('queryByProp', () => {
   expect(() => queryByProp('importantForAccessibility', container, /no/)).toThrow(
     /multiple elements/,
   );
-});
-
-test('picker', () => {
-  function Wrapper() {
-    const [value, setValue] = React.useState('js');
-
-    return (
-      <Picker selectedValue={value} onValueChange={itemValue => setValue(itemValue)}>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </Picker>
-    );
-  }
-  const { findByDisplayValue, getByDisplayValue } = render(<Wrapper />);
-
-  fireEvent.valueChange(getByDisplayValue('js'), 'java');
-  expect(() => findByDisplayValue('js')).not.toThrow();
 });

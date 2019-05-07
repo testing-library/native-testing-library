@@ -23,7 +23,6 @@ interface Queries {
 }
 
 export type RenderResult<Q extends Queries = typeof queries> = {
-  testRenderer: ReactTestRenderer;
   container: NativeTestInstance;
   debug: () => void;
   rerender: (ui: ReactElement) => void;
