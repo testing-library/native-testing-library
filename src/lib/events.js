@@ -202,22 +202,14 @@ function isDisabled(element) {
 
 function findEventHandler(element, event) {
   const { typeArg } = event;
-  const eventHandler = getEventHandlerName(typeArg);
-  const valid = isValidTarget(element, event);
-  const disabled = isDisabled(element);
+  const handlerName = getEventHandlerName(typeArg);
+  const eventHandler = element.props[handlerName];
 
-  if (typeof element.props[eventHandler] === 'function' && valid) {
-    if (disabled) {
-      throw new Error(`A target was found for event: "${typeArg}", but the target is disabled`);
-    }
-    return element.props[eventHandler];
+  if (eventHandler && !isDisabled(element) && isValidTarget(element, event)) {
+    return eventHandler;
   }
 
-  if (element.parent === null) {
-    throw new Error(`No target found for event: "${typeArg}"`);
-  }
-
-  return findEventHandler(element.parent, event);
+  return element.parent ? findEventHandler(element.parent, event) : i => i;
 }
 
 function fireEvent(element, event) {

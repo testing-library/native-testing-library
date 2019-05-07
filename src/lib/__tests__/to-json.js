@@ -22,7 +22,7 @@ test('it converts to json', () => {
       <View>
         <MiddleComponent>hello</MiddleComponent>
         <View>
-          <Text>world</Text>
+          <Text onPress={jest.fn()}>world</Text>
           <Text>foo bar</Text>
         </View>
         <View />

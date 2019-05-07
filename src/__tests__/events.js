@@ -86,34 +86,34 @@ test('calling a custom event works as well', () => {
   });
 });
 
-test('calling a handler when there is no valid target throws', () => {
+test('calling a handler when there is no valid target does not work', () => {
   const handleEvent = jest.fn();
   const { getByTestId } = render(<Image onPress={handleEvent} testID="image" />);
-  expect(() => fireEvent.press(getByTestId('image'))).toThrow();
+  expect(() => fireEvent.press(getByTestId('image'))).not.toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 
-test('calling a handler if a Button is disabled throws', () => {
+test('calling a handler if a Button is disabled does not work', () => {
   const handleEvent = jest.fn();
   const { getByText } = render(<Button disabled onPress={handleEvent} title="button" />);
-  expect(() => fireEvent.press(getByText('button'))).toThrow();
+  expect(() => fireEvent.press(getByText('button'))).not.toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 
-test('calling a handler if a Touchable is disabled throws', () => {
+test('calling a handler if a Touchable is disabled does not work', () => {
   const handleEvent = jest.fn();
   const { getByText } = render(
     <TouchableHighlight disabled onPress={jest.fn()}>
       <Text>touchable</Text>
     </TouchableHighlight>,
   );
-  expect(() => fireEvent.press(getByText('touchable'))).toThrow();
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 
 test('calling an event that has no defined handler throws', () => {
   const { getByText } = render(<Text>test</Text>);
-  expect(() => fireEvent.press(getByText('test'))).toThrow();
+  expect(() => fireEvent.press(getByText('test'))).not.toThrow();
 });
 
 test('calling an event sets nativeEvent properly', () => {

@@ -27,12 +27,20 @@ function toJSON(node) {
       return renderedChildren;
     }
 
+    // Function props get noisy in debug output, so we'll exclude them
+    let renderedProps = {};
+    Object.keys(props).filter(name => {
+      if (typeof props[name] !== 'function') {
+        renderedProps[name] = props[name];
+      }
+    });
+
     // Finally, create the JSON object
     return {
       $$typeof: Symbol.for('react.test.json'),
       parent: node.parent,
       type: node.type,
-      props,
+      props: renderedProps,
       children: renderedChildren,
     };
   } catch (e) {

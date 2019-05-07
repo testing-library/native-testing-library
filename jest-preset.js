@@ -5,5 +5,5 @@ module.exports = Object.assign(jestPreset, {
     ...jestPreset.transformIgnorePatterns,
     'node_modules/(?!(react-native.*|@?react-navigation.*)/)',
   ],
-  setupFilesAfterEnv: [require.resolve('./dist/preset/setup.js')],
+  setupFiles: [...jestPreset.setupFiles, require.resolve('./dist/preset/setup.js')],
 });
