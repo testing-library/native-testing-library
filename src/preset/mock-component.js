@@ -1,12 +1,9 @@
-'use strict';
-
 import React from 'react';
 
-import { getConfig } from '../lib';
+import { mockNativeMethods } from './mock-native-methods';
 
 function mockComponent(component, path = component) {
   const RealComponent = jest.requireActual(path);
-  const { mockNativeMethods } = jest.requireActual('./mock-native-methods');
 
   const displayName =
     RealComponent.displayName ||
@@ -48,19 +45,5 @@ function mockComponent(component, path = component) {
 
   return Component;
 }
-
-getConfig('coreComponents').forEach(component => {
-  try {
-    jest.doMock(component, () => mockComponent(component));
-  } catch (e) {
-    //
-  }
-});
-
-jest.doMock('Picker', () => {
-  const Picker = mockComponent('Picker');
-  Picker.Item = ({ children, ...props }) => React.createElement('Picker.Item', props, children);
-  return Picker;
-});
 
 export { mockComponent };

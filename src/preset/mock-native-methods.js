@@ -1,5 +1,3 @@
-'use strict';
-
 const mockNativeMethods = {
   measure: jest.fn(),
   measureInWindow: jest.fn(),
