@@ -1,6 +1,6 @@
 {
   "name": "native-testing-library",
-  "version": "3.0.0-beta.6",
+  "version": "3.0.0-beta.7",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
