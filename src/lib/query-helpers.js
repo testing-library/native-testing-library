@@ -60,7 +60,7 @@ function proxyUnsafeProperties(node) {
         return function(...args) {
           return ref
             .apply(this, args)
-            .filter(validComponentFilter)
+            .filter(node => validComponentFilter(node))
             .map(proxyUnsafeProperties);
         };
       } else if (key === 'getProp') {
