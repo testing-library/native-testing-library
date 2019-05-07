@@ -22,7 +22,6 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   });
 
   return {
-    testRenderer,
     container: proxyUnsafeProperties(testRenderer.root),
     debug: (el = testRenderer.root) => console.log(prettyPrint(toJSON(el))),
     unmount: () => testRenderer.unmount(),

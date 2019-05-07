@@ -4,7 +4,6 @@ exports[`Fetch makes an API call and displays the greeting when load-greeting is
 <View>
   <TouchableOpacity
     activeOpacity={0.2}
-    onPress={[Function]}
   >
     <Text>
       Fetch

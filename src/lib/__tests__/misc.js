@@ -4,7 +4,7 @@ import { Picker, View } from 'react-native';
 import { fireEvent, render, queryByProp, queryByTestId } from '../../';
 
 test('queryByProp', () => {
-  const { testRenderer } = render(
+  const { container } = render(
     <View>
       <View testID="foo" importantForAccessibility="no" />
       <View importantForAccessibility="no" />
@@ -12,9 +12,9 @@ test('queryByProp', () => {
     </View>,
   );
 
-  expect(queryByTestId(testRenderer, 'foo')).not.toBeNull();
-  expect(queryByProp('importantForAccessibility', testRenderer, 'auto')).toBeNull();
-  expect(() => queryByProp('importantForAccessibility', testRenderer, /no/)).toThrow(
+  expect(queryByTestId(container, 'foo')).not.toBeNull();
+  expect(queryByProp('importantForAccessibility', container, 'auto')).toBeNull();
+  expect(() => queryByProp('importantForAccessibility', container, /no/)).toThrow(
     /multiple elements/,
   );
 });
