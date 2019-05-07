@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-import { render, fireEvent } from '../';
+import { render, fireEvent, toJSON } from '../';
 
 class StopWatch extends React.Component {
   state = { lapse: 0, running: false };
@@ -41,11 +41,11 @@ const wait = time => new Promise(resolve => setTimeout(resolve, time));
 
 test('unmounts a component', async () => {
   jest.spyOn(console, 'error').mockImplementation(() => {});
-  const { unmount, getByTitle, testRenderer } = render(<StopWatch />);
+  const { unmount, getByTitle, container } = render(<StopWatch />);
   fireEvent.press(getByTitle('Start'));
 
   unmount();
 
-  expect(testRenderer.toJSON()).toBeNull();
+  expect(toJSON(container)).toBeNull();
   await wait(() => expect(console.error).not.toHaveBeenCalled());
 });

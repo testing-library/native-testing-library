@@ -2,24 +2,14 @@ import React from 'react';
 import TR from 'react-test-renderer';
 
 import {
-  configure as configureNTL,
+  toJSON,
   fireEvent as rntlFireEvent,
   getQueriesForElement,
   NativeEvent,
   prettyPrint,
   proxyUnsafeProperties,
 } from './lib';
-import act, { asyncAct } from './act-compat';
-
-configureNTL({
-  asyncWrapper: async cb => {
-    let result;
-    await asyncAct(async () => {
-      result = await cb();
-    });
-    return result;
-  },
-});
+import act from './act-compat';
 
 function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   const wrapUiIfNeeded = innerElement =>
@@ -34,7 +24,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   return {
     testRenderer,
     container: proxyUnsafeProperties(testRenderer.root),
-    debug: () => console.log(prettyPrint(testRenderer.toJSON())),
+    debug: (el = testRenderer.root) => console.log(prettyPrint(toJSON(el))),
     unmount: () => testRenderer.unmount(),
     rerender: rerenderUi => {
       act(() => {

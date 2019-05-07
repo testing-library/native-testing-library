@@ -1,6 +1,6 @@
-import { getCoreComponents } from './core-components';
+import { getConfig } from '../lib';
 
-getCoreComponents().forEach(component => {
+getConfig('coreComponents').forEach(component => {
   try {
     // try to un-mock the component
     jest.unmock(component);

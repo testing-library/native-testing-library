@@ -51,5 +51,11 @@ describe('configuration API', () => {
         foo: '123-derived',
       });
     });
+
+    test('asyncWrapper callback exists by default', () => {
+      const callback = jest.fn();
+      getConfig().asyncWrapper(callback);
+      expect(callback).toHaveBeenCalledTimes(1);
+    });
   });
 });

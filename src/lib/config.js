@@ -1,5 +1,6 @@
+/* istanbul ignore next */
 let config = {
-  // no default config in NTL...
+  asyncWrapper: cb => cb(),
 };
 
 function configure(newConfig) {
@@ -16,8 +17,8 @@ function configure(newConfig) {
   };
 }
 
-function getConfig() {
-  return config;
+function getConfig(key) {
+  return key ? config[key] : config;
 }
 
 export { configure, getConfig };

@@ -1,5 +1,6 @@
 import prettyFormat from 'pretty-format';
 import React from 'react';
+
 const { ReactTestComponent, ReactElement } = prettyFormat.plugins;
 
 function prettyPrint(element, maxLength, options) {

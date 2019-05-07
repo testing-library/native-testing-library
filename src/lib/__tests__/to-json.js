@@ -30,5 +30,5 @@ test('it converts to json', () => {
     </ParentComponent>,
   );
 
-  console.log(prettyPrint(toJSON(container)));
+  expect(prettyPrint(toJSON(container))).toMatchSnapshot();
 });

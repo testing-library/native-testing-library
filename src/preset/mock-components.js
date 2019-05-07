@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { getCoreComponents } from './core-components';
+import { getConfig } from '../lib';
 
 function mockComponent(component, path = component) {
   const RealComponent = jest.requireActual(path);
@@ -49,7 +49,7 @@ function mockComponent(component, path = component) {
   return Component;
 }
 
-getCoreComponents().forEach(component => {
+getConfig('coreComponents').forEach(component => {
   try {
     jest.doMock(component, () => mockComponent(component));
   } catch (e) {

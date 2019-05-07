@@ -1,4 +1,11 @@
-import { matches, fuzzyMatches, makeNormalizer, buildQueries, getContainer } from './all-utils';
+import {
+  matches,
+  fuzzyMatches,
+  makeNormalizer,
+  buildQueries,
+  getContainer,
+  validComponentFilter,
+} from './all-utils';
 
 function queryAllByDisplayValue(
   testRenderer,
@@ -9,7 +16,7 @@ function queryAllByDisplayValue(
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(container.findAll(n => ['TextInput', 'Picker'].includes(n.type)))
+  return Array.from(container.findAll(node => validComponentFilter(node, 'displayValueComponents')))
     .filter(filter)
     .filter(node => {
       if (node.type === 'Picker') {

@@ -1,4 +1,11 @@
-import { buildQueries, matches, fuzzyMatches, makeNormalizer, getContainer } from './all-utils';
+import {
+  buildQueries,
+  matches,
+  fuzzyMatches,
+  makeNormalizer,
+  getContainer,
+  validComponentFilter,
+} from './all-utils';
 
 function queryAllByTitle(
   testRenderer,
@@ -9,7 +16,7 @@ function queryAllByTitle(
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(container.findAll(n => ['Button', 'RefreshControl'].includes(n.type)))
+  return Array.from(container.findAll(node => validComponentFilter(node, 'titleComponents')))
     .filter(filter)
     .filter(node => matcher(node.getProp('title'), node, value, matchNormalizer));
 }

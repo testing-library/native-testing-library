@@ -1,5 +1,5 @@
-import { getCoreComponents } from '../preset/core-components';
-
+import { toJSON } from './to-json';
+import { getConfig } from './config';
 import { prettyPrint } from './pretty-print';
 import { waitForElement } from './wait-for-element';
 import { fuzzyMatches, makeNormalizer, matches } from './matches';
@@ -7,7 +7,7 @@ import { fuzzyMatches, makeNormalizer, matches } from './matches';
 function debugTree(testRenderer) {
   const limit = process.env.DEBUG_PRINT_LIMIT || 7000;
 
-  return prettyPrint(testRenderer.toJSON(), limit);
+  return prettyPrint(toJSON(testRenderer.root), limit);
 }
 
 function getElementError(message, testRenderer) {
@@ -21,8 +21,9 @@ function getMultipleElementsFoundError(message, testRenderer) {
   );
 }
 
-function defaultFilter(node) {
-  return getCoreComponents().includes(node.type);
+function validComponentFilter(node, key = 'coreComponents') {
+  const validComponents = getConfig(key);
+  return validComponents ? validComponents.includes(node.type) : true;
 }
 
 function getContainer(testRenderer) {
@@ -59,7 +60,7 @@ function proxyUnsafeProperties(node) {
         return function(...args) {
           return ref
             .apply(this, args)
-            .filter(defaultFilter)
+            .filter(node => validComponentFilter(node))
             .map(proxyUnsafeProperties);
         };
       } else if (key === 'getProp') {
@@ -148,7 +149,6 @@ function buildQueries(queryAllBy, getMultipleError, getMissingError) {
 
 export {
   buildQueries,
-  defaultFilter,
   getContainer,
   getElementError,
   getMultipleElementsFoundError,
@@ -158,4 +158,5 @@ export {
   queryAllByProp,
   queryByProp,
   proxyUnsafeProperties,
+  validComponentFilter,
 };

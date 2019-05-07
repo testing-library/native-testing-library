@@ -1,10 +1,17 @@
-import { defaultFilter, proxyUnsafeProperties } from '../query-helpers';
+import { configure } from '../config';
+import { validComponentFilter, proxyUnsafeProperties } from '../query-helpers';
 
-test('defaultFilter returns `true` when node.type is in the mocked type list', () => {
-  expect(defaultFilter({ type: 'Text' })).toEqual(true);
+test('validComponentFilter returns `true` when node.type is in the mocked type list', () => {
+  configure({ coreComponents: ['Text'] });
+  expect(validComponentFilter({ type: 'Text' })).toEqual(true);
 });
-test('defaultFilter returns `false` when node.type is not in the mocked type list', () => {
-  expect(defaultFilter({ type: 'Test' })).toEqual(false);
+test('validComponentFilter returns `false` when node.type is not in the mocked type list', () => {
+  configure({ coreComponents: ['Text'] });
+  expect(validComponentFilter({ type: 'Test' })).toEqual(false);
+});
+test('validComponentFilter always returns `true` when no mocked components are provided', () => {
+  configure({ coreComponents: null });
+  expect(validComponentFilter({ type: 'BadComponent' })).toEqual(true);
 });
 
 test('proxyUnsafeProperties ignores what it should', () => {

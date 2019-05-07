@@ -5,6 +5,7 @@ import {
   getNodeText,
   buildQueries,
   getContainer,
+  validComponentFilter,
 } from './all-utils';
 
 function queryAllByText(
@@ -16,7 +17,7 @@ function queryAllByText(
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(container.findAll(n => ['Button', 'TextInput', 'Text'].includes(n.type)))
+  return Array.from(container.findAll(node => validComponentFilter(node, 'textComponents')))
     .filter(filter)
     .filter(node => matcher(getNodeText(node), node, text, matchNormalizer));
 }
