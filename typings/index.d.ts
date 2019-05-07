@@ -59,3 +59,4 @@ export * from './queries';
 export * from './query-helpers';
 export * from './wait';
 export * from './wait-for-element';
+export * from './wait-for-element-to-be-removed';

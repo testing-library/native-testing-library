@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { render } from '../';
+import { Text, View } from 'react-native';
+import { queryAllByProp, render } from '../';
 
 test('renders View', () => {
   const { container } = render(<View />);

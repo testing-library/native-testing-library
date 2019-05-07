@@ -21,7 +21,7 @@ configureNTL({
   },
 });
 
-function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
+function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   const wrapUiIfNeeded = innerElement =>
     WrapperComponent ? <WrapperComponent>{innerElement}</WrapperComponent> : innerElement;
 
@@ -41,7 +41,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent } = {}) {
         testRenderer.update(wrapUiIfNeeded(rerenderUi));
       });
     },
-    ...getQueriesForElement(testRenderer),
+    ...getQueriesForElement(testRenderer, queries),
   };
 }
 
