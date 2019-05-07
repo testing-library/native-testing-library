@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it converts to json 1`] = `
+"[36m<View>[39m
+  [36m<View>[39m
+    [36m<View>[39m
+      [36m<Text>[39m
+        [0mhello[0m
+      [36m</Text>[39m
+    [36m</View>[39m
+    [36m<View>[39m
+      [36m<Text>[39m
+        [0mworld[0m
+      [36m</Text>[39m
+      [36m<Text>[39m
+        [0mfoo bar[0m
+      [36m</Text>[39m
+    [36m</View>[39m
+    [36m<View />[39m
+  [36m</View>[39m
+[36m</View>[39m"
+`;
