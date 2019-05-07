@@ -23,7 +23,9 @@ test('it converts to json', () => {
         <MiddleComponent>hello</MiddleComponent>
         <View>
           <Text>world</Text>
+          <Text>foo bar</Text>
         </View>
+        <View />
       </View>
     </ParentComponent>,
   );
