@@ -3,7 +3,7 @@
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "typings": "typings/index.d.ts",
   "files": [
     "dist",
     "typings",
