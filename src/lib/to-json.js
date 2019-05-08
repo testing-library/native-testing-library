@@ -48,4 +48,4 @@ function toJSON(node) {
   }
 }
 
-export { flat, toJSON };
+export { toJSON };
