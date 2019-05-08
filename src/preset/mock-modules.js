@@ -19,9 +19,7 @@ jest.unmock('ReactNative');
 getConfig('coreComponents').forEach(component => {
   try {
     jest.doMock(component, () => mockComponent(component));
-  } catch (e) {
-    //
-  }
+  } catch (e) {}
 });
 
 // Mock the Picker one-off because it's kinda weird

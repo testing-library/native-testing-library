@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { render } from '../';
+import { cleanup, render } from '../';
+
+afterEach(cleanup);
 
 beforeEach(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {});

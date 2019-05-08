@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { render } from '../../';
-import { waitForElement } from '../wait-for-element';
+import { cleanup, render, waitForElement } from '../../';
+
+afterEach(cleanup);
 
 test('waits for element to appear in the document', async () => {
   const { rerender, getByTestId } = render(<View />);

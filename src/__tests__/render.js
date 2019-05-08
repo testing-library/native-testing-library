@@ -1,6 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-import { toJSON, render } from '../';
+import { cleanup, toJSON, render } from '../';
+
+afterEach(cleanup);
 
 test('renders View', () => {
   const { container } = render(<View />);
@@ -21,12 +23,16 @@ test('renders options.wrapper around node', () => {
 
   expect(getByTestId('wrapper')).toBeTruthy();
   expect(toJSON(container)).toMatchInlineSnapshot(`
-<View
-  testID="wrapper"
->
-  <View
-    testID="inner"
-  />
-</View>
-`);
+    <View
+      testID="ntl-container"
+    >
+      <View
+        testID="wrapper"
+      >
+        <View
+          testID="inner"
+        />
+      </View>
+    </View>
+  `);
 });

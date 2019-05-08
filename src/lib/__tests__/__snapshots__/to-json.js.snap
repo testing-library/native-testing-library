@@ -1,22 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`it converts to json 1`] = `
-"[36m<View>[39m
+"[36m<View[39m
+  [33mtestID[39m=[32m\\"ntl-container\\"[39m
+[36m>[39m
   [36m<View>[39m
     [36m<View>[39m
-      [36m<Text>[39m
-        [0mhello[0m
-      [36m</Text>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mhello[0m
+        [36m</Text>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mworld[0m
+        [36m</Text>[39m
+        [36m<Text>[39m
+          [0mfoo bar[0m
+        [36m</Text>[39m
+      [36m</View>[39m
+      [36m<View />[39m
     [36m</View>[39m
-    [36m<View>[39m
-      [36m<Text>[39m
-        [0mworld[0m
-      [36m</Text>[39m
-      [36m<Text>[39m
-        [0mfoo bar[0m
-      [36m</Text>[39m
+  [36m</View>[39m
+[36m</View>[39m"
+`;
+
+exports[`it converts to json 2`] = `
+"[36m<View[39m
+  [33mpointerEvents[39m=[32m\\"box-none\\"[39m
+  [33mstyle[39m=[32m{
+    Object {
+      \\"flex\\": 1,
+    }
+  }[39m
+[36m>[39m
+  [36m<View[39m
+    [33mcollapsable[39m=[32m{true}[39m
+    [33mpointerEvents[39m=[32m\\"box-none\\"[39m
+    [33mstyle[39m=[32m{
+      Object {
+        \\"flex\\": 1,
+      }
+    }[39m
+  [36m>[39m
+    [36m<View[39m
+      [33mtestID[39m=[32m\\"ntl-container\\"[39m
+    [36m>[39m
+      [36m<View>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mhello[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mworld[0m
+            [36m</Text>[39m
+            [36m<Text>[39m
+              [0mfoo bar[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+          [36m<View />[39m
+        [36m</View>[39m
+      [36m</View>[39m
     [36m</View>[39m
-    [36m<View />[39m
   [36m</View>[39m
 [36m</View>[39m"
 `;

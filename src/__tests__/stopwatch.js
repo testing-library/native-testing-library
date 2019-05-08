@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-import { render, fireEvent, toJSON } from '../';
+import { cleanup, render, fireEvent, toJSON } from '../';
+
+afterEach(cleanup);
 
 class StopWatch extends React.Component {
   state = { lapse: 0, running: false };

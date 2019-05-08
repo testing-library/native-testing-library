@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/**",
+    "dist",
     "typings",
+    "cleanup-after-each.js",
     "jest-preset.js"
   ],
   "engines": {

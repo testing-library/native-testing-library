@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button, View } from 'react-native';
 
-import { render, within } from '../../';
+import { cleanup, render, within } from '../../';
+
+afterEach(cleanup);
 
 test('it works when scoping to a smaller set of elements', () => {
   const { getByTestId } = render(

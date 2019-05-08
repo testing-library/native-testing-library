@@ -1,7 +1,9 @@
-import { queryAllByProp } from '../lib';
-import { render } from '../index';
-import { Text, View } from 'react-native';
 import React from 'react';
+import { Text, View } from 'react-native';
+
+import { cleanup, render, queryAllByProp } from '../';
+
+afterEach(cleanup);
 
 // This is to ensure custom queries can be passed to render. In most cases, you
 // wouldn't/shouldn't need to do this, but we do allow it so we'll test to

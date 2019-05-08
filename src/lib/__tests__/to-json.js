@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { prettyPrint, render } from '../../';
-import { toJSON } from '../to-json';
+import { cleanup, prettyPrint, render, toJSON } from '../../';
+
+afterEach(cleanup);
 
 test('it converts to json', () => {
   function ParentComponent({ children }) {
@@ -17,7 +18,7 @@ test('it converts to json', () => {
     );
   }
 
-  const { container } = render(
+  const { baseElement, container } = render(
     <ParentComponent>
       <View>
         <MiddleComponent>hello</MiddleComponent>
@@ -31,4 +32,5 @@ test('it converts to json', () => {
   );
 
   expect(prettyPrint(toJSON(container))).toMatchSnapshot();
+  expect(prettyPrint(toJSON(baseElement))).toMatchSnapshot();
 });

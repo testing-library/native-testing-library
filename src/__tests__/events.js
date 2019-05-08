@@ -2,7 +2,9 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
-import { render, fireEvent, eventMap, NativeEvent, getEventHandlerName, wait } from '../';
+import { cleanup, render, fireEvent, eventMap, NativeEvent, getEventHandlerName, wait } from '../';
+
+afterEach(cleanup);
 
 Object.keys(eventMap).forEach(key => {
   const handlerName = getEventHandlerName(key);
@@ -11,20 +13,27 @@ Object.keys(eventMap).forEach(key => {
     const config = eventMap[key];
 
     config.validTargets.forEach(element => {
-      const handler = jest.fn();
-      const { container } = render(React.createElement(element, { [handlerName]: handler }));
+      const spy = jest.fn();
 
-      fireEvent[key](container);
+      const { getByTestId } = render(
+        React.createElement(element, {
+          [handlerName]: spy,
+        }),
+      );
 
-      expect(handler).toHaveBeenCalledTimes(1);
+      const target = getByTestId('ntl-container').children[0];
+      fireEvent[key](target);
+
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });
 
 test('onChange works', () => {
   const handleChange = jest.fn();
-  const { container } = render(<TextInput onChange={handleChange} />);
-  fireEvent.change(container, { target: { value: 'a' } });
+  const { getByTestId } = render(<TextInput onChange={handleChange} />);
+  const target = getByTestId('ntl-container').children[0];
+  fireEvent.change(target, { target: { value: 'a' } });
   expect(handleChange).toHaveBeenCalledTimes(1);
 });
 
@@ -66,9 +75,10 @@ test('assigns target properties', async () => {
 
 test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
-  const { container } = render(<Button onPress={handleEvent} title="test" />);
+  const { getByTestId } = render(<Button onPress={handleEvent} title="test" />);
 
-  fireEvent(container, new NativeEvent('press'));
+  const target = getByTestId('ntl-container').children[0];
+  fireEvent(target, new NativeEvent('press'));
   expect(handleEvent).toBeCalledTimes(1);
 });
 
@@ -77,8 +87,9 @@ test('calling a custom event works as well', () => {
   const onMyEvent = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
   const MyComponent = ({ onMyEvent }) => <TextInput value="test" onChange={onMyEvent} />;
 
-  const { container } = render(<MyComponent onMyEvent={onMyEvent} />);
-  fireEvent(container, new NativeEvent('myEvent', event));
+  const { getByTestId } = render(<MyComponent onMyEvent={onMyEvent} />);
+  const target = getByTestId('ntl-container').children[0];
+  fireEvent(target, new NativeEvent('myEvent', event));
 
   expect(onMyEvent).toHaveBeenCalledWith({
     nativeEvent: { value: 'testing' },

@@ -1,5 +1,7 @@
 import React from 'react';
+import { View } from 'react-native';
 import TR from 'react-test-renderer';
+import AppContainer from 'react-native/Libraries/ReactNative/AppContainer';
 
 import {
   toJSON,
@@ -8,12 +10,26 @@ import {
   NativeEvent,
   prettyPrint,
   proxyUnsafeProperties,
+  validComponentFilter,
 } from './lib';
 import act from './act-compat';
 
+const containerId = 'ntl-container';
+const renderers = new Set();
+
 function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   const wrapUiIfNeeded = innerElement =>
-    WrapperComponent ? <WrapperComponent>{innerElement}</WrapperComponent> : innerElement;
+    WrapperComponent ? (
+      <AppContainer>
+        <View testID={containerId}>
+          <WrapperComponent>{innerElement}</WrapperComponent>
+        </View>
+      </AppContainer>
+    ) : (
+      <AppContainer>
+        <View testID={containerId}>{innerElement}</View>
+      </AppContainer>
+    );
 
   let testRenderer;
 
@@ -21,9 +37,17 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
     testRenderer = TR.create(wrapUiIfNeeded(ui), options);
   });
 
+  renderers.add(testRenderer);
+
+  const baseElement = proxyUnsafeProperties(testRenderer.root);
+  const container = baseElement
+    .findAll(c => validComponentFilter(c))
+    .filter(n => n.getProp('testID') === containerId)[0];
+
   return {
-    container: proxyUnsafeProperties(testRenderer.root),
-    debug: (el = testRenderer.root) => console.log(prettyPrint(toJSON(el))),
+    baseElement,
+    container,
+    debug: (el = baseElement) => console.log(prettyPrint(toJSON(el))),
     unmount: () => testRenderer.unmount(),
     rerender: rerenderUi => {
       act(() => {
@@ -32,6 +56,15 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
     },
     ...getQueriesForElement(testRenderer, queries),
   };
+}
+
+function cleanup() {
+  renderers.forEach(cleanupRenderer);
+}
+
+function cleanupRenderer(renderer) {
+  renderer.unmount();
+  renderers.delete(renderer);
 }
 
 function fireEvent(...args) {
@@ -53,4 +86,4 @@ Object.keys(rntlFireEvent).forEach(key => {
 });
 
 export * from './lib';
-export { act, fireEvent, render, NativeEvent };
+export { act, cleanup, fireEvent, render, NativeEvent };
