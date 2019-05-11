@@ -19,6 +19,7 @@ configureNTL({
     'Modal',
     'Picker',
     'RefreshControl',
+    'SafeAreaView',
     'ScrollView',
     'Switch',
     'Text',

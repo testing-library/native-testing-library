@@ -24,7 +24,7 @@ function toJSON(node) {
 
     // Hoist children so that only "native elements" are in the output
     if (typeof node.type !== 'string') {
-      return renderedChildren;
+      return renderedChildren.length === 1 ? renderedChildren[0] : renderedChildren;
     }
 
     // Function props get noisy in debug output, so we'll exclude them

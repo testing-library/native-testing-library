@@ -1,5 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
+
 import { cleanup, toJSON, render } from '../';
 
 afterEach(cleanup);
@@ -15,7 +16,9 @@ test('returns container', () => {
 });
 
 test('renders options.wrapper around node', () => {
-  const WrapperComponent = ({ children }) => <View testID="wrapper">{children}</View>;
+  const WrapperComponent = ({ children }) => (
+    <SafeAreaView testID="wrapper">{children}</SafeAreaView>
+  );
 
   const { container, getByTestId } = render(<View testID="inner" />, {
     wrapper: WrapperComponent,
@@ -26,13 +29,13 @@ test('renders options.wrapper around node', () => {
     <View
       testID="ntl-container"
     >
-      <View
+      <SafeAreaView
         testID="wrapper"
       >
         <View
           testID="inner"
         />
-      </View>
+      </SafeAreaView>
     </View>
   `);
 });
