@@ -31,7 +31,7 @@ jest.doMock('Picker', () => {
 });
 
 // Re-mock ReactNative with native methods mocked
-jest.mock('NativeAnimatedHelper').mock('ReactNative', () => {
+jest.mock('NativeAnimatedHelper').doMock('ReactNative', () => {
   const ReactNative = jest.requireActual('ReactNative');
   const NativeMethodsMixin =
     ReactNative.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.NativeMethodsMixin;
