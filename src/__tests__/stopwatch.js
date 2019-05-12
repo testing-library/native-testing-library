@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-import { cleanup, render, fireEvent, toJSON } from '../';
-
-afterEach(cleanup);
+import { render, fireEvent, prettyPrint } from '../';
 
 class StopWatch extends React.Component {
   state = { lapse: 0, running: false };
@@ -47,7 +45,9 @@ test('unmounts a component', async () => {
   fireEvent.press(getByTitle('Start'));
 
   unmount();
-
-  expect(toJSON(container)).toBeNull();
+  // hey there reader! You don't need to have an assertion like this one
+  // this is just me making sure that the unmount function works.
+  // You don't need to do this in your apps. Just rely on the fact that this works.
+  expect(prettyPrint(container)).toBe('null');
   await wait(() => expect(console.error).not.toHaveBeenCalled());
 });

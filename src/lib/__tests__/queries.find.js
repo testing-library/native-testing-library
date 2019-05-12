@@ -1,9 +1,7 @@
 import React from 'react';
 import { Button, Image, Text, TextInput, View } from 'react-native';
 
-import { cleanup, render } from '../../';
-
-afterEach(cleanup);
+import { render } from '../../';
 
 test('find asynchronously finds elements', async () => {
   const {

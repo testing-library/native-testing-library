@@ -1,17 +1,24 @@
-import { configure } from '../config';
 import { validComponentFilter, proxyUnsafeProperties } from '../query-helpers';
+import { configure } from '../config';
 
-test('validComponentFilter returns `true` when node.type is in the mocked type list', () => {
-  configure({ coreComponents: ['Text'] });
-  expect(validComponentFilter({ type: 'Text' })).toEqual(true);
+describe('validComponentFilter > no key provided', () => {
+  test('returns `true` when node.type is a string', () => {
+    expect(validComponentFilter({ type: 'Text' })).toEqual(true);
+  });
+  test('validComponentFilter returns `false` when node.type is not in the mocked type list', () => {
+    expect(validComponentFilter({ type: () => {} })).toEqual(false);
+  });
 });
-test('validComponentFilter returns `false` when node.type is not in the mocked type list', () => {
-  configure({ coreComponents: ['Text'] });
-  expect(validComponentFilter({ type: 'Test' })).toEqual(false);
-});
-test('validComponentFilter always returns `true` when no mocked components are provided', () => {
-  configure({ coreComponents: null });
-  expect(validComponentFilter({ type: 'BadComponent' })).toEqual(true);
+
+describe('validComponentFilter > key provided', () => {
+  test('validComponentFilter returns `true` when node.type is in the mocked type list', () => {
+    configure({ testComponents: ['Text'] });
+    expect(validComponentFilter({ type: 'Text' }, 'testComponents')).toEqual(true);
+  });
+  test('validComponentFilter returns `false` when node.type is not in the mocked type list', () => {
+    configure({ testComponents: ['Text'] });
+    expect(validComponentFilter({ type: 'Test' }, 'testComponents')).toEqual(false);
+  });
 });
 
 test('proxyUnsafeProperties ignores what it should', () => {

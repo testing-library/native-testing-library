@@ -1,9 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { cleanup, render, queryAllByProp } from '../';
-
-afterEach(cleanup);
+import { render, queryAllByProp } from '../';
 
 // This is to ensure custom queries can be passed to render. In most cases, you
 // wouldn't/shouldn't need to do this, but we do allow it so we'll test to

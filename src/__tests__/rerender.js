@@ -2,9 +2,7 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Text } from 'react-native';
 
-import { cleanup, render } from '../';
-
-afterEach(cleanup);
+import { render } from '../';
 
 test('rerender will re-render the element', () => {
   const Greeting = props => <Text>{props.message}</Text>;

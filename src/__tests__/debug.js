@@ -1,9 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { cleanup, render } from '../';
-
-afterEach(cleanup);
+import { render } from '../';
 
 beforeEach(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {});
@@ -13,7 +11,7 @@ afterEach(() => {
   console.log.mockRestore();
 });
 
-test('debug pretty prints the testRenderer', () => {
+test('debug pretty prints the baseElement', () => {
   const HelloWorld = () => <Text>Hello World</Text>;
   const { debug } = render(<HelloWorld />);
   debug();

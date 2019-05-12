@@ -1,4 +1,4 @@
-import { buildQueries, getContainer } from './all-utils';
+import { buildQueries } from './all-utils';
 
 const validRoles = [
   'adjustable',
@@ -34,11 +34,9 @@ const validTraits = [
   'text',
 ];
 
-function queryAllByRole(testRenderer, value, { filter = n => n } = {}) {
-  const container = getContainer(testRenderer);
-
-  const roleElements = container.findAll(c => c.props.accessibilityRole);
-  const traitElements = container.findAll(c => c.props.accessibilityTraits);
+function queryAllByRole(container, value, { filter = n => n } = {}) {
+  const roleElements = container.findAll(c => c.getProp('accessibilityRole'));
+  const traitElements = container.findAll(c => c.getProp('accessibilityTraits'));
 
   return [...roleElements, ...traitElements].filter(filter).filter(node => {
     const role = node.getProp('accessibilityRole');

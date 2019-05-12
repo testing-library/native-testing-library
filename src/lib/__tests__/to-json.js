@@ -1,9 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { cleanup, prettyPrint, render, toJSON } from '../../';
-
-afterEach(cleanup);
+import { prettyPrint, render, toJSON } from '../../';
 
 test('it converts to json', () => {
   function ParentComponent({ children }) {
@@ -31,6 +29,14 @@ test('it converts to json', () => {
     </ParentComponent>,
   );
 
-  expect(prettyPrint(toJSON(container))).toMatchSnapshot();
-  expect(prettyPrint(toJSON(baseElement))).toMatchSnapshot();
+  expect(prettyPrint(container)).toMatchSnapshot();
+  expect(prettyPrint(baseElement)).toMatchSnapshot();
+});
+
+test('it handles hidden nodes', () => {
+  expect(toJSON({ _fiber: { stateNode: { isHidden: true } } })).toBeNull();
+});
+
+test('it handles invalid nodes', () => {
+  expect(() => toJSON({ _fiber: { stateNode: { tag: 'FAKE' } } })).toThrow();
 });

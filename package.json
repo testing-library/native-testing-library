@@ -7,7 +7,6 @@
   "files": [
     "dist",
     "typings",
-    "cleanup-after-each.js",
     "jest-preset.js"
   ],
   "engines": {

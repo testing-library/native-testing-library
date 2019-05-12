@@ -2,7 +2,13 @@
 
 exports[`Fetch makes an API call and displays the greeting when load-greeting is clicked 1`] = `
 <View
-  testID="ntl-container"
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
 >
   <View>
     <TouchableOpacity

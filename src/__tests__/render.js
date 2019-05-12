@@ -1,9 +1,7 @@
 import React from 'react';
 import { SafeAreaView, View } from 'react-native';
 
-import { cleanup, toJSON, render } from '../';
-
-afterEach(cleanup);
+import { render } from '../';
 
 test('renders View', () => {
   const { container } = render(<View />);
@@ -25,9 +23,15 @@ test('renders options.wrapper around node', () => {
   });
 
   expect(getByTestId('wrapper')).toBeTruthy();
-  expect(toJSON(container)).toMatchInlineSnapshot(`
+  expect(container).toMatchInlineSnapshot(`
     <View
-      testID="ntl-container"
+      collapsable={true}
+      pointerEvents="box-none"
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
     >
       <SafeAreaView
         testID="wrapper"

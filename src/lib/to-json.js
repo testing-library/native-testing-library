@@ -1,50 +1,50 @@
-function flat(arr) {
-  return arr.reduce((arr, toFlatten) => {
-    return arr.concat(Array.isArray(toFlatten) ? flat(toFlatten) : toFlatten);
-  }, []);
+function toJSON({ _fiber: { stateNode = null } = {} } = {}) {
+  if (!stateNode) return null;
+  if (stateNode.rootContainerInstance && stateNode.rootContainerInstance.children.length === 0)
+    return null;
+
+  return _toJSON(stateNode);
 }
 
-function toJSON(node) {
-  try {
-    // If the node is a string return it
-    if (typeof node === 'string') {
-      return node;
-    }
-
-    // We don't want children being included in the props
-    const { children, ...props } = node.props;
-
-    // Convert all children to the JSON format
-    const renderedChildren = flat(node.children.map(child => toJSON(child)));
-
-    // If there's no parent, return the base element not in an array
-    if (node.parent === null) {
-      return renderedChildren[0];
-    }
-
-    // Hoist children so that only "native elements" are in the output
-    if (typeof node.type !== 'string') {
-      return renderedChildren.length === 1 ? renderedChildren[0] : renderedChildren;
-    }
-
-    // Function props get noisy in debug output, so we'll exclude them
-    let renderedProps = {};
-    Object.keys(props).filter(name => {
-      if (typeof props[name] !== 'function') {
-        renderedProps[name] = props[name];
-      }
-    });
-
-    // Finally, create the JSON object
-    return {
-      $$typeof: Symbol.for('react.test.json'),
-      parent: node.parent,
-      type: node.type,
-      props: renderedProps,
-      children: renderedChildren,
-    };
-  } catch (e) {
+function _toJSON(inst) {
+  if (inst.isHidden) {
+    // Omit timed out children from output entirely. This seems like the least
+    // surprising behavior. We could perhaps add a separate API that includes
+    // them, if it turns out people need it.
     return null;
+  }
+  switch (inst.tag) {
+    case 'TEXT':
+      return inst.text;
+    case 'INSTANCE': {
+      /* eslint-disable no-unused-vars */
+      // We don't include the `children` prop in JSON.
+      // Instead, we will include the actual rendered children.
+      const { children, ...props } = inst.props;
+
+      // Convert all children to the JSON format
+      const renderedChildren = inst.children.map(child => _toJSON(child));
+
+      // Function props get noisy in debug output, so we'll exclude them
+      let renderedProps = {};
+      Object.keys(props).filter(name => {
+        if (typeof props[name] !== 'function') {
+          renderedProps[name] = props[name];
+        }
+      });
+
+      const json = {
+        type: inst.type,
+        props: renderedProps,
+        children: renderedChildren,
+      };
+      Object.defineProperty(json, '$$typeof', {
+        value: Symbol.for('react.test.json'),
+      });
+      return json;
+    }
+    default:
+      throw new Error(`Unexpected node type in toJSON: ${inst.tag}`);
   }
 }
 

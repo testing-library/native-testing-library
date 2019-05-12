@@ -4,16 +4,14 @@ import {
   makeNormalizer,
   getNodeText,
   buildQueries,
-  getContainer,
   validComponentFilter,
 } from './all-utils';
 
 function queryAllByText(
-  testRenderer,
+  container,
   text,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const container = getContainer(testRenderer);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 

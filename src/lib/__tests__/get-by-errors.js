@@ -2,9 +2,7 @@ import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 import cases from 'jest-in-case';
 
-import { cleanup, render } from '../../';
-
-afterEach(cleanup);
+import { render } from '../../';
 
 cases(
   'getBy* queries throw an error when there are multiple elements returned',

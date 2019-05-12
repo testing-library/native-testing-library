@@ -1,9 +1,9 @@
 import * as defaultQueries from './queries';
 
-function getQueriesForElement(testRenderer, queries = defaultQueries) {
+function getQueriesForElement(element, queries = defaultQueries) {
   return Object.keys(queries).reduce((helpers, key) => {
     const fn = queries[key];
-    helpers[key] = fn.bind(null, testRenderer);
+    helpers[key] = fn.bind(null, element);
     return helpers;
   }, {});
 }

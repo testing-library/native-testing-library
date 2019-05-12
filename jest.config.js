@@ -4,6 +4,7 @@ const ignores = ['/node_modules/', '/__tests__/helpers/', '__mocks__'];
 
 module.exports = Object.assign(jestPreset, {
   collectCoverageFrom: ['**/src/lib/**/*.js', '!**/src/preset/**/*.js'],
+  snapshotSerializers: [require.resolve('./src/preset/serializer.js')],
   setupFiles: [...jestPreset.setupFiles, require.resolve('./src/preset/setup.js')],
   testPathIgnorePatterns: [...ignores],
   transformIgnorePatterns: ['node_modules/(?!(react-native.*|@?react-navigation.*)/)'],

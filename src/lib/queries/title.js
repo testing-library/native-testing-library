@@ -3,16 +3,14 @@ import {
   matches,
   fuzzyMatches,
   makeNormalizer,
-  getContainer,
   validComponentFilter,
 } from './all-utils';
 
 function queryAllByTitle(
-  testRenderer,
+  container,
   value,
   { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
-  const container = getContainer(testRenderer);
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 

@@ -1,16 +1,20 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { cleanup, render, prettyPrint, toJSON } from '../../';
-
-afterEach(cleanup);
+import { render, prettyPrint } from '../../';
 
 test('it prints correctly with no children', () => {
   const { container } = render(<View />);
 
-  expect(prettyPrint(toJSON(container))).toMatchInlineSnapshot(`
+  expect(prettyPrint(container)).toMatchInlineSnapshot(`
     "[36m<View[39m
-      [33mtestID[39m=[32m\\"ntl-container\\"[39m
+      [33mcollapsable[39m=[32m{true}[39m
+      [33mpointerEvents[39m=[32m\\"box-none\\"[39m
+      [33mstyle[39m=[32m{
+        Object {
+          \\"flex\\": 1,
+        }
+      }[39m
     [36m>[39m
       [36m<View />[39m
     [36m</View>[39m"
@@ -24,9 +28,15 @@ test('it prints correctly with one child', () => {
     </View>,
   );
 
-  expect(prettyPrint(toJSON(container))).toMatchInlineSnapshot(`
+  expect(prettyPrint(container)).toMatchInlineSnapshot(`
     "[36m<View[39m
-      [33mtestID[39m=[32m\\"ntl-container\\"[39m
+      [33mcollapsable[39m=[32m{true}[39m
+      [33mpointerEvents[39m=[32m\\"box-none\\"[39m
+      [33mstyle[39m=[32m{
+        Object {
+          \\"flex\\": 1,
+        }
+      }[39m
     [36m>[39m
       [36m<View>[39m
         [36m<Text>[39m
@@ -45,9 +55,15 @@ test('it prints correctly with multiple children', () => {
     </View>,
   );
 
-  expect(prettyPrint(toJSON(container))).toMatchInlineSnapshot(`
+  expect(prettyPrint(container)).toMatchInlineSnapshot(`
     "[36m<View[39m
-      [33mtestID[39m=[32m\\"ntl-container\\"[39m
+      [33mcollapsable[39m=[32m{true}[39m
+      [33mpointerEvents[39m=[32m\\"box-none\\"[39m
+      [33mstyle[39m=[32m{
+        Object {
+          \\"flex\\": 1,
+        }
+      }[39m
     [36m>[39m
       [36m<View>[39m
         [36m<Text>[39m
@@ -68,5 +84,5 @@ test('it supports truncating the output length', () => {
     </View>,
   );
 
-  expect(prettyPrint(toJSON(container), 5)).toMatch(/\.\.\./);
+  expect(prettyPrint(container, 5)).toMatch(/\.\.\./);
 });

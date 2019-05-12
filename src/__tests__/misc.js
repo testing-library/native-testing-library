@@ -1,9 +1,7 @@
 import React from 'react';
 import { Picker } from 'react-native';
 
-import { cleanup, fireEvent, render } from '../';
-
-afterEach(cleanup);
+import { fireEvent, render } from '../';
 
 test('picker works', () => {
   function Wrapper() {

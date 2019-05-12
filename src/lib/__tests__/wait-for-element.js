@@ -1,19 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { cleanup, render, waitForElement } from '../../';
+import { render, waitForElement } from '../../';
 
-afterEach(cleanup);
-
-test('waits for element to appear in the document', async () => {
-  const { rerender, getByTestId } = render(<View />);
-  const promise = waitForElement(() => getByTestId('test'));
-  setTimeout(() => rerender(<View testID="test" />));
-  const element = await promise;
-  expect(element).toBeTruthy();
-});
-
-test('waits for element to appear in a specified testRenderer', async () => {
+test('waits for element to appear', async () => {
   const { rerender, getByTestId } = render(<View />);
   const promise = waitForElement(() => getByTestId('test'));
   setTimeout(() => rerender(<View testID="test" />));

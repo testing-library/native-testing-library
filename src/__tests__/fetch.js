@@ -2,9 +2,7 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { TouchableOpacity, Text, View } from 'react-native';
 
-import { cleanup, render, fireEvent, toJSON, wait } from '../';
-
-afterEach(cleanup);
+import { render, fireEvent, wait } from '../';
 
 global.fetch = require('jest-fetch-mock');
 
@@ -46,5 +44,5 @@ test('Fetch makes an API call and displays the greeting when load-greeting is cl
   expect(fetch).toHaveBeenCalledWith(url);
 
   expect(getByText('hello there')).toHaveTextContent('hello there');
-  expect(toJSON(container)).toMatchSnapshot();
+  expect(container).toMatchSnapshot();
 });

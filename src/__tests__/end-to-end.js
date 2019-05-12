@@ -2,9 +2,7 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Text } from 'react-native';
 
-import { cleanup, render, wait } from '../';
-
-afterEach(cleanup);
+import { render, wait } from '../';
 
 const fetchAMessage = () =>
   new Promise(resolve => {

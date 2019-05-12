@@ -1,34 +1,25 @@
 import React from 'react';
-import { View } from 'react-native';
 import TR from 'react-test-renderer';
 import AppContainer from 'react-native/Libraries/ReactNative/AppContainer';
 
 import {
-  toJSON,
   fireEvent as rntlFireEvent,
   getQueriesForElement,
   NativeEvent,
   prettyPrint,
-  proxyUnsafeProperties,
-  validComponentFilter,
+  proxyUnsafeProperties as proxy,
 } from './lib';
+import './preset/serializer';
 import act from './act-compat';
-
-const containerId = 'ntl-container';
-const renderers = new Set();
 
 function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   const wrapUiIfNeeded = innerElement =>
     WrapperComponent ? (
       <AppContainer>
-        <View testID={containerId}>
-          <WrapperComponent>{innerElement}</WrapperComponent>
-        </View>
+        <WrapperComponent>{innerElement}</WrapperComponent>
       </AppContainer>
     ) : (
-      <AppContainer>
-        <View testID={containerId}>{innerElement}</View>
-      </AppContainer>
+      <AppContainer>{innerElement}</AppContainer>
     );
 
   let testRenderer;
@@ -37,34 +28,22 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
     testRenderer = TR.create(wrapUiIfNeeded(ui), options);
   });
 
-  renderers.add(testRenderer);
-
-  const baseElement = proxyUnsafeProperties(testRenderer.root);
-  const container = baseElement
-    .findAll(c => validComponentFilter(c))
-    .filter(n => n.getProp('testID') === containerId)[0];
+  const wrappers = proxy(testRenderer.root).findAll(n => n.getProp('pointerEvents') === 'box-none');
+  const baseElement = wrappers[0]; // Includes YellowBox and your render
+  const container = wrappers[1]; // Includes only your render
 
   return {
     baseElement,
     container,
-    debug: (el = baseElement) => console.log(prettyPrint(toJSON(el))),
+    debug: (el = baseElement) => console.log(prettyPrint(el)),
     unmount: () => testRenderer.unmount(),
     rerender: rerenderUi => {
       act(() => {
         testRenderer.update(wrapUiIfNeeded(rerenderUi));
       });
     },
-    ...getQueriesForElement(testRenderer, queries),
+    ...getQueriesForElement(baseElement, queries),
   };
-}
-
-function cleanup() {
-  renderers.forEach(cleanupRenderer);
-}
-
-function cleanupRenderer(renderer) {
-  renderer.unmount();
-  renderers.delete(renderer);
 }
 
 function fireEvent(...args) {
@@ -86,4 +65,4 @@ Object.keys(rntlFireEvent).forEach(key => {
 });
 
 export * from './lib';
-export { act, cleanup, fireEvent, render, NativeEvent };
+export { act, fireEvent, render, NativeEvent };
