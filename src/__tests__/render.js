@@ -1,7 +1,7 @@
 import React from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { Text, SafeAreaView, View } from 'react-native';
 
-import { render } from '../';
+import { render, toJSON } from '../';
 
 test('renders View', () => {
   const { container } = render(<View />);
@@ -11,6 +11,23 @@ test('renders View', () => {
 test('returns container', () => {
   const { container } = render(<View />);
   expect(container).toBeTruthy();
+});
+
+it('supports fragments', () => {
+  class Test extends React.Component {
+    render() {
+      return (
+        <View>
+          <Text>Fragments are pretty cool!</Text>
+        </View>
+      );
+    }
+  }
+
+  const { asFragment, unmount } = render(<Test />);
+  expect(asFragment()).toMatchSnapshot();
+  unmount();
+  expect(asFragment()).toBeNull();
 });
 
 test('renders options.wrapper around node', () => {

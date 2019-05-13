@@ -3,6 +3,7 @@ import TR from 'react-test-renderer';
 import AppContainer from 'react-native/Libraries/ReactNative/AppContainer';
 
 import {
+  toJSON,
   fireEvent as rntlFireEvent,
   getQueriesForElement,
   NativeTestEvent,
@@ -40,6 +41,9 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
       act(() => {
         testRenderer.update(wrapUiIfNeeded(rerenderUi));
       });
+    },
+    asFragment: () => {
+      return toJSON(container);
     },
     ...getQueriesForElement(baseElement, queries),
   };

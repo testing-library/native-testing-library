@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fragments can show diffs 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -6,8 +6,8 @@
+        \\"flex\\": 1,
+      }
+    }
+  >
+    <Button
+-     title=\\"Click to increase: 0\\"
++     title=\\"Click to increase: 1\\"
+    />
+  </View>"
+`;
