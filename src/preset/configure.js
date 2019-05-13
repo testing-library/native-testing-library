@@ -30,7 +30,7 @@ configureNTL({
     'TouchableWithoutFeedback',
     'View',
   ],
-  displayValueComponents: ['TextInput', 'Picker'],
+  displayValueComponents: ['TextInput', 'Picker', 'Switch'],
   textComponents: ['Button', 'Text', 'TextInput'],
   titleComponents: ['Button', 'RefreshControl'],
 });

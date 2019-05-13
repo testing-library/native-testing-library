@@ -33,6 +33,10 @@ test('it converts to json', () => {
   expect(prettyPrint(baseElement)).toMatchSnapshot();
 });
 
+test('it handles an no argument', () => {
+  expect(toJSON()).toBeNull();
+});
+
 test('it handles hidden nodes', () => {
   expect(toJSON({ _fiber: { stateNode: { isHidden: true } } })).toBeNull();
 });

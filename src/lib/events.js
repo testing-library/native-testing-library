@@ -1,174 +1,88 @@
-const eventMap = {
-  focus: {
-    type: 'FocusEvent',
-    validTargets: [
-      'TextInput',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-    ],
-  },
-  blur: {
-    type: 'BlurEvent',
-    validTargets: [
-      'TextInput',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-    ],
-  },
-  change: {
-    type: 'ChangeEvent',
-    validTargets: ['Switch', 'TextInput'],
-  },
-  changeText: {
-    type: 'ChangeEvent',
-    validTargets: ['TextInput'],
-  },
-  valueChange: {
-    type: 'ChangeEvent',
-    validTargets: ['Picker'],
-  },
-  contentSizeChange: {
-    type: 'ContentSizeChangeEvent',
-    validTargets: ['VirtualizedList', 'FlatList', 'SectionList', 'TextInput', 'ScrollView'],
-  },
-  endEditing: {
-    type: 'EditingEvent',
-    validTargets: ['TextInput'],
-  },
-  keyPress: {
-    type: 'KeyPressEvent',
-    validTargets: ['TextInput'],
-  },
-  submitEditing: {
-    type: 'EditingEvent',
-    validTargets: ['TextInput'],
-  },
-  layout: {
-    type: 'LayoutEvent',
-    validTargets: [
-      'ActivityIndicator',
-      'Button',
-      'DrawerLayoutAndroid',
-      'Image',
-      'Modal',
-      'RefreshControl',
-      'ScrollView',
-      'Switch',
-      'Text',
-      'TextInput',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-      'View',
-    ],
-  },
-  selectionChange: {
-    type: 'SelectionChangeEvent',
-    validTargets: ['TextInput'],
-  },
-  longPress: {
-    type: 'PressEvent',
-    validTargets: [
-      'Text',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-    ],
-  },
-  press: {
-    type: 'PressEvent',
-    validTargets: [
-      'Button',
-      'Text',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-    ],
-  },
-  pressIn: {
-    type: 'PressEvent',
-    validTargets: [
-      'Text',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-    ],
-  },
-  pressOut: {
-    type: 'PressEvent',
-    validTargets: [
-      'Text',
-      'TouchableHighlight',
-      'TouchableNativeFeedback',
-      'TouchableOpacity',
-      'TouchableWithoutFeedback',
-    ],
-  },
-  momentumScrollBegin: {
-    type: 'ScrollEvent',
-    validTargets: ['FlatList', 'ScrollView', 'SectionList', 'VirtualizedList'],
-  },
-  momentumScrollEnd: {
-    type: 'ScrollEvent',
-    validTargets: ['FlatList', 'ScrollView', 'SectionList', 'VirtualizedList'],
-  },
-  scroll: {
-    type: 'ScrollEvent',
-    validTargets: ['FlatList', 'ScrollView', 'SectionList', 'TextInput', 'VirtualizedList'],
-  },
-  scrollBeginDrag: {
-    type: 'ScrollEvent',
-    validTargets: ['FlatList', 'ScrollView', 'SectionList', 'VirtualizedList'],
-  },
-  scrollEndDrag: {
-    type: 'ScrollEvent',
-    validTargets: ['FlatList', 'ScrollView', 'SectionList', 'VirtualizedList'],
-  },
-  load: {
-    type: 'ImageLoadEvent',
-    validTargets: ['Image'],
-  },
-  error: {
-    type: 'SyntheticEvent',
-    validTargets: ['Image'],
-  },
-  progress: {
-    type: 'SyntheticEvent',
-    validTargets: ['Image'],
-  },
-
-  // Custom events, like a component onWhatever callback
-  custom: {
-    type: 'CustomEvent',
-    validTargets: [],
-  },
-};
-
-const disableableElements = [
-  'Button',
-  'Switch',
-  'TouchableHighlight',
-  'TouchableNativeFeedback',
-  'TouchableOpacity',
-  'TouchableWithoutFeedback',
+const viewEvents = [
+  'accessibilityEscape',
+  'accessibilityTap',
+  'layout',
+  'magicTap',
+  'moveShouldSetResponder',
+  'moveShouldSetResponderCapture',
+  'responderGrant',
+  'responderMove',
+  'responderReject',
+  'responderRelease',
+  'responderTerminate',
+  'responderTerminationRequest',
+  'startShouldSetResponder',
+  'startShouldSetResponderCapture',
 ];
 
-class NativeEvent {
-  constructor(typeArg, event = {}) {
-    const config = eventMap[typeArg] || eventMap.custom;
-    const { validTargets = [], ...rest } = event;
+const eventMap = {
+  ActivityIndicator: [...viewEvents],
+  Button: ['layout', 'press'],
+  DrawerLayoutAndroid: [
+    ...viewEvents,
+    'drawerClose',
+    'drawerOpen',
+    'drawerSlide',
+    'drawerStateChanged',
+  ],
+  Image: ['error', 'layout', 'load', 'loadEnd', 'loadStart', 'partialLoad', 'progress'],
+  Modal: ['dismiss', 'orientationChange', 'requestClose', 'show'],
+  RefreshControl: [...viewEvents, 'refresh'],
+  SafeAreaView: [...viewEvents],
+  ScrollView: [
+    ...viewEvents,
+    'contentSizeChange',
+    'momentumScrollBegin',
+    'momentumScrollEnd',
+    'scroll',
+    'scrollBeginDrag',
+    'scrollEndDrag',
+  ],
+  Switch: [...viewEvents, 'valueChange'],
+  Text: ['layout', 'longPress', 'press'],
+  TextInput: [
+    ...viewEvents,
+    'blur',
+    'change',
+    'changeText',
+    'contentSizeChange',
+    'endEditing',
+    'focus',
+    'keyPress',
+    'scroll',
+    'selectionChange',
+    'submitEditing',
+  ],
+  TouchableHighlight: [
+    'blur',
+    'focus',
+    'hideUnderlay',
+    'layout',
+    'longPress',
+    'press',
+    'pressIn',
+    'pressOut',
+    'showUnderlay',
+  ],
+  TouchableNativeFeedback: ['blur', 'focus', 'layout', 'longPress', 'press', 'pressIn', 'pressOut'],
+  TouchableOpacity: ['blur', 'focus', 'layout', 'longPress', 'press', 'pressIn', 'pressOut'],
+  TouchableWithoutFeedback: [
+    'blur',
+    'focus',
+    'layout',
+    'longPress',
+    'press',
+    'pressIn',
+    'pressOut',
+  ],
+  View: viewEvents,
+};
 
+class NativeTestEvent {
+  constructor(typeArg, ...args) {
+    this.args = args;
     this.typeArg = typeArg;
-    this.event = typeof event === 'object' ? { type: config.type, ...rest } : event;
-    this.validTargets = [...config.validTargets, ...validTargets];
+    this.validTargets = Object.keys(eventMap).filter(c => eventMap[c].includes(typeArg));
   }
 
   set target(target) {
@@ -194,13 +108,10 @@ function isValidTarget(element, event) {
 
 function isDisabled(element) {
   const { accessibilityStates = [], disabled } = element.props;
-  const propDisabled = disabled;
-  const stateDisabled = Array.from(accessibilityStates).includes('disabled');
-
-  return (propDisabled || stateDisabled) && validateElementType(disableableElements, element);
+  return disabled || accessibilityStates.includes('disabled');
 }
 
-function findEventHandler(element, event) {
+function findEventTarget(element, event) {
   const { typeArg } = event;
   const handlerName = getEventHandlerName(typeArg);
   const eventHandler = element.props[handlerName];
@@ -209,19 +120,25 @@ function findEventHandler(element, event) {
     return eventHandler;
   }
 
-  return element.parent ? findEventHandler(element.parent, event) : i => i;
+  return element.parent ? findEventTarget(element.parent, event) : null;
 }
 
 function fireEvent(element, event) {
-  event.target = findEventHandler(element, event);
+  event.target = findEventTarget(element, event);
 
-  return event.target(event.event);
+  if (event.target) event.target(...event.args);
+
+  return event.target;
 }
 
-Object.keys(eventMap).forEach(key => {
-  fireEvent[key] = (node, init) => {
-    return fireEvent(node, new NativeEvent(key, init));
+const eventList = Object.keys(eventMap).reduce((list, name) => {
+  return [...list, ...eventMap[name].filter(event => !list.includes(event))];
+}, []);
+
+eventList.forEach(typeArg => {
+  fireEvent[typeArg] = (node, ...args) => {
+    return fireEvent(node, new NativeTestEvent(typeArg, ...args));
   };
 });
 
-export { eventMap, fireEvent, getEventHandlerName, NativeEvent };
+export { eventMap, fireEvent, getEventHandlerName, NativeTestEvent };

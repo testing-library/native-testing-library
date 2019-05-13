@@ -6,7 +6,7 @@ import { fuzzyMatches, makeNormalizer, matches } from './matches';
 function debugTree(container) {
   const limit = process.env.DEBUG_PRINT_LIMIT || 7000;
 
-  return prettyPrint(container.root, limit);
+  return prettyPrint(container, limit);
 }
 
 function getElementError(message, container) {

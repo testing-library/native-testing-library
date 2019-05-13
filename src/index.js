@@ -5,11 +5,10 @@ import AppContainer from 'react-native/Libraries/ReactNative/AppContainer';
 import {
   fireEvent as rntlFireEvent,
   getQueriesForElement,
-  NativeEvent,
+  NativeTestEvent,
   prettyPrint,
   proxyUnsafeProperties as proxy,
 } from './lib';
-import './preset/serializer';
 import act from './act-compat';
 
 function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
@@ -54,15 +53,15 @@ function fireEvent(...args) {
   return returnValue;
 }
 
-Object.keys(rntlFireEvent).forEach(key => {
-  fireEvent[key] = (...args) => {
+Object.keys(rntlFireEvent).forEach(typeArg => {
+  fireEvent[typeArg] = (...args) => {
     let returnValue;
     act(() => {
-      returnValue = rntlFireEvent[key](...args);
+      returnValue = rntlFireEvent[typeArg](...args);
     });
     return returnValue;
   };
 });
 
 export * from './lib';
-export { act, fireEvent, render, NativeEvent };
+export { act, fireEvent, render, NativeTestEvent };

@@ -2,28 +2,27 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
-import { render, fireEvent, eventMap, NativeEvent, getEventHandlerName, wait } from '../';
+import { render, fireEvent, eventMap, NativeTestEvent, getEventHandlerName, wait } from '../';
 
 Object.keys(eventMap).forEach(key => {
-  const handlerName = getEventHandlerName(key);
-
-  describe(`${handlerName}`, () => {
+  describe(`${key} events`, () => {
     const config = eventMap[key];
 
-    config.validTargets.forEach(element => {
+    config.forEach(event => {
       const spy = jest.fn();
+      const handlerName = getEventHandlerName(event);
 
       const {
         container: {
-          children: [button],
+          children: [target],
         },
       } = render(
-        React.createElement(element, {
+        React.createElement(key, {
           [handlerName]: spy,
         }),
       );
 
-      fireEvent[key](button);
+      fireEvent[event](target);
 
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -82,7 +81,7 @@ test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
   const { container } = render(<Button onPress={handleEvent} title="test" />);
 
-  fireEvent(container.children[0], new NativeEvent('press'));
+  fireEvent(container.children[0], new NativeTestEvent('press'));
   expect(handleEvent).toBeCalledTimes(1);
 });
 
@@ -97,12 +96,9 @@ test('calling a custom event works as well', () => {
     },
   } = render(<MyComponent onMyEvent={onMyEvent} />);
 
-  fireEvent(input, new NativeEvent('myEvent', event));
+  fireEvent(input, new NativeTestEvent('myEvent', event));
 
-  expect(onMyEvent).toHaveBeenCalledWith({
-    nativeEvent: { value: 'testing' },
-    type: 'CustomEvent',
-  });
+  expect(onMyEvent).toHaveBeenCalledWith({ nativeEvent: { value: 'testing' } });
 });
 
 test('calling a handler when there is no valid target does not work', () => {
