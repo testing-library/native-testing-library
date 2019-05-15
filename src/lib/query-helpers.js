@@ -24,6 +24,35 @@ function validComponentFilter(node, key) {
   return key ? getConfig(key).includes(node.type) : typeof node.type === 'string';
 }
 
+function flatten(arr) {
+  return arr.reduce(
+    (flat, toFlatten) => flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten),
+    [],
+  );
+}
+
+function getChildren(node) {
+  return node.children.map(child => {
+    if (typeof child === 'string') {
+      return child;
+    } else if (validComponentFilter(child)) {
+      return proxyUnsafeProperties(child);
+    }
+
+    return getChildren(child);
+  });
+}
+
+function getParent(node) {
+  if (node.parent) {
+    return validComponentFilter(node.parent)
+      ? proxyUnsafeProperties(node.parent)
+      : getParent(node.parent);
+  }
+
+  return null;
+}
+
 function proxyUnsafeProperties(node) {
   // We take the guiding principles seriously around these parts. These methods just let
   // you do too much unfortunately, and they make it hard to follow the rules of the
@@ -55,6 +84,10 @@ function proxyUnsafeProperties(node) {
             /* istanbul ignore next */
             return target.props[prop];
           };
+        case 'children':
+          return flatten(getChildren(target));
+        case 'parentNode':
+          return getParent(target);
         case '$$typeof':
           return Symbol.for('ntl.element');
         case 'findAllByProps':
