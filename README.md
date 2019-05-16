@@ -39,13 +39,13 @@
 - [The problem](#the-problem)
 - [This solution](#this-solution)
 - [Example](#example)
-- [Guiding principles](#guiding-principles)
 - [Installation](#installation)
 - [Hooks](#hooks)
-- [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
+- [Inspiration](#inspiration)
 - [Contributors](#contributors)
+- [Docs](#docs)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -92,7 +92,7 @@ function Example() {
 }
 
 test('examples of some things', async () => {
-  const { getByTestId, getByText, queryByTestId, rootInstance } = render(<Example />);
+  const { getByTestId, getByText, queryByTestId } = render(<Example />);
   const famousWomanInHistory = 'Ada Lovelace';
 
   const input = getByTestId('input');
@@ -103,32 +103,10 @@ test('examples of some things', async () => {
 
   await wait(() => expect(queryByTestId('printed-username')).toBeTruthy());
 
-  expect(getByTestId('printed-username').props.children).toBe(famousWomanInHistory);
+  expect(getByTestId('printed-username')).toHaveTextContent(famousWomanInHistory);
   expect(rootInstance).toMatchSnapshot();
 });
 ```
-
-## Guiding principles
-
-> [The more your tests resemble the way your software is used, the more confidence they can give you.](https://twitter.com/kentcdodds/status/977018512689455106)
-
-We try to only expose methods and utilities that encourage you to write tests that closely resemble
-how your apps are used.
-
-Utilities are included in this project based on the following guiding principles:
-
-1.  Rendering React Native components ultimately creates native views, and those views should be
-    what you test rather than the React component instances you rendered to make them.
-2.  In general, test the way your users use your app. There are instances where you'll need to write
-    unit tests, but try your best to write with this first -- the more your tests resemble the way
-    your app works, the more confident you'll be with your app.
-3.  Be responsible, and remember that testing exists to serve you, not the other way around. If the
-    library isn't working for you, contribute to make it work or do something more intuitive. Make
-    your tests work for you and your team!
-
-In summary, we believe in the principles of `dom-testing-library` and its companion libraries, and
-try to adhere to them as closely as possible. Changes to this library should always consider how
-they relate to what's happening in the other libraries in this family of tools.
 
 ## Installation
 
@@ -142,34 +120,15 @@ You will need `react` and `react-native` installed as _dependencies_ in order to
 
 ## Hooks
 
-You can test hooks out of the box with this package as follows:
-
-```javascript
-import { renderHook } from 'native-testing-library';
-```
-
-Reads more about hooks on the [docs site](https://native-testing-library.com/docs/api-render-hook).
-
-## Inspiration
-
-Huge thanks to Kent C. Dodds for evangelizing this approach to testing. We could have never come up
-with this library without him 🙏. Check out his awesome work and learn more about testing with
-confidence at [testingjavascript.com](https://testingjavascript.com/) (you won't regret purchasing
-it), and of course, use this library's big brother, `react-testing-library` for your DOM
-applications as well!
-
-The hook testing ability of this library is the same implementation as
-[react-hooks-testing-library](https://github.com/mpeyper/react-hooks-testing-library). The only
-reason it was included in this package is because we need you to import render from us, not the
-`dom-testing-library`, and that's an important blocker. Some day, maybe we'll try to allow use of
-that library with this one somehow.
+If you are interested in testing a custom hook, check out
+[react-hooks-testing-library](https://github.com/mpeyper/react-hooks-testing-library).
 
 ## Other Solutions
 
 - [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library)
 - [`enzyme`](https://airbnb.io/enzyme/docs/guides/react-native.html)
 
-## Guiding Principles
+## Guiding principles
 
 > [The more your tests resemble the way your software is used, the more confidence they can give you.](https://twitter.com/kentcdodds/status/977018512689455106)
 
@@ -190,6 +149,20 @@ In summary, we believe in the principles of `testing-library`, and adhere to the
 possible. At the end of the day, what we want is for this library to be pretty light-weight, simple,
 and understandable.
 
+## Inspiration
+
+Huge thanks to Kent C. Dodds for evangelizing this approach to testing. We could have never come up
+with this library without him 🙏. Check out his awesome work and learn more about testing with
+confidence at [testingjavascript.com](https://testingjavascript.com/) (you won't regret purchasing
+it), and of course, use this library's big brother, `react-testing-library` for your DOM
+applications as well!
+
+The hook testing ability of this library is the same implementation as
+[react-hooks-testing-library](https://github.com/mpeyper/react-hooks-testing-library). The only
+reason it was included in this package is because we need you to import render from us, not the
+`dom-testing-library`, and that's an important blocker. Some day, maybe we'll try to allow use of
+that library with this one somehow.
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -202,3 +175,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)
 specification. Contributions of any kind welcome!
+
+## Docs
+
+[**Read The Docs**](https://native-testing-library.com) |
+[Edit the docs](https://github.com/testing-library/native-testing-library-docs)
