@@ -8,7 +8,7 @@ import {
   getQueriesForElement,
   NativeTestEvent,
   prettyPrint,
-  proxyUnsafeProperties as proxy,
+  proxyElement as proxy,
 } from './lib';
 import act from './act-compat';
 

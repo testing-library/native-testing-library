@@ -36,7 +36,7 @@ function getChildren(node) {
     if (typeof child === 'string') {
       return child;
     } else if (validComponentFilter(child)) {
-      return proxyUnsafeProperties(child);
+      return proxyElement(child);
     }
 
     return getChildren(child);
@@ -45,15 +45,13 @@ function getChildren(node) {
 
 function getParent(node) {
   if (node.parent) {
-    return validComponentFilter(node.parent)
-      ? proxyUnsafeProperties(node.parent)
-      : getParent(node.parent);
+    return validComponentFilter(node.parent) ? proxyElement(node.parent) : getParent(node.parent);
   }
 
   return null;
 }
 
-function proxyUnsafeProperties(node) {
+function proxyElement(node) {
   // We take the guiding principles seriously around these parts. These methods just let
   // you do too much unfortunately, and they make it hard to follow the rules of the
   // testing-library. It's not that we don't trust you, in fact we do trust you! We've
@@ -69,19 +67,16 @@ function proxyUnsafeProperties(node) {
   // need using the query methods provided on the `render` API.
   return new Proxy(node, {
     get(target, key) {
+      const ref = target[key];
+
       switch (key) {
         case 'findAll':
-          const ref = target[key];
           return function(cb) {
-            const overrideCb = n => cb(proxyUnsafeProperties(n));
-            return ref
-              .apply(this, [overrideCb])
-              .filter(node => validComponentFilter(node))
-              .map(proxyUnsafeProperties);
+            const overrideCb = n => cb(proxyElement(n));
+            return ref.apply(this, [overrideCb]);
           };
         case 'getProp':
           return function(prop) {
-            /* istanbul ignore next */
             return target.props[prop];
           };
         case 'children':
@@ -90,6 +85,7 @@ function proxyUnsafeProperties(node) {
           return getParent(target);
         case '$$typeof':
           return Symbol.for('ntl.element');
+        case 'find':
         case 'findAllByProps':
         case 'findAllByType':
         case 'findByProps':
@@ -98,7 +94,7 @@ function proxyUnsafeProperties(node) {
           return undefined;
         default:
           // Let things behave normally if you're not running a query
-          return target[key];
+          return ref;
       }
     },
   });
@@ -178,6 +174,6 @@ export {
   makeSingleQuery,
   queryAllByProp,
   queryByProp,
-  proxyUnsafeProperties,
+  proxyElement,
   validComponentFilter,
 };

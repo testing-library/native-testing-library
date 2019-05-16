@@ -1,4 +1,4 @@
-import { validComponentFilter, proxyUnsafeProperties } from '../query-helpers';
+import { validComponentFilter, proxyElement } from '../query-helpers';
 import { configure } from '../config';
 
 describe('validComponentFilter > no key provided', () => {
@@ -21,9 +21,10 @@ describe('validComponentFilter > key provided', () => {
   });
 });
 
-test('proxyUnsafeProperties ignores what it should', () => {
-  const testElement = proxyUnsafeProperties({
+test('proxyElement ignores what it should', () => {
+  const testElement = proxyElement({
     _fiber: 'should work',
+    find: jest.fn(),
     findAllByProps: jest.fn(),
     findAllByType: jest.fn(),
     findByProps: jest.fn(),
@@ -32,6 +33,7 @@ test('proxyUnsafeProperties ignores what it should', () => {
   });
 
   expect(testElement._fiber).toBe('should work');
+  expect(testElement.find).toBe(undefined);
   expect(testElement.findAllByProps).toBe(undefined);
   expect(testElement.findAllByType).toBe(undefined);
   expect(testElement.findByProps).toBe(undefined);

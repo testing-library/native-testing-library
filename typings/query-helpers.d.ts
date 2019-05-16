@@ -39,4 +39,4 @@ export const getContainer: (
 export const getElementError: (message: string, testRenderer: ReactTestRenderer) => Error;
 export const queryAllByProp: AllByProp;
 export const queryByProp: QueryByProp;
-export const proxyUnsafeProperties: (node: ReactTestInstance) => NativeTestInstance;
+export const proxyElement: (node: ReactTestInstance) => NativeTestInstance;
