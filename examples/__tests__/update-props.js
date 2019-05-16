@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-native/extend-expect';
 import { Text, View } from 'react-native';
-import { render } from 'native-testing-library';
+import { render } from '../../src';
 
 let idCounter = 1;
 
@@ -17,7 +17,7 @@ class NumberDisplay extends React.Component {
   }
 }
 
-test('calling render with the same component on the same container does not remount', () => {
+test('calling render with the same component on the same testRenderer does not remount', () => {
   const { getByTestId, rerender } = render(<NumberDisplay number={1} />);
   expect(getByTestId('number-display')).toHaveTextContent(1);
 

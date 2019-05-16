@@ -1,4 +1,4 @@
-import { act } from '..';
+import { act } from '../';
 
 jest.mock('react-test-renderer', () => ({}));
 

@@ -11,7 +11,7 @@ afterEach(() => {
   console.log.mockRestore();
 });
 
-test('debug pretty prints the container', () => {
+test('debug pretty prints the baseElement', () => {
   const HelloWorld = () => <Text>Hello World</Text>;
   const { debug } = render(<HelloWorld />);
   debug();

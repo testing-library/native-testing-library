@@ -1,6 +1,6 @@
 {
   "projectName": "native-testing-library",
-  "projectOwner": "bcarroll22",
+  "projectOwner": "testing-library",
   "repoType": "github",
   "files": [
     "README.md"
@@ -67,6 +67,15 @@
       "profile": "http://exercism.io/profiles/wolverineks/619ce225090a43cb891d2edcbbf50401",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "elyalvarado",
+      "name": "Ely Alvarado",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/545352?v=4",
+      "profile": "https://github.com/elyalvarado",
+      "contributions": [
+        "code"
       ]
     }
   ],

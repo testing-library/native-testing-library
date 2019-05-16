@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
-import { render, fireEvent } from 'native-testing-library';
+import { TextInput } from 'react-native';
+import { render, fireEvent } from '../../src';
 
 class CostInput extends React.Component {
   state = {
@@ -29,7 +29,7 @@ class CostInput extends React.Component {
 
 const setup = () => {
   const utils = render(<CostInput />);
-  const input = utils.getByA11yLabel('cost-input');
+  const input = utils.getByLabelText('cost-input');
   return {
     input,
     ...utils,

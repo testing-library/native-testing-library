@@ -25,9 +25,9 @@ function Login({ onSubmit, user }) {
 test('login form submits', () => {
   const fakeUser = { username: 'bcarroll', password: 'starboy' };
   const handleSubmit = jest.fn();
-  const { getByText } = render(<Login onSubmit={handleSubmit} user={fakeUser} />);
+  const { getByTitle } = render(<Login onSubmit={handleSubmit} user={fakeUser} />);
 
-  const submitButtonNode = getByText('Submit');
+  const submitButtonNode = getByTitle('Submit');
 
   fireEvent.press(submitButtonNode);
 

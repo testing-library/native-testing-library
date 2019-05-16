@@ -2,30 +2,42 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
-import { render, fireEvent, getEventHandlerName, wait } from '../';
-import { eventMap, NativeEvent } from '../events';
+import { render, fireEvent, eventMap, NativeTestEvent, getEventHandlerName, wait } from '../';
 
 Object.keys(eventMap).forEach(key => {
-  const handlerName = getEventHandlerName(key);
-
-  describe(`${handlerName}`, () => {
+  describe(`${key} events`, () => {
     const config = eventMap[key];
 
-    config.validTargets.forEach(element => {
-      const handler = jest.fn();
-      const { baseElement } = render(React.createElement(element, { [handlerName]: handler }));
+    config.forEach(event => {
+      const spy = jest.fn();
+      const handlerName = getEventHandlerName(event);
 
-      fireEvent[key](baseElement);
+      const {
+        container: {
+          children: [target],
+        },
+      } = render(
+        React.createElement(key, {
+          [handlerName]: spy,
+        }),
+      );
 
-      expect(handler).toHaveBeenCalledTimes(1);
+      fireEvent[event](target);
+
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 });
 
 test('onChange works', () => {
   const handleChange = jest.fn();
-  const { baseElement } = render(<TextInput onChange={handleChange} />);
-  fireEvent.change(baseElement, { target: { value: 'a' } });
+  const {
+    container: {
+      children: [input],
+    },
+  } = render(<TextInput onChange={handleChange} />);
+
+  fireEvent.change(input, { target: { value: 'a' } });
   expect(handleChange).toHaveBeenCalledTimes(1);
 });
 
@@ -67,9 +79,9 @@ test('assigns target properties', async () => {
 
 test('calling `fireEvent` directly works too', () => {
   const handleEvent = jest.fn();
-  const { baseElement } = render(<Button onPress={handleEvent} title="test" />);
+  const { container } = render(<Button onPress={handleEvent} title="test" />);
 
-  fireEvent(baseElement, new NativeEvent('press'));
+  fireEvent(container.children[0], new NativeTestEvent('press'));
   expect(handleEvent).toBeCalledTimes(1);
 });
 
@@ -78,49 +90,51 @@ test('calling a custom event works as well', () => {
   const onMyEvent = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
   const MyComponent = ({ onMyEvent }) => <TextInput value="test" onChange={onMyEvent} />;
 
-  const { baseElement } = render(<MyComponent onMyEvent={onMyEvent} />);
-  fireEvent(baseElement, new NativeEvent('myEvent', event));
+  const {
+    container: {
+      children: [input],
+    },
+  } = render(<MyComponent onMyEvent={onMyEvent} />);
 
-  expect(onMyEvent).toHaveBeenCalledWith({
-    nativeEvent: { value: 'testing' },
-    type: 'CustomEvent',
-  });
+  fireEvent(input, new NativeTestEvent('myEvent', event));
+
+  expect(onMyEvent).toHaveBeenCalledWith({ nativeEvent: { value: 'testing' } });
 });
 
-test('calling a handler when there is no valid target throws', () => {
+test('calling a handler when there is no valid target does not work', () => {
   const handleEvent = jest.fn();
   const { getByTestId } = render(<Image onPress={handleEvent} testID="image" />);
-  expect(() => fireEvent.press(getByTestId('image'))).toThrow();
+  expect(() => fireEvent.press(getByTestId('image'))).not.toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 
-test('calling a handler if a Button is disabled throws', () => {
+test('calling a handler if a Button is disabled does not work', () => {
   const handleEvent = jest.fn();
   const { getByText } = render(<Button disabled onPress={handleEvent} title="button" />);
-  expect(() => fireEvent.press(getByText('button'))).toThrow();
+  expect(() => fireEvent.press(getByText('button'))).not.toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 
-test('calling a handler if a Touchable is disabled throws', () => {
+test('calling a handler if a Touchable is disabled does not work', () => {
   const handleEvent = jest.fn();
   const { getByText } = render(
     <TouchableHighlight disabled onPress={jest.fn()}>
       <Text>touchable</Text>
     </TouchableHighlight>,
   );
-  expect(() => fireEvent.press(getByText('touchable'))).toThrow();
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
   expect(handleEvent).toBeCalledTimes(0);
 });
 
 test('calling an event that has no defined handler throws', () => {
   const { getByText } = render(<Text>test</Text>);
-  expect(() => fireEvent.press(getByText('test'))).toThrow();
+  expect(() => fireEvent.press(getByText('test'))).not.toThrow();
 });
 
 test('calling an event sets nativeEvent properly', () => {
   const event = { nativeEvent: { value: 'testing' } };
   const onChange = jest.fn(({ nativeEvent }) => expect(nativeEvent).toEqual({ value: 'testing' }));
 
-  const { getByValue } = render(<TextInput value="test" onChange={onChange} />);
-  fireEvent.change(getByValue('test'), event);
+  const { getByDisplayValue } = render(<TextInput value="test" onChange={onChange} />);
+  fireEvent.change(getByDisplayValue('test'), event);
 });
