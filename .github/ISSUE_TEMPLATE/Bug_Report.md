@@ -14,9 +14,9 @@ We'll probably ask you to submit the fix (after giving some direction). If you'v
 
 - `react-native` or `expo`:
 - `native-testing-library` version:
+- `jest-preset`:
 - `react-native` version:
 - `node` version:
-- `npm` (or `yarn`) version:
 
 ### Relevant code or config:
 

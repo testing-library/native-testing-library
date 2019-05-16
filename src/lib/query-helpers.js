@@ -109,7 +109,7 @@ function queryAllByProp(
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
-  return Array.from(container.findAll(c => c.props[prop]))
+  return Array.from(container.findAll(c => c.getProp(prop)))
     .filter(filter)
     .filter(node => {
       const value = node.getProp(prop);
