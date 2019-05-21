@@ -2,7 +2,9 @@ import React from 'react';
 import { Button, Picker, Text, View } from 'react-native';
 import { toMatchDiffSnapshot } from 'snapshot-diff';
 
-import { fireEvent, render } from '../';
+import { cleanup, fireEvent, render } from '../';
+
+afterEach(cleanup);
 
 test('<Picker /> works', () => {
   function Wrapper() {
@@ -32,15 +34,15 @@ test('fragments can show diffs', () => {
 
   expect.extend({ toMatchDiffSnapshot });
 
-  const { getByText, asFragment } = render(<TestComponent />);
-  const firstRender = asFragment();
+  const { getByText, asJSON } = render(<TestComponent />);
+  const firstRender = asJSON();
 
   fireEvent.press(getByText(/Click to increase/));
 
   // This will snapshot only the difference between the first render, and the
   // state of the DOM after the click event.
   // See https://github.com/jest-community/snapshot-diff
-  expect(firstRender).toMatchDiffSnapshot(asFragment());
+  expect(firstRender).toMatchDiffSnapshot(asJSON());
 });
 
 test('finds only valid children', () => {

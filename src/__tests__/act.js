@@ -2,7 +2,9 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Button } from 'react-native';
 
-import { render, fireEvent } from '../';
+import { render, fireEvent, cleanup } from '../';
+
+afterEach(cleanup);
 
 test('render calls useEffect immediately', () => {
   const effectCb = jest.fn();

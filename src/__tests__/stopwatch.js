@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-import { render, fireEvent, prettyPrint } from '../';
+import { render, fireEvent, prettyPrint, cleanup } from '../';
+
+afterEach(cleanup);
 
 class StopWatch extends React.Component {
   state = { lapse: 0, running: false };

@@ -8,9 +8,11 @@ import {
   getQueriesForElement,
   NativeTestEvent,
   prettyPrint,
-  proxyElement as proxy,
+  proxyElement,
 } from './lib';
 import act from './act-compat';
+
+const renderers = new Set();
 
 function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   const wrapUiIfNeeded = innerElement =>
@@ -28,7 +30,9 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
     testRenderer = TR.create(wrapUiIfNeeded(ui), options);
   });
 
-  const wrappers = proxy(testRenderer.root).findAll(n => n.getProp('pointerEvents') === 'box-none');
+  renderers.add(testRenderer);
+
+  const wrappers = proxyElement(testRenderer.root).findAll(n => n.type === 'View');
   const baseElement = wrappers[0]; // Includes YellowBox and your render
   const container = wrappers[1]; // Includes only your render
 
@@ -42,11 +46,20 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
         testRenderer.update(wrapUiIfNeeded(rerenderUi));
       });
     },
-    asFragment: () => {
+    asJSON: () => {
       return toJSON(container);
     },
     ...getQueriesForElement(baseElement, queries),
   };
+}
+
+function cleanup() {
+  renderers.forEach(cleanupRenderer);
+}
+
+function cleanupRenderer(renderer) {
+  renderer.unmount();
+  renderers.delete(renderer);
 }
 
 function fireEvent(...args) {
@@ -68,4 +81,4 @@ Object.keys(rntlFireEvent).forEach(typeArg => {
 });
 
 export * from './lib';
-export { act, fireEvent, render, NativeTestEvent };
+export { act, cleanup, fireEvent, render, NativeTestEvent };

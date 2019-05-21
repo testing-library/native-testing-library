@@ -2,7 +2,9 @@ import React from 'react';
 import cases from 'jest-in-case';
 import { Button, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 
-import { getDefaultNormalizer, render } from '../../';
+import { cleanup, getDefaultNormalizer, render } from '../../';
+
+afterEach(cleanup);
 
 cases(
   'matches find case-sensitive full strings by default',

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { render } from '../';
+import { cleanup, render } from '../';
 
 beforeEach(() => {
   jest.spyOn(console, 'log').mockImplementation(() => {});
 });
 
 afterEach(() => {
+  cleanup();
   console.log.mockRestore();
 });
 

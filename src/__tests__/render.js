@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, SafeAreaView, View } from 'react-native';
 
-import { render, toJSON } from '../';
+import { cleanup, render } from '../';
+
+afterEach(cleanup);
 
 test('renders View', () => {
   const { container } = render(<View />);
@@ -24,10 +26,10 @@ it('supports fragments', () => {
     }
   }
 
-  const { asFragment, unmount } = render(<Test />);
-  expect(asFragment()).toMatchSnapshot();
+  const { asJSON, unmount } = render(<Test />);
+  expect(asJSON()).toMatchSnapshot();
   unmount();
-  expect(asFragment()).toBeNull();
+  expect(asJSON()).toBeNull();
 });
 
 test('renders options.wrapper around node', () => {

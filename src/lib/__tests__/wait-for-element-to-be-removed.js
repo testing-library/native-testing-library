@@ -1,7 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { render, waitForElementToBeRemoved } from '../../';
+import { cleanup, render, waitForElementToBeRemoved } from '../../';
+
+afterEach(cleanup);
 
 test('resolves only when the element is removed', async () => {
   class MutatedElement extends React.Component {

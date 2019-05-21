@@ -2,7 +2,9 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { TouchableOpacity, Text, View } from 'react-native';
 
-import { render, fireEvent, wait } from '../';
+import { render, fireEvent, wait, cleanup } from '../';
+
+afterEach(cleanup);
 
 global.fetch = require('jest-fetch-mock');
 

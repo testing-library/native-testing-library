@@ -2,7 +2,9 @@ import React from 'react';
 import 'jest-native/extend-expect';
 import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
-import { render, fireEvent, eventMap, NativeTestEvent, getEventHandlerName, wait } from '../';
+import { render, fireEvent, eventMap, getEventHandlerName, wait, cleanup } from '../';
+
+afterEach(cleanup);
 
 Object.keys(eventMap).forEach(key => {
   describe(`${key} events`, () => {

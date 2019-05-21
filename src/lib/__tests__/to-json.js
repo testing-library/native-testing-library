@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { prettyPrint, render, toJSON } from '../../';
+import { cleanup, prettyPrint, render, toJSON } from '../../';
+
+afterEach(cleanup);
 
 test('it converts to json', () => {
   function ParentComponent({ children }) {

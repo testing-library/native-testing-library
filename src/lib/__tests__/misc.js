@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
-import { render, queryByProp, queryByTestId } from '../../';
+import { render, queryByProp, queryByTestId, cleanup } from '../../';
+
+afterEach(cleanup);
 
 test('queryByProp', () => {
   const { container } = render(

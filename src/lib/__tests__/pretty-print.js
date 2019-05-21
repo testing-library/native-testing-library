@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { render, prettyPrint } from '../../';
+import { render, prettyPrint, cleanup } from '../../';
+
+afterEach(cleanup);
 
 test('it prints correctly with no children', () => {
   const { container } = render(<View />);

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, TextInput, View } from 'react-native';
-import { render, fireEvent } from '../';
+import { render, fireEvent, cleanup } from '../';
+
+afterEach(cleanup);
 
 function Login({ onSubmit, user }) {
   return (

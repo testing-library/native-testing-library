@@ -1,5 +1,9 @@
 import { asyncAct } from '../act-compat';
+import { NativeTestEvent } from '../lib/events';
 import { configure as configureNTL } from '../lib';
+
+// Make this global for convenience, just like browser events
+global.NativeTestEvent = NativeTestEvent;
 
 configureNTL({
   asyncWrapper: async cb => {
