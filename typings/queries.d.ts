@@ -2,70 +2,70 @@ import { ReactTestRenderer } from 'react-test-renderer';
 
 import { Matcher, MatcherOptions } from './matches';
 import { WaitForElementOptions } from './wait-for-element';
-import { SelectorMatcherOptions } from './query-helpers';
+import { NativeTestInstance, SelectorMatcherOptions } from './query-helpers';
 
 export type QueryByBoundProp = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
-) => ReactTestRenderer | null;
+) => NativeTestInstance | null;
 
 export type AllByBoundProp = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
-) => ReactTestRenderer[];
+) => NativeTestInstance[];
 
 export type FindAllByBoundProp = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
-) => Promise<ReactTestRenderer[]>;
+) => Promise<NativeTestInstance[]>;
 
 export type GetByBoundProp = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
-) => ReactTestRenderer;
+) => NativeTestInstance;
 
 export type FindByBoundProp = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
-) => Promise<ReactTestRenderer>;
+) => Promise<NativeTestInstance>;
 
 export type QueryByText = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: SelectorMatcherOptions,
-) => ReactTestRenderer | null;
+) => NativeTestInstance | null;
 
 export type AllByText = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: SelectorMatcherOptions,
-) => ReactTestRenderer[];
+) => NativeTestInstance[];
 
 export type FindAllByText = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
-) => Promise<ReactTestRenderer[]>;
+) => Promise<NativeTestInstance[]>;
 
 export type GetByText = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: WaitForElementOptions,
-) => ReactTestRenderer;
+) => NativeTestInstance;
 
 export type FindByText = (
   testRenderer: ReactTestRenderer,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
-) => Promise<ReactTestRenderer>;
+) => Promise<NativeTestInstance>;
 
 export const getByHintText: GetByBoundProp;
 export const getByLabelText: GetByBoundProp;
