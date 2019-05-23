@@ -27,6 +27,7 @@ const eventMap = {
   ],
   Image: ['error', 'layout', 'load', 'loadEnd', 'loadStart', 'partialLoad', 'progress'],
   Modal: ['dismiss', 'orientationChange', 'requestClose', 'show'],
+  Picker: [...viewEvents, 'valueChange'],
   RefreshControl: [...viewEvents, 'refresh'],
   SafeAreaView: [...viewEvents],
   ScrollView: [
