@@ -34,7 +34,7 @@ const your = code => 'here';
 
 ### Reproduction:
 
-<!-- If possible, please create a repository that reproduces the issue with the minimal amount of code possible. -->
+<!-- If possible, please create a repository that reproduces the issue with the minimal amount of code possible. You can fork this project as a template for your reproduction case: https://github.com/bcarroll22/ntl-sample -->
 
 ### Problem description:
 
