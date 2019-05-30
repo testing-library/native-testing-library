@@ -1,6 +1,6 @@
 {
   "name": "@testing-library/react-native",
-  "version": "0.0.0-semantically-released",
+  "version": "4.0.0",
   "description": "Simple and complete React Native testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",
