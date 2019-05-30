@@ -1,11 +1,11 @@
 <div align="center">
-  <h1>(React) Native Testing Library</h1>
+  <h1>Native Testing Library</h1>
   
   <a href="https://www.joypixels.com/emoji/1f433">
     <img
       height="80"
       width="80"
-      alt="goat"
+      alt="whale"
       src="https://raw.githubusercontent.com/testing-library/native-testing-library/master/other/whale.png"
     />
   </a>
@@ -20,9 +20,9 @@
 
 [![Build Status](https://travis-ci.org/testing-library/native-testing-library.svg?branch=master)](https://travis-ci.org/testing-library/native-testing-library)
 [![Code Coverage](https://img.shields.io/codecov/c/github/testing-library/native-testing-library.svg?style=flat-square)](https://codecov.io/github/testing-library/native-testing-library)
-[![version](https://img.shields.io/npm/v/native-testing-library.svg?style=flat-square)](https://www.npmjs.com/package/native-testing-library)
-[![downloads](https://img.shields.io/npm/dm/native-testing-library.svg?style=flat-square)](http://www.npmtrends.com/native-testing-library)
-[![MIT License](https://img.shields.io/npm/l/native-testing-library.svg?style=flat-square)](https://github.com/testing-library/native-testing-library/blob/master/LICENSE)
+[![version](https://img.shields.io/npm/v/@testing-library/react-native.svg?style=flat-square)](https://www.npmjs.com/package/@testing-library/react-native)
+[![downloads](https://img.shields.io/npm/dm/@testing-library/react-native.svg?style=flat-square)](http://www.npmtrends.com/@testing-library/react-native)
+[![MIT License](https://img.shields.io/npm/l/@testing-library/react-native.svg?style=flat-square)](https://github.com/testing-library/native-testing-library/blob/master/LICENSE)
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
@@ -67,7 +67,7 @@ still accounting for the differences in the platforms.
 ```javascript
 import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
-import { act, fireEvent, render, wait } from 'native-testing-library';
+import { act, fireEvent, render, wait } from '@testing-library/react-native';
 
 function Example() {
   const [name, setUser] = React.useState('');
@@ -113,7 +113,7 @@ test('examples of some things', async () => {
 This module should be installed in your project's `devDependencies`:
 
 ```
-npm install --save-dev native-testing-library
+npm install --save-dev @testing-library/react-native
 ```
 
 You will need `react` and `react-native` installed as _dependencies_ in order to run this project.
