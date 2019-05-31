@@ -1,4 +1,4 @@
-import 'jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect';
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';

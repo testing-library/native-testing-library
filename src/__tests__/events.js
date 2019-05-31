@@ -1,5 +1,5 @@
 import React from 'react';
-import 'jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect';
 import { Button, Image, Text, TextInput, TouchableHighlight } from 'react-native';
 
 import { render, fireEvent, eventMap, getEventHandlerName, wait, cleanup } from '../';

@@ -1,4 +1,4 @@
-import 'jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 import { createStackNavigator, createAppContainer, withNavigation } from 'react-navigation';

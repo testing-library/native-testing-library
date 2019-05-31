@@ -1,5 +1,5 @@
 import React from 'react';
-import 'jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect';
 import { Button } from 'react-native';
 
 import { render, fireEvent, cleanup } from '../';
