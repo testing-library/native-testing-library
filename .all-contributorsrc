@@ -96,6 +96,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "manakuro",
+      "name": "mana",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/11571318?v=4",
+      "profile": "https://manatoworks.me",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
