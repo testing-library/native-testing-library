@@ -1,6 +1,7 @@
 import { ReactTestRenderer } from 'react-test-renderer';
 
 import * as queries from './queries';
+import { NativeTestInstance } from './query-helpers';
 
 export type BoundFunction<T> = T extends (
   attribute: string,
@@ -17,10 +18,10 @@ export type BoundFunctions<T> = { [P in keyof T]: BoundFunction<T[P]> };
 interface Query extends Function {
   (testRenderer: ReactTestRenderer, ...args: any[]):
     | Error
-    | Promise<ReactTestRenderer[]>
-    | Promise<ReactTestRenderer>
-    | ReactTestRenderer[]
-    | ReactTestRenderer
+    | Promise<NativeTestInstance[]>
+    | Promise<NativeTestInstance>
+    | NativeTestInstance[]
+    | NativeTestInstance
     | null;
 }
 
