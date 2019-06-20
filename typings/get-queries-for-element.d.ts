@@ -1,11 +1,9 @@
-import { ReactTestRenderer } from 'react-test-renderer';
-
 import * as queries from './queries';
 import { NativeTestInstance } from './query-helpers';
 
 export type BoundFunction<T> = T extends (
-  attribute: string,
-  element: ReactTestRenderer,
+  prop: string,
+  element: NativeTestInstance,
   text: infer P,
   options: infer Q,
 ) => infer R
@@ -16,7 +14,7 @@ export type BoundFunction<T> = T extends (
 export type BoundFunctions<T> = { [P in keyof T]: BoundFunction<T[P]> };
 
 interface Query extends Function {
-  (testRenderer: ReactTestRenderer, ...args: any[]):
+  (container: NativeTestInstance, ...args: any[]):
     | Error
     | Promise<NativeTestInstance[]>
     | Promise<NativeTestInstance>
@@ -30,6 +28,6 @@ interface Queries {
 }
 
 export function getQueriesForElement<T extends Queries = typeof queries>(
-  element: ReactTestRenderer,
+  element: NativeTestInstance,
   queriesToBind?: T,
 ): BoundFunctions<T>;
