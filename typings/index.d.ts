@@ -29,7 +29,7 @@ export type RenderResult<Q extends Queries = typeof queries> = {
   debug: (element?: NativeTestInstance) => void;
   rerender: (ui: ReactElement) => void;
   unmount: () => void;
-  asFragment: () => NativeTestInstanceJSON;
+  asJSON: () => NativeTestInstanceJSON;
 } & { [P in keyof Q]: BoundFunction<Q[P]> };
 
 export interface RenderOptions<Q extends Queries = typeof queries> {
