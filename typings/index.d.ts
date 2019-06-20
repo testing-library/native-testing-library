@@ -1,5 +1,4 @@
 import { ReactElement, ComponentType } from 'react';
-import { ReactTestRenderer } from 'react-test-renderer';
 
 import * as queries from './queries';
 import * as queryHelpers from './query-helpers';
@@ -10,7 +9,7 @@ import { getQueriesForElement, BoundFunction } from './get-queries-for-element';
 declare const within: typeof getQueriesForElement;
 
 interface Query extends Function {
-  (testRenderer: ReactTestRenderer, ...args: any[]):
+  (container: NativeTestInstance, ...args: any[]):
     | Error
     | Promise<NativeTestInstance[]>
     | Promise<NativeTestInstance>

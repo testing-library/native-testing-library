@@ -1,4 +1,4 @@
-import { ReactTestRenderer, ReactTestInstance } from 'react-test-renderer';
+import { ReactTestInstance } from 'react-test-renderer';
 
 import { Matcher, MatcherOptions } from './matches';
 
@@ -19,24 +19,20 @@ export type NativeTestInstance = Omit<
 
 export type QueryByProp = (
   attribute: string,
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   match: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance | null;
 
 export type AllByProp = (
   attribute: string,
-  testRenderer: HTMLElement,
+  container: HTMLElement,
   id: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance[];
 
 // TODO: finish types of the rest of the helpers
-export const defaultFilter: (node: NativeTestInstance) => boolean;
-export const getContainer: (
-  testRenderer: ReactTestRenderer | ReactTestInstance,
-) => ReactTestInstance;
-export const getElementError: (message: string, testRenderer: ReactTestRenderer) => Error;
+export const getElementError: (message: string, container: NativeTestInstance) => Error;
 export const queryAllByProp: AllByProp;
 export const queryByProp: QueryByProp;
 export const proxyElement: (node: ReactTestInstance) => NativeTestInstance;
