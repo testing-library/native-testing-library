@@ -1,67 +1,65 @@
-import { ReactTestRenderer } from 'react-test-renderer';
-
 import { Matcher, MatcherOptions } from './matches';
 import { WaitForElementOptions } from './wait-for-element';
 import { NativeTestInstance, SelectorMatcherOptions } from './query-helpers';
 
 export type QueryByBoundProp = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance | null;
 
 export type AllByBoundProp = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance[];
 
 export type FindAllByBoundProp = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
 ) => Promise<NativeTestInstance[]>;
 
 export type GetByBoundProp = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance;
 
 export type FindByBoundProp = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
 ) => Promise<NativeTestInstance>;
 
 export type QueryByText = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => NativeTestInstance | null;
 
 export type AllByText = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => NativeTestInstance[];
 
 export type FindAllByText = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
 ) => Promise<NativeTestInstance[]>;
 
 export type GetByText = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: WaitForElementOptions,
 ) => NativeTestInstance;
 
 export type FindByText = (
-  testRenderer: ReactTestRenderer,
+  container: NativeTestInstance,
   id: Matcher,
   options?: MatcherOptions,
   waitForElementOptions?: WaitForElementOptions,
