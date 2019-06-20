@@ -10,6 +10,7 @@ export type SelectorMatcherOptions = Omit<MatcherOptions, 'selector'> & {
 
 type ReactTestInstance = {
   getProp: (name: string) => NativeTestInstance;
+  parentNode: NativeTestInstance;
 };
 
 export type NativeTestInstance = Omit<
@@ -20,7 +21,7 @@ export type NativeTestInstance = Omit<
 export type QueryByProp = (
   attribute: string,
   container: NativeTestInstance,
-  match: Matcher,
+  id: Matcher,
   options?: MatcherOptions,
 ) => NativeTestInstance | null;
 
