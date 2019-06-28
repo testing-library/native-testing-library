@@ -43,3 +43,7 @@ const your = code => 'here';
 ### Suggested solution:
 
 <!-- It's ok if you don't have a suggested solution, but it really helps if you could do a little digging to come up with some suggestion of how to improve things. -->
+
+### Can you help us fix this issue by submitting a pull request?
+
+<!-- We love contribution from users! If you know how this should be fixed, the project maintainers and Testing Library team encourage you to submit a PR to fix the issue you're experiencing. If you submit a fix for an issue you've experienced, we'll happily add you to the Contributors list on the project readme! -->
