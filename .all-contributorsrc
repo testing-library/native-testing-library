@@ -114,6 +114,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "smakosh",
+      "name": "Ismail Ghallou ",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/20082141?v=4",
+      "profile": "https://smakosh.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
