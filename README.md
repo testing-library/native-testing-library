@@ -67,7 +67,7 @@ still accounting for the differences in the platforms.
 ```javascript
 import React from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
-import { act, fireEvent, render, wait } from '@testing-library/react-native';
+import { fireEvent, render, wait } from '@testing-library/react-native';
 
 function Example() {
   const [name, setUser] = React.useState('');
@@ -92,7 +92,7 @@ function Example() {
 }
 
 test('examples of some things', async () => {
-  const { getByTestId, getByText, queryByTestId } = render(<Example />);
+  const { getByTestId, getByText, queryByTestId, baseElement } = render(<Example />);
   const famousWomanInHistory = 'Ada Lovelace';
 
   const input = getByTestId('input');
@@ -103,8 +103,8 @@ test('examples of some things', async () => {
 
   await wait(() => expect(queryByTestId('printed-username')).toBeTruthy());
 
-  expect(getByTestId('printed-username')).toHaveTextContent(famousWomanInHistory);
-  expect(rootInstance).toMatchSnapshot();
+  expect(getByTestId('printed-username').props.children).toBe(famousWomanInHistory);
+  expect(baseElement).toMatchSnapshot();
 });
 ```
 
