@@ -1,42 +1,124 @@
-let reactAct;
-let actSupported = false;
-let asyncActSupported = false;
+import React from 'react';
+import * as testUtils from 'react-test-renderer';
 
-try {
-  reactAct = require('react-test-renderer').act;
-  actSupported = reactAct !== undefined;
+const reactAct = testUtils.act;
+const actSupported = reactAct !== undefined;
 
-  const originalError = console.error;
-  let errorCalled = false;
-  console.error = () => {
-    errorCalled = true;
-  };
-  console.error.calls = [];
-  /* istanbul ignore next */
-  reactAct(() => ({ then: () => {} })).then(() => {});
-  /* istanbul ignore next */
-  if (!errorCalled) {
-    asyncActSupported = true;
-  }
-  console.error = originalError;
-} catch (error) {
-  // ignore, this is to support old versions of react
-}
-
-function actPolyfill(callback) {
-  callback();
+function actPolyfill(cb) {
+  cb();
 }
 
 const act = reactAct || actPolyfill;
 
-async function asyncActPolyfill(cb) {
-  await cb();
-  // make all effects resolve after
-  act(() => {});
-}
+let youHaveBeenWarned = false;
+let isAsyncActSupported = null;
 
-// istanbul ignore next
-const asyncAct = asyncActSupported ? reactAct : asyncActPolyfill;
+function asyncAct(cb) {
+  if (actSupported === true) {
+    if (isAsyncActSupported === null) {
+      return new Promise((resolve, reject) => {
+        // patch console.error here
+        const originalConsoleError = console.error;
+        console.error = function error(...args) {
+          /* if console.error fired *with that specific message* */
+          /* istanbul ignore next */
+          if (
+            args[0].indexOf('Warning: Do not await the result of calling TestRenderer.act') === 0
+          ) {
+            // v16.8.6
+            isAsyncActSupported = false;
+          } else if (
+            args[0].indexOf(
+              'Warning: The callback passed to TestRenderer.act(...) function must not return anything',
+            ) === 0
+          ) {
+            // no-op
+          } else {
+            originalConsoleError.call(console, args);
+          }
+        };
+        let cbReturn, result;
+        try {
+          result = reactAct(() => {
+            cbReturn = cb();
+            return cbReturn;
+          });
+        } catch (err) {
+          console.error = originalConsoleError;
+          reject(err);
+          return;
+        }
+
+        result.then(
+          () => {
+            console.error = originalConsoleError;
+            // if it got here, it means async act is supported
+            isAsyncActSupported = true;
+            resolve();
+          },
+          err => {
+            console.error = originalConsoleError;
+            isAsyncActSupported = true;
+            reject(err);
+          },
+        );
+
+        // 16.8.6's act().then() doesn't call a resolve handler, so we need to manually flush here, sigh
+
+        if (isAsyncActSupported === false) {
+          console.error = originalConsoleError;
+          /* istanbul-ignore-next */
+          if (!youHaveBeenWarned) {
+            // if act is supported and async act isn't and they're trying to use async
+            // act, then they need to upgrade from 16.8 to 16.9.
+            // This is a seemless upgrade, so we'll add a warning
+            console.error(
+              `It looks like you're using a version of react-test-renderer that supports the "act" function, but not an awaitable version of "act" which you will need. Please upgrade to at least react-test-renderer@16.9.0 to remove this warning.`,
+            );
+            youHaveBeenWarned = true;
+          }
+
+          cbReturn.then(() => {
+            // a faux-version.
+            // todo - copy https://github.com/facebook/react/blob/master/packages/shared/enqueueTask.js
+            Promise.resolve().then(() => {
+              // use sync act to flush effects
+              act(() => {});
+              resolve();
+            });
+          }, reject);
+        }
+      });
+    } else if (isAsyncActSupported === false) {
+      // use the polyfill directly
+      let result;
+      act(() => {
+        result = cb();
+      });
+      return result.then(() => {
+        return Promise.resolve().then(() => {
+          // use sync act to flush effects
+          act(() => {});
+        });
+      });
+    }
+    // all good! regular act
+    return act(cb);
+  }
+  // use the polyfill
+  let result;
+  act(() => {
+    result = cb();
+  });
+  return result.then(() => {
+    return Promise.resolve().then(() => {
+      // use sync act to flush effects
+      act(() => {});
+    });
+  });
+}
 
 export default act;
 export { asyncAct };
+
+/* eslint no-console:0 */
