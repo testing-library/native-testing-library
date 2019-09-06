@@ -5,15 +5,17 @@ import { createStackNavigator, createAppContainer, withNavigation } from 'react-
 
 import { render, fireEvent } from '../../src';
 
-jest.mock('NativeAnimatedHelper').mock('react-native-gesture-handler', () => {
-  const View = require('react-native').View;
-  return {
-    State: {},
-    PanGestureHandler: View,
-    BaseButton: View,
-    Directions: {},
-  };
-});
+jest
+  .mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
+  .mock('react-native-gesture-handler', () => {
+    const View = require('react-native').View;
+    return {
+      State: {},
+      PanGestureHandler: View,
+      BaseButton: View,
+      Directions: {},
+    };
+  });
 
 const Home = ({ navigation }) => (
   <View>
