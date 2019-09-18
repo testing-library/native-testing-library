@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Picker, Text, View } from 'react-native';
+import { Button, Picker, Switch, Text, View } from 'react-native';
 import { toMatchDiffSnapshot } from 'snapshot-diff';
 
 import { cleanup, fireEvent, render } from '../';
@@ -82,4 +82,10 @@ test('it finds only valid parents', () => {
 
   expect(getByText('hey').parentNode.parentNode.props.testID).toBe('view');
   expect(baseElement.parentNode).toBeNull();
+});
+
+test('it finds <Switch /> by value={false}', () => {
+  const { getByDisplayValue } = render(<Switch value={false} />);
+
+  getByDisplayValue(false);
 });

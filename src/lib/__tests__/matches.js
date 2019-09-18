@@ -22,3 +22,8 @@ test('matchers return false if text to match is not a string', () => {
   expect(matches(null, node, 'ABC', normalizer)).toBe(false);
   expect(fuzzyMatches(null, node, 'ABC', normalizer)).toBe(false);
 });
+
+test('matchers return true if text to match is a boolean', () => {
+  expect(matches(true, node, true, normalizer)).toBe(true);
+  expect(fuzzyMatches(1, node, true, normalizer)).toBe(true);
+});

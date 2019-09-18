@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Picker, Switch, View } from 'react-native';
 
 import { render, queryByProp, queryByTestId, cleanup } from '../../';
 
@@ -19,4 +19,17 @@ test('queryByProp', () => {
   expect(() => queryByProp('importantForAccessibility', container, /no/)).toThrow(
     /multiple elements/,
   );
+});
+
+it('should render test', () => {
+  const { getByDisplayValue } = render(
+    <View>
+      <Picker selectedValue="fr">
+        <Picker.Item value="fr" label="French" />
+      </Picker>
+      <Switch value={true} />
+    </View>,
+  );
+
+  expect(getByDisplayValue(true)).toBeTruthy();
 });
