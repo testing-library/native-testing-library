@@ -1,6 +1,6 @@
 function fuzzyMatches(textToMatch, node, matcher, normalizer) {
   if (typeof textToMatch !== 'string') {
-    return false;
+    return textToMatch == matcher;
   }
 
   const normalizedText = normalizer(textToMatch);
@@ -15,7 +15,7 @@ function fuzzyMatches(textToMatch, node, matcher, normalizer) {
 
 function matches(textToMatch, node, matcher, normalizer) {
   if (typeof textToMatch !== 'string') {
-    return false;
+    return textToMatch === matcher;
   }
 
   const normalizedText = normalizer(textToMatch);

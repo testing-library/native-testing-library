@@ -8,6 +8,7 @@
     "dist",
     "typings",
     "cleanup-after-each.js",
+    "pure.js",
     "jest-preset.js"
   ],
   "engines": {
@@ -60,7 +61,7 @@
     "react-hooks-testing-library": "^0.5.0",
     "react-intl": "^2.8.0",
     "react-intl-native": "^2.1.2",
-    "react-native": "0.59.6",
+    "react-native": "^0.60.4",
     "react-native-gesture-handler": "^1.1.0",
     "react-navigation": "^3.5.1",
     "react-redux": "^7.0.3",
