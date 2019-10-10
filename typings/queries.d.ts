@@ -55,7 +55,7 @@ export type FindAllByText = (
 export type GetByText = (
   container: NativeTestInstance,
   id: Matcher,
-  options?: WaitForElementOptions,
+  options?: MatcherOptions,
 ) => NativeTestInstance;
 
 export type FindByText = (
