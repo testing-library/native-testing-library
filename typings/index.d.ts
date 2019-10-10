@@ -1,4 +1,5 @@
 import { ReactElement, ComponentType } from 'react';
+import { act as reactAct } from 'react-test-renderer';
 
 import * as queries from './queries';
 import * as queryHelpers from './query-helpers';
@@ -49,7 +50,9 @@ export function render<Q extends Queries>(
 
 export const cleanup: () => void;
 
-export const act: (callback: () => void) => void;
+export const act: typeof reactAct extends undefined
+  ? (callback: () => void) => void
+  : typeof reactAct;
 
 export { queries, queryHelpers, within };
 export * from './to-json';
