@@ -1,5 +1,5 @@
 function fuzzyMatches(textToMatch, node, matcher, normalizer) {
-  if (typeof matcher === 'boolean') {
+  if (typeof matcher === 'boolean' || typeof textToMatch === 'boolean') {
     return textToMatch == matcher;
   }
 
@@ -18,7 +18,7 @@ function fuzzyMatches(textToMatch, node, matcher, normalizer) {
 }
 
 function matches(textToMatch, node, matcher, normalizer) {
-  if (typeof matcher === 'boolean') {
+  if (typeof matcher === 'boolean' || typeof textToMatch === 'boolean') {
     return textToMatch === matcher;
   }
 
