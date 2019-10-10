@@ -24,7 +24,7 @@
 [![downloads](https://img.shields.io/npm/dm/@testing-library/react-native.svg?style=flat-square)](http://www.npmtrends.com/@testing-library/react-native)
 [![MIT License](https://img.shields.io/npm/l/@testing-library/react-native.svg?style=flat-square)](https://github.com/testing-library/native-testing-library/blob/master/LICENSE)
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](https://github.com/testing-library/native-testing-library/blob/master/CODE_OF_CONDUCT.md)
 
@@ -186,6 +186,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/mateusz1913"><img src="https://avatars2.githubusercontent.com/u/25980166?v=4" width="100px;" alt="Mateusz Mędrek"/><br /><sub><b>Mateusz Mędrek</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=mateusz1913" title="Code">💻</a></td>
     <td align="center"><a href="https://smakosh.com"><img src="https://avatars0.githubusercontent.com/u/20082141?v=4" width="100px;" alt="Ismail Ghallou "/><br /><sub><b>Ismail Ghallou </b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=smakosh" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/jeffreyffs"><img src="https://avatars1.githubusercontent.com/u/1441462?v=4" width="100px;" alt="jeffreyffs"/><br /><sub><b>jeffreyffs</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=jeffreyffs" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.sophieau.com/"><img src="https://avatars2.githubusercontent.com/u/11145039?v=4" width="100px;" alt="Sophie Au"/><br /><sub><b>Sophie Au</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=SophieAu" title="Code">💻</a></td>
   </tr>
 </table>
 
