@@ -39,8 +39,8 @@
   "author": "Brandon Carroll <brandonvcarroll@gmail.com> (https://github.com/bcarroll22)",
   "license": "MIT",
   "dependencies": {
-    "pretty-format": "^24.5.0",
-    "wait-for-expect": "^1.1.1"
+    "pretty-format": "^24.9.0",
+    "wait-for-expect": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",
