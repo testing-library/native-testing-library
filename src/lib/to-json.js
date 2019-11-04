@@ -1,12 +1,12 @@
-function toJSON({ _fiber: { stateNode = null } = {} } = {}) {
+function toJSON({ _fiber: { stateNode = null } = {} } = {}, options = {}) {
   if (!stateNode) return null;
   if (stateNode.rootContainerInstance && stateNode.rootContainerInstance.children.length === 0)
     return null;
 
-  return _toJSON(stateNode);
+  return _toJSON(stateNode, options);
 }
 
-function _toJSON(inst) {
+function _toJSON(inst, { omitProps = [] }) {
   if (inst.isHidden) {
     // Omit timed out children from output entirely. This seems like the least
     // surprising behavior. We could perhaps add a separate API that includes
@@ -23,12 +23,13 @@ function _toJSON(inst) {
       const { children, ...props } = inst.props;
 
       // Convert all children to the JSON format
-      const renderedChildren = inst.children.map(child => _toJSON(child));
+      const renderedChildren = inst.children.map(child => _toJSON(child, { omitProps }));
 
       // Function props get noisy in debug output, so we'll exclude them
+      // Also exclude any props configured via options.omitProps
       let renderedProps = {};
       Object.keys(props).filter(name => {
-        if (typeof props[name] !== 'function') {
+        if (typeof props[name] !== 'function' && !omitProps.includes(name)) {
           renderedProps[name] = props[name];
         }
       });

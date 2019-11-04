@@ -5,12 +5,15 @@ import { toJSON } from './to-json';
 
 const { ReactTestComponent, ReactElement } = prettyFormat.plugins;
 
-function prettyPrint(element, maxLength, options) {
-  const debugContent = prettyFormat(toJSON(element), {
-    plugins: [ReactTestComponent, ReactElement],
+function prettyPrint(element, maxLength, options = {}) {
+  let plugins = [ReactTestComponent, ReactElement];
+  const { debug, ...rest } = options;
+
+  const debugContent = prettyFormat(toJSON(element, debug), {
+    plugins: plugins,
     printFunctionName: false,
     highlight: true,
-    ...options,
+    ...rest,
   });
 
   return maxLength !== undefined && debugContent && debugContent.toString().length > maxLength

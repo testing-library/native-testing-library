@@ -15,6 +15,8 @@ import act from './act-compat';
 const renderers = new Set();
 
 function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
+  const { debug, ...rest } = options;
+
   const wrapUiIfNeeded = innerElement =>
     WrapperComponent ? (
       <AppContainer>
@@ -27,7 +29,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   let testRenderer;
 
   act(() => {
-    testRenderer = TR.create(wrapUiIfNeeded(ui), options);
+    testRenderer = TR.create(wrapUiIfNeeded(ui), rest);
   });
 
   renderers.add(testRenderer);
@@ -39,7 +41,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   return {
     baseElement,
     container,
-    debug: (el = baseElement) => console.log(prettyPrint(el)),
+    debug: (el = baseElement) => console.log(prettyPrint(el, undefined, { debug })),
     unmount: () => testRenderer.unmount(),
     rerender: rerenderUi => {
       act(() => {
