@@ -141,6 +141,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ajsmth",
+      "name": "andy",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/40680668?v=4",
+      "profile": "http://ajsmth.com",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
