@@ -38,6 +38,8 @@ test('find asynchronously finds elements', async () => {
       <Image accessibilityHint="test-hint" src="/lucy-ricardo.png" />
       <View accessibilityRole="dialog" />
       <View accessibilityRole="fake" />
+      <View accessibilityRole="tablist" />
+      <View accessibilityRole="tab" />
     </View>,
   );
 
@@ -77,8 +79,14 @@ test('find asynchronously finds elements', async () => {
   await expect(findByRole('none')).resolves.toBeTruthy();
   await expect(findAllByRole('none')).resolves.toHaveLength(1);
 
-  await expect(findByRole(['none'])).resolves.toBeTruthy();
-  await expect(findAllByRole(['none'])).resolves.toHaveLength(1);
+  await expect(findByRole('tablist')).resolves.toBeTruthy();
+  await expect(findAllByRole('tablist')).resolves.toHaveLength(1);
+
+  await expect(findByRole('tablist')).resolves.toBeTruthy();
+  await expect(findAllByRole('tablist')).resolves.toHaveLength(1);
+
+  await expect(findByRole('tab')).resolves.toBeTruthy();
+  await expect(findAllByRole('tab')).resolves.toHaveLength(1);
 
   await expect(findByRole('fake', {}, { timeout: 50 })).rejects.toThrow();
 
