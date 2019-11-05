@@ -50,11 +50,11 @@ const validTraits = [
   'text',
 ];
 
-function queryAllByRole(container, value, { filter = n => n } = {}) {
+function queryAllByRole(container, value, { selector = n => n } = {}) {
   const roleElements = container.findAll(c => c.getProp('accessibilityRole'));
   const traitElements = container.findAll(c => c.getProp('accessibilityTraits'));
 
-  return [...roleElements, ...traitElements].filter(filter).filter(node => {
+  return [...roleElements, ...traitElements].filter(selector).filter(node => {
     const role = node.getProp('accessibilityRole');
     const traits = node.getProp('accessibilityTraits');
 

@@ -10,13 +10,13 @@ import {
 function queryAllByText(
   container,
   text,
-  { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
+  { selector = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
   return Array.from(container.findAll(node => validComponentFilter(node, 'textComponents')))
-    .filter(filter)
+    .filter(selector)
     .filter(node => matcher(getNodeText(node), node, text, matchNormalizer));
 }
 

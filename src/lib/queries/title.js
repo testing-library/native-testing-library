@@ -9,13 +9,13 @@ import {
 function queryAllByTitle(
   container,
   value,
-  { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
+  { selector = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
   return Array.from(container.findAll(node => validComponentFilter(node, 'titleComponents')))
-    .filter(filter)
+    .filter(selector)
     .filter(node => matcher(node.getProp('title'), node, value, matchNormalizer));
 }
 

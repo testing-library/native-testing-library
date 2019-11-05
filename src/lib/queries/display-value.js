@@ -9,13 +9,13 @@ import {
 function queryAllByDisplayValue(
   container,
   value,
-  { filter = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
+  { selector = n => n, exact = true, collapseWhitespace, trim, normalizer } = {},
 ) {
   const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({ collapseWhitespace, trim, normalizer });
 
   return Array.from(container.findAll(node => validComponentFilter(node, 'displayValueComponents')))
-    .filter(filter)
+    .filter(selector)
     .filter(node => {
       if (node.type === 'Picker') {
         return matcher(node.getProp('selectedValue'), node, value, matchNormalizer);
