@@ -8,13 +8,13 @@ export type SelectorMatcherOptions = Omit<MatcherOptions, 'selector'> & {
   selector?: string;
 };
 
-type ReactTestInstance = {
+type ReactTestInstanceExtended = ReactTestInstance & {
   getProp: (name: string) => NativeTestInstance;
   parentNode: NativeTestInstance;
 };
 
 export type NativeTestInstance = Omit<
-  ReactTestInstance,
+  ReactTestInstanceExtended,
   'findAllByProps' | 'findAllByType' | 'findByProps' | 'findByType' | 'instance'
 >;
 
