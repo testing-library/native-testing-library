@@ -151,6 +151,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "aiham",
+      "name": "Aiham",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/609164?v=4",
+      "profile": "https://github.com/aiham",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

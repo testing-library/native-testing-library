@@ -24,7 +24,7 @@
 [![downloads](https://img.shields.io/npm/dm/@testing-library/react-native.svg?style=flat-square)](http://www.npmtrends.com/@testing-library/react-native)
 [![MIT License](https://img.shields.io/npm/l/@testing-library/react-native.svg?style=flat-square)](https://github.com/testing-library/native-testing-library/blob/master/LICENSE)
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](https://github.com/testing-library/native-testing-library/blob/master/CODE_OF_CONDUCT.md)
 
@@ -190,6 +190,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="http://ajsmth.com"><img src="https://avatars2.githubusercontent.com/u/40680668?v=4" width="100px;" alt="andy"/><br /><sub><b>andy</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=ajsmth" title="Code">💻</a> <a href="https://github.com/testing-library/native-testing-library/commits?author=ajsmth" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/aiham"><img src="https://avatars2.githubusercontent.com/u/609164?v=4" width="100px;" alt="Aiham"/><br /><sub><b>Aiham</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=aiham" title="Code">💻</a></td>
   </tr>
 </table>
 
