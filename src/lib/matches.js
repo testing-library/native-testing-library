@@ -3,7 +3,7 @@ function fuzzyMatches(textToMatch, node, matcher, normalizer) {
     return textToMatch == matcher;
   }
 
-  if (!textToMatch) {
+  if (!textToMatch && textToMatch !== '') {
     return false;
   }
 
@@ -22,7 +22,7 @@ function matches(textToMatch, node, matcher, normalizer) {
     return textToMatch === matcher;
   }
 
-  if (!textToMatch) {
+  if (!textToMatch && textToMatch !== '') {
     return false;
   }
 
