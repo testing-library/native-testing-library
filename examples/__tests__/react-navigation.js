@@ -1,7 +1,8 @@
 import '@testing-library/jest-native/extend-expect';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer, withNavigation } from 'react-navigation';
+import { createAppContainer, withNavigation } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import { render, fireEvent } from '../../src';
 
@@ -14,6 +15,45 @@ jest
       PanGestureHandler: View,
       BaseButton: View,
       Directions: {},
+    };
+  })
+  .mock('react-native-reanimated', () => {
+    const View = require('react-native').View;
+
+    const Easing = {
+      linear: jest.fn(),
+      ease: jest.fn(),
+      quad: jest.fn(),
+      cubic: jest.fn(),
+      poly: jest.fn(),
+      sin: jest.fn(),
+      circle: jest.fn(),
+      exp: jest.fn(),
+      elastic: jest.fn(),
+      back: jest.fn(),
+      bounce: jest.fn(),
+      bezier: jest.fn(),
+      in: jest.fn(),
+      out: jest.fn(),
+      inOut: jest.fn(),
+    };
+
+    return {
+      Easing,
+      Value: jest.fn(),
+      event: jest.fn(),
+      add: jest.fn(),
+      eq: jest.fn(),
+      set: jest.fn(),
+      cond: jest.fn(),
+      interpolate: jest.fn(),
+      View: View,
+      Extrapolate: { CLAMP: jest.fn() },
+      Transition: {
+        Together: 'Together',
+        Out: 'Out',
+        In: 'In',
+      },
     };
   });
 
