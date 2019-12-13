@@ -22,12 +22,15 @@ function asyncAct(cb) {
         console.error = function error(...args) {
           /* if console.error fired *with that specific message* */
           /* istanbul ignore next */
+          const firstArgIsString = typeof args[0] === 'string';
           if (
+            firstArgIsString &&
             args[0].indexOf('Warning: Do not await the result of calling TestRenderer.act') === 0
           ) {
             // v16.8.6
             isAsyncActSupported = false;
           } else if (
+            firstArgIsString &&
             args[0].indexOf(
               'Warning: The callback passed to TestRenderer.act(...) function must not return anything',
             ) === 0
