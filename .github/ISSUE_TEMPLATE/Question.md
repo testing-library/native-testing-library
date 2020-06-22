@@ -15,8 +15,7 @@ to get some great advice by searching for how to do something with it.
 
 ## ❓ React Testing Library Resources
 
-- React Spectrum https://spectrum.chat/react-testing-library
-- Reactiflux on Discord https://www.reactiflux.com
+- Discord https://discord.gg/c6JN9fM
 - Stack Overflow https://stackoverflow.com/questions/tagged/react-testing-library
 
 ## ❓ Native Testing Library Resources
