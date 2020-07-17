@@ -178,6 +178,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "vanGalilea",
+      "name": "Steve Galili",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/25864161?v=4",
+      "profile": "https://www.linkedin.com/in/steve-galili-09434698/",
+      "contributions": [
+        "blog",
+        "example"
+      ]
     }
   ],
   "contributorsPerLine": 7,
