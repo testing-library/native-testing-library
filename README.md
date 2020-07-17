@@ -195,12 +195,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/aiham"><img src="https://avatars2.githubusercontent.com/u/609164?v=4" width="100px;" alt=""/><br /><sub><b>Aiham</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=aiham" title="Code">💻</a></td>
     <td align="center"><a href="https://twitter.com/sseraphini"><img src="https://avatars3.githubusercontent.com/u/2005841?v=4" width="100px;" alt=""/><br /><sub><b>Sibelius Seraphini</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=sibelius" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/AEgan"><img src="https://avatars0.githubusercontent.com/u/3501927?v=4" width="100px;" alt=""/><br /><sub><b>Alex Egan</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=AEgan" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/steve-galili-09434698/"><img src="https://avatars0.githubusercontent.com/u/25864161?v=4" width="100px;" alt=""/><br /><sub><b>Steve Galili</b></sub></a><br /><a href="#blog-vanGalilea" title="Blogposts">📝</a> <a href="#example-vanGalilea" title="Examples">💡</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)
