@@ -195,12 +195,12 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/aiham"><img src="https://avatars2.githubusercontent.com/u/609164?v=4" width="100px;" alt=""/><br /><sub><b>Aiham</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=aiham" title="Code">💻</a></td>
     <td align="center"><a href="https://twitter.com/sseraphini"><img src="https://avatars3.githubusercontent.com/u/2005841?v=4" width="100px;" alt=""/><br /><sub><b>Sibelius Seraphini</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=sibelius" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/AEgan"><img src="https://avatars0.githubusercontent.com/u/3501927?v=4" width="100px;" alt=""/><br /><sub><b>Alex Egan</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=AEgan" title="Code">💻</a></td>
+    <td align="center"><a href="http://daveolsen.com.au"><img src="https://avatars3.githubusercontent.com/u/10344370?v=4" width="100px;" alt=""/><br /><sub><b>Dave Olsen</b></sub></a><br /><a href="https://github.com/testing-library/native-testing-library/commits?author=daveols" title="Code">💻</a> <a href="https://github.com/testing-library/native-testing-library/commits?author=daveols" title="Tests">⚠️</a> <a href="https://github.com/testing-library/native-testing-library/commits?author=daveols" title="Documentation">📖</a></td>
   </tr>
 </table>
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors)
