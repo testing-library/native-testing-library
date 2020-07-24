@@ -22,6 +22,7 @@ configureNTL({
     'react-native/Libraries/Image/Image',
     'react-native/Libraries/Modal/Modal',
     'react-native/Libraries/Components/Picker/Picker',
+    'react-native/Libraries/Components/Pressable/Pressable',
     'react-native/Libraries/Components/RefreshControl/RefreshControl',
     'react-native/Libraries/Components/SafeAreaView/SafeAreaView',
     'react-native/Libraries/Components/ScrollView/ScrollView',

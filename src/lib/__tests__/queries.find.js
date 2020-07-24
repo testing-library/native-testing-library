@@ -33,7 +33,7 @@ test('find asynchronously finds elements', async () => {
       <Button title="button" />
       <TextInput placeholder="placeholder" />
       <TextInput value="value" />
-      <TextInput accessibilityStates={['disabled']} />
+      <TextInput accessibilityState={{ disabled: false }} />
       <Image accessibilityLabel="test-label" src="/lucy-ricardo.png" />
       <Image accessibilityHint="test-hint" src="/lucy-ricardo.png" />
       <View accessibilityRole="dialog" />

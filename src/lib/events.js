@@ -28,6 +28,7 @@ const eventMap = {
   Image: ['error', 'layout', 'load', 'loadEnd', 'loadStart', 'partialLoad', 'progress'],
   Modal: ['dismiss', 'orientationChange', 'requestClose', 'show'],
   Picker: [...viewEvents, 'valueChange'],
+  Pressable: ['longPress', 'press', 'pressIn', 'pressOut'],
   RefreshControl: [...viewEvents, 'refresh'],
   SafeAreaView: [...viewEvents],
   ScrollView: [
@@ -108,8 +109,8 @@ function isValidTarget(element, event) {
 }
 
 function isDisabled(element) {
-  const { accessibilityStates = [], disabled } = element.props;
-  return disabled || accessibilityStates.includes('disabled');
+  const { accessibilityState = {}, disabled } = element.props;
+  return disabled || accessibilityState.disabled;
 }
 
 function findEventTarget(element, event) {

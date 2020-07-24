@@ -1,10 +1,39 @@
-import React from 'react';
-import { Button, Picker, Switch, Text, View, TextInput } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {
+  Button,
+  Picker,
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import { toMatchDiffSnapshot } from 'snapshot-diff';
 
 import { cleanup, fireEvent, render } from '../';
 
 afterEach(cleanup);
+
+test('<Pressable /> works', () => {
+  const fireZeMissiles = jest.fn();
+
+  function Wrapper() {
+    return (
+      <Pressable onPress={fireZeMissiles}>
+        <Text>missiles</Text>
+      </Pressable>
+    );
+  }
+  const { getByText } = render(<Wrapper />);
+
+  fireEvent.press(getByText('missiles'));
+  expect(fireZeMissiles).toBeCalledTimes(1);
+});
 
 test('<Picker /> works', () => {
   function Wrapper() {
@@ -21,6 +50,95 @@ test('<Picker /> works', () => {
 
   fireEvent.valueChange(getByDisplayValue('js'), 'java');
   expect(() => findByDisplayValue('js')).not.toThrow();
+});
+
+test('<ScrollView /> instance methods are mocked', () => {
+  function Wrapper() {
+    const ref = useRef();
+
+    useEffect(() => {
+      ref.current.scrollTo(0);
+    }, []);
+
+    return (
+      <ScrollView ref={ref}>
+        <Text>Some content</Text>
+      </ScrollView>
+    );
+  }
+  const { getByText, debug } = render(<Wrapper />);
+
+  expect(() => getByText('Some content')).not.toThrow();
+});
+
+test('<TextInput /> instance methods are mocked', () => {
+  function Wrapper() {
+    const ref = useRef();
+
+    useEffect(() => {
+      ref.current.clear();
+    }, []);
+
+    return <TextInput ref={ref} value={'yo'} />;
+  }
+  const { getByDisplayValue } = render(<Wrapper />);
+
+  expect(() => getByDisplayValue('yo')).not.toThrow();
+});
+
+test('calling a handler if a Touchable is disabled does not work', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(
+    <Pressable disabled onPress={handleEvent}>
+      <Text>touchable</Text>
+    </Pressable>,
+  );
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
+  expect(handleEvent).toBeCalledTimes(0);
+});
+
+test('calling a TouchableHighlight handler works', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(
+    <TouchableHighlight onPress={handleEvent}>
+      <Text>touchable</Text>
+    </TouchableHighlight>,
+  );
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
+  expect(handleEvent).toBeCalledTimes(1);
+});
+
+test('calling a TouchableNativeFeedback handler works', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(
+    <TouchableNativeFeedback onPress={handleEvent}>
+      <Text>touchable</Text>
+    </TouchableNativeFeedback>,
+  );
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
+  expect(handleEvent).toBeCalledTimes(1);
+});
+
+test('calling a TouchableOpacity handler works', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(
+    <TouchableOpacity onPress={handleEvent}>
+      <Text>touchable</Text>
+    </TouchableOpacity>,
+  );
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
+  expect(handleEvent).toBeCalledTimes(1);
+});
+
+test('calling a TouchableWithoutFeedback handler works ', () => {
+  const handleEvent = jest.fn();
+  const { getByText } = render(
+    <TouchableWithoutFeedback onPress={handleEvent}>
+      <Text>touchable</Text>
+    </TouchableWithoutFeedback>,
+  );
+  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
+  expect(handleEvent).toBeCalledTimes(1);
 });
 
 test('fragments can show diffs', () => {

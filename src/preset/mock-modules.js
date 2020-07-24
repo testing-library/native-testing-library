@@ -1,6 +1,8 @@
 import { getConfig } from '../lib';
 import { mockComponent } from './mock-component';
-import { mockNativeMethods } from './mock-native-methods';
+
+import { mockScrollView } from './mock-scroll-view';
+import RefreshControlMock from './mock-refresh-control';
 
 // Un-mock the react-native components so we can do it ourselves
 getConfig('coreComponents').forEach(component => {
@@ -30,16 +32,55 @@ jest.doMock('react-native/Libraries/Components/Picker/Picker', () => {
   return Picker;
 });
 
-// Re-mock ReactNative with native methods mocked
-jest
-  .mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
-  .doMock('react-native/Libraries/Renderer/shims/ReactNative', () => {
-    const ReactNative = jest.requireActual('react-native/Libraries/Renderer/shims/ReactNative');
-    const NativeMethodsMixin =
-      ReactNative.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.NativeMethodsMixin;
-
-    Object.assign(NativeMethodsMixin, mockNativeMethods);
-    Object.assign(ReactNative.NativeComponent.prototype, mockNativeMethods);
-
-    return ReactNative;
+// Mock some other tricky ones
+jest.doMock('react-native/Libraries/Components/ScrollView/ScrollView', () => {
+  const baseComponent = mockComponent('react-native/Libraries/Components/ScrollView/ScrollView', {
+    instanceMethods: {
+      getScrollResponder: jest.fn(),
+      getScrollableNode: jest.fn(),
+      getInnerViewNode: jest.fn(),
+      getInnerViewRef: jest.fn(),
+      getNativeScrollRef: jest.fn(),
+      scrollTo: jest.fn(),
+      scrollToEnd: jest.fn(),
+      flashScrollIndicators: jest.fn(),
+      scrollResponderZoomTo: jest.fn(),
+      scrollResponderScrollNativeHandleToKeyboard: jest.fn(),
+    },
   });
+  return mockScrollView(baseComponent);
+});
+
+jest.doMock(
+  'react-native/Libraries/Components/RefreshControl/RefreshControl',
+  () => RefreshControlMock,
+);
+
+jest.doMock('react-native/Libraries/Components/TextInput/TextInput', () =>
+  mockComponent('react-native/Libraries/Components/TextInput/TextInput', {
+    instanceMethods: {
+      isFocused: jest.fn(),
+      clear: jest.fn(),
+      getNativeRef: jest.fn(),
+    },
+  }),
+);
+
+jest.doMock('react-native/Libraries/Components/Touchable/TouchableHighlight', () =>
+  mockComponent('react-native/Libraries/Components/Touchable/TouchableHighlight', {
+    displayName: 'TouchableHighlight',
+  }),
+);
+
+jest.doMock('react-native/Libraries/Components/Touchable/TouchableOpacity', () =>
+  mockComponent('react-native/Libraries/Components/Touchable/TouchableOpacity', {
+    displayName: 'TouchableOpacity',
+  }),
+);
+
+// Re-mock ReactNative
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('react-native/Libraries/Renderer/shims/ReactNative');
+
+// Mock LogBox
+jest.mock('react-native/Libraries/LogBox/LogBox');

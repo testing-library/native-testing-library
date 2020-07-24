@@ -1,9 +1,10 @@
 import '@testing-library/jest-native/extend-expect';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { createStackNavigator, createAppContainer, withNavigation } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer, withNavigation } from 'react-navigation';
 
-import { render, fireEvent } from '../../src';
+import { render, fireEvent, cleanup } from '../../src';
 
 jest
   .mock('react-native/Libraries/Animated/src/NativeAnimatedHelper')
@@ -55,6 +56,8 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
 
   return { ...render(<App detached />), navigationTestRenderer: App };
 }
+
+afterEach(cleanup);
 
 test('full app rendering/navigating', async () => {
   const { findByText, getByTestId, getByTitle } = renderWithNavigation();

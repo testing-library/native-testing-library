@@ -120,17 +120,18 @@ test('calling a handler if a Button is disabled does not work', () => {
 test('calling a handler if a Touchable is disabled does not work', () => {
   const handleEvent = jest.fn();
   const { getByText } = render(
-    <TouchableHighlight disabled onPress={jest.fn()}>
+    <TouchableHighlight disabled onPress={handleEvent}>
       <Text>touchable</Text>
     </TouchableHighlight>,
   );
-  expect(() => fireEvent.press(getByText('touchable'))).not.toThrow();
+  fireEvent.press(getByText('touchable'));
   expect(handleEvent).toBeCalledTimes(0);
 });
 
 test('calling an event that has no defined handler throws', () => {
   const { getByText } = render(<Text>test</Text>);
-  expect(() => fireEvent.press(getByText('test'))).not.toThrow();
+  const text = getByText('test');
+  expect(() => fireEvent.changeText(text).toThrow());
 });
 
 test('calling an event sets nativeEvent properly', () => {

@@ -2,10 +2,11 @@ import React from 'react';
 
 import { mockNativeMethods } from './mock-native-methods';
 
-function mockComponent(component, path = component) {
+function mockComponent(path, { instanceMethods, displayName: customDisplayName } = {}) {
   const RealComponent = jest.requireActual(path);
 
   const displayName =
+    customDisplayName ||
     RealComponent.displayName ||
     RealComponent.name ||
     (RealComponent.render // handle React.forwardRef
@@ -19,7 +20,6 @@ function mockComponent(component, path = component) {
 
     render() {
       const props = Object.assign({}, RealComponent.defaultProps);
-
       if (this.props) {
         Object.keys(this.props).forEach(prop => {
           // We can't just assign props on top of defaultProps
@@ -42,6 +42,10 @@ function mockComponent(component, path = component) {
   });
 
   Object.assign(Component.prototype, mockNativeMethods);
+
+  if (instanceMethods != null) {
+    Object.assign(Component.prototype, instanceMethods);
+  }
 
   return Component;
 }

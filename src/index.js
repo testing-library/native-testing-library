@@ -35,7 +35,7 @@ function render(ui, { options = {}, wrapper: WrapperComponent, queries } = {}) {
   renderers.add(testRenderer);
 
   const wrappers = proxyElement(testRenderer.root).findAll(n => n.type === 'View');
-  const baseElement = wrappers[0]; // Includes YellowBox and your render
+  const baseElement = wrappers[0];
   const container = wrappers[1]; // Includes only your render
 
   return {
