@@ -1,3 +1,8 @@
+# ⚠️ Deprecation notice ⚠️
+
+This repository has been deprecated in favor of https://github.com/callstack/react-native-testing-library and the `@testing-library/react-native` npm package will from now on (since v7.0) will be sourced from there. Please consult the [migration guide](https://callstack.github.io/react-native-testing-library/docs/migration-v7/#guide-for-testing-libraryreact-native-users).
+
+
 <div align="center">
   <h1>Native Testing Library</h1>
   
